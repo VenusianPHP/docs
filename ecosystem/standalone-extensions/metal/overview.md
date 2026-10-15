@@ -18,7 +18,7 @@ A handle is one PHP object per native object, retained while PHP holds it. `NSEr
 Through PIE:
 
 ```bash
-pie install php-io-extensions/metal
+pie install php-io-extensions/metal:0.10.x-dev
 ```
 
 From a checkout of this repository:

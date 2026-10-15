@@ -23,7 +23,7 @@ On a Pi that also has SDL under `/usr/local`, that build has no Wayland device. 
 Through PIE:
 
 ```bash
-pie install php-io-extensions/sdl3
+pie install php-io-extensions/sdl3:0.10.x-dev
 ```
 
 From a checkout:
