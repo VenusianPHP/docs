@@ -2,14 +2,18 @@
 
 What changed in this package, newest first.
 
+### 2026-10-14
+
+* Docs audit against the published `VenusianPHP/terran-game-engine` `0.10.x` @ `5199fc5`: the slice 3b, 3c and 3e work below is not in that source, so its API (`Backdrop2D`, `Particles2D`, `Gradient`, `Tween`, physics drivers and nodes) was removed from [overview](/docs/{{version}}/ecosystem/venusianphp-packages/terran/overview), [scenes](/docs/{{version}}/ecosystem/venusianphp-packages/terran/scenes) and [physics](/docs/{{version}}/ecosystem/venusianphp-packages/terran/physics) until it is published; `ScenePrimitives` registers 18 Terran slugs.
+
 ### 2026-10-11
 
-* Slice 3e: the box2d driver inside terran (`Terran\Physics\Box2D`), picked by `auto` with ext-box2d loaded; the behaviour tests run on both drivers. [physics](/docs/{{version}}/ecosystem/venusianphp-packages/terran/physics)
-* Slice 3c: 2D physics: `PhysicsDriver`, `PhysicsManager`, the php driver, `PhysicsBridge`, `World::physics()`, Godot's physics nodes and shapes. [physics](/docs/{{version}}/ecosystem/venusianphp-packages/terran/physics)
+* Slice 3e (not in the published source yet): the box2d driver inside terran (`Terran\Physics\Box2D`), picked by `auto` with ext-box2d loaded; the behaviour tests run on both drivers. [physics](/docs/{{version}}/ecosystem/venusianphp-packages/terran/physics)
+* Slice 3c (not in the published source yet): 2D physics: `PhysicsDriver`, `PhysicsManager`, the php driver, `PhysicsBridge`, `World::physics()`, Godot's physics nodes and shapes. [physics](/docs/{{version}}/ecosystem/venusianphp-packages/terran/physics)
 
 ### 2026-10-10
 
-* Slice 3b: `Colors`, `Gradient` + `bake()`, `Scene2D::screenSpace()`, `Backdrop2D`, `Particles2D`, `Tween` + `Scene::tween()`, sprite `filter`, `Shape2D::polyline()`; `backdrop2d` and `particles2d` slugs. [scenes](/docs/{{version}}/ecosystem/venusianphp-packages/terran/scenes)
+* Slice 3b (not in the published source yet): `Colors`, `Gradient` + `bake()`, `Scene2D::screenSpace()`, `Backdrop2D`, `Particles2D`, `Tween` + `Scene::tween()`, sprite `filter`, `Shape2D::polyline()`; `backdrop2d` and `particles2d` slugs. [scenes](/docs/{{version}}/ecosystem/venusianphp-packages/terran/scenes)
 * Slice 3: math, assets, 2D/UI/3D primitives, Viewport passes and cameras, UI-first input walk, `ScenePrimitives` and `make:scene:<slug>`. [scenes](/docs/{{version}}/ecosystem/venusianphp-packages/terran/scenes)
 
 ### 2026-10-09
