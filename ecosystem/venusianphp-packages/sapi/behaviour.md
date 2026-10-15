@@ -14,6 +14,8 @@ What the Venusian SAPI reports and copies from the CLI, and where it finds the a
 | No chdir, exit code passes through, `STDIN/STDOUT/STDERR` defined | CLI parity | smoke `cwd`, exit 7, `stderr_const` |
 | `#!` first line skipped in every compiled file (`CG(skip_shebang)`) | CLI parity: the stub requires the app's `rocket`, whose shebang otherwise prints, and in a pool worker lands on the protocol pipe | smoke worker run, first line `{` |
 
+| stderr discarded (closed or `/dev/null`) → stderr, and stdout if also discarded, appended to `~/Library/Logs/<name>/<name>.log` (macOS) or `$XDG_STATE_HOME/<name>/<name>.log`, default `~/.local/state/<name>/<name>.log`; `--- <time> <exe> pid <n>` header | a Finder/menu/launchd launch has nowhere to write; a terminal, pipe, file or journal keeps its output | smoke discarded-output and pipe cases |
+
 Copied from `sapi/cli/php_cli.c` of php-src 8.4.26: ini defaults macro, hard-coded ini, stream constants, write/flush/log handlers.[^c]
 
 [^c]: venusian.c
