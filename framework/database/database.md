@@ -14,6 +14,8 @@ Almost every modern application interacts with a database. Venusian makes intera
 
 The database manager is bound in the container as `db`. It is a `Voyager\Database\DatabaseManager`, and every connection it hands out is a `Voyager\Database\Connection`. You may reach it through `app('db')`, or by type-hinting `Voyager\Database\DatabaseManager` or `Voyager\Database\ConnectionResolverInterface` in a constructor. The default connection itself is bound as `db.connection`, and its schema builder as `db.schema`.
 
+To query the database from code running on the event loop without blocking it, see [Using the Database on the Event Loop](/docs/{{version}}/framework/database/event-loop).
+
 <a id="configuration"></a>
 ### Configuration
 

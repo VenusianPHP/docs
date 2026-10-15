@@ -38,6 +38,7 @@
         - [Database: Getting Started](/docs/{{version}}/framework/database/database)
         - [Database: Query Builder](/docs/{{version}}/framework/database/queries)
         - [Database: Pagination](/docs/{{version}}/framework/database/pagination)
+        - [Database: Event Loop](/docs/{{version}}/framework/database/event-loop)
         - [Database: Migrations](/docs/{{version}}/framework/database/migrations)
         - [Database: Seeding](/docs/{{version}}/framework/database/seeding)
         - [Redis](/docs/{{version}}/framework/database/redis)

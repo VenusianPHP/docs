@@ -550,6 +550,8 @@ With the default `auto` setting, there is nothing to configure afterwards: the n
 
 Some work cannot be made asynchronous: a CPU-heavy calculation, or a blocking library call such as a PDO query. A worker pool runs that work in another PHP process or thread, so the loop keeps turning while it runs, and settles a promise when the result comes back.
 
+For database queries, see [Using the Database on the Event Loop](/docs/{{version}}/framework/database/event-loop).
+
 A unit of pool work is a gig: a class implementing `Voyager\Contracts\IOPools\WorkerPools\ShouldPool`, whose `handle` method runs inside the worker. The gig crosses to the worker serialized, and its return value crosses back the same way, so a gig carries data, never open resources or closures, and its class must be autoloadable in the worker:
 
 ```php
