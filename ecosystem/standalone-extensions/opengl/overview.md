@@ -28,7 +28,7 @@ headers. CGL handles, EGL handles, and `GLsync` are final classes.
 Through PIE:
 
 ```bash
-pie install php-io-extensions/opengl
+pie install php-io-extensions/open-gl:0.10.x-dev
 ```
 
 From a checkout of this package:
