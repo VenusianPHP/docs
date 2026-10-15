@@ -1,21 +1,21 @@
 # Package
 
-venusian/probe 0.10.0 — PsySH REPL (Computer command probe) for Venusian applications.
+venusian/probe 0.10.1 — PsySH REPL (Computer command probe) for Venusian applications.
 
 ## What it is
 
-Composer package `venusian/probe` at **0.10.0** — a PsySH-based REPL exposed as the Computer console command `probe` for Venusian applications. Successor of `scrapyard-io/wrench`.[^composer][^command]
+Composer package `venusian/probe` at **0.10.1** — a PsySH-based REPL exposed as the Computer console command `probe` for Venusian applications. Successor of `scrapyard-io/wrench`.[^composer][^command]
 
 | Field | Value |
 |-------|-------|
 | Name | `venusian/probe` |
-| Version | `0.10.0` |
+| Version | `0.10.1` (tag `v0.10.1`) |
 | PHP | `^8.4\|^8.5\|^8.6`[^composer] |
 | Namespace | `Venusian\Probe\` → `src/` |
 | Role | REPL companion to `venusian/framework` 0.10 |
 | Discovery | `extra.venusian.providers` → `Venusian\Probe\ProbeServiceProvider`[^composer] |
 
-`.okf/`, `AGENTS.md`, and `CHANGELOG.md` are `export-ignore` from Composer dist.[^gitattributes]
+`.okf/`, `AGENTS.md`, `CHANGELOG.md`, and `tests/` are `export-ignore` from Composer dist.[^gitattributes]
 
 ## Requires
 

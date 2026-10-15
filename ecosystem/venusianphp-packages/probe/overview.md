@@ -4,7 +4,7 @@ Venusian Probe is a powerful REPL for the Venusian framework.
 
 <p align="center">
 <a href="https://github.com/VenusianPHP/probe/actions/workflows/tests.yml"><img src="https://github.com/VenusianPHP/probe/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
-<a href="https://packagist.org/packages/venusian/probe"><img src="https://img.shields.io/packagist/v/venusian/probe.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/venusian/probe"><img src="https://img.shields.io/packagist/v/venusian/probe.svg" alt="Latest Version"></a>
 <a href="https://packagist.org/packages/venusian/probe"><img src="https://img.shields.io/packagist/v/venusian/probe.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/venusian/probe"><img src="https://img.shields.io/packagist/l/venusian/probe.svg" alt="License"></a>
 </p>
@@ -31,4 +31,4 @@ Please review [our security policy](https://github.com/VenusianPHP/probe/securit
 
 ## License
 
-Venusian Probe is open-sourced software licensed under the [MIT license](https://github.com/VenusianPHP/probe/blob/HEAD/LICENSE.md).
+Venusian Probe is open-sourced software licensed under the [MIT license](https://github.com/VenusianPHP/probe/blob/HEAD/LICENSE).

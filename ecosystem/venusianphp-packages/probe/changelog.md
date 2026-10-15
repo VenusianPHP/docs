@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-14
+
+* **Update**: Docs audit against `VenusianPHP/probe` `v0.10.1` — version bumped to 0.10.1; [Config](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/config) publish is ungated; [ClassAliasAutoloader](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/classaliasautoloader) rule order; [ProbeCommand](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/probecommand) whitelist; [0.10 import paths](/docs/{{version}}/ecosystem/venusianphp-packages/probe/traps/010-import-paths) — framework 0.10 now ships `about` in `Voyager\Core\Console`.
+
 ### 2026-10-07
 
 * **Update**: [ProbeServiceProvider](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/probeserviceprovider) — registers nothing when `isRocketRunning()`; About wording no longer claims 0.10 lacks `about`.
