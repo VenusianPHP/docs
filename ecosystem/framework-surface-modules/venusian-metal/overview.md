@@ -15,13 +15,15 @@ The engine's framebuffer is a `MetalFramebuffer`, a Surface `GLFramebuffer`.
 ## Requirements
 
 - macOS on Apple silicon. Engine blends by reading the target in its fragment functions; an Intel GPU refuses the pipelines with a `DrawingException` naming it.
-- PHP 8.4, ext-metal ^0.10, `venusian-surface/drawing` ^0.10.
+- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-metal ^0.10, `venusian-surface/drawing` ^0.10.
 
 ## Install
 
 ```
-composer require jovian/venusian-metal
+composer require jovian/venusian-metal:0.10.x-dev
 ```
+
+There is no tagged release on Packagist yet, only the `0.10.x-dev` branch, so a plain `composer require` fails under the default `stable` minimum stability.
 
 Provider discovered through `extra.venusian.providers`. It registers `metal` on `app('drawing')`.
 

@@ -14,15 +14,17 @@ The engine's framebuffer is an `Sdl3Framebuffer`, a Surface `GLFramebuffer`.
 
 ## Requirements
 
-- macOS or Linux with SDL 3.2+ and ext-sdl3 ^0.10. PHP 8.4, `venusian-surface/drawing` ^0.10.
+- macOS or Linux with SDL 3.2+ and ext-sdl3 ^0.10. PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), `venusian-surface/drawing` ^0.10.
 - SDL video: the provider's creator brings SDL's video subsystem up (`SDL_InitSubSystem`, reference-counted) before the device; it never quits it, since the process may hold SDL windows of its own. On macOS with ext-appkit it first makes sure the application exists and has a delegate (an empty trampoline when it has none): otherwise SDL makes its own application, with a Dock icon and menus, and makes itself the delegate. Since SDL's delegate is not there to do it, the session makes the process a regular app and brings it to the front while connected (and a focusable staged window brings it to the front when shown): a process started from a terminal otherwise shows windows that take clicks but never keys. An `Sdl3Device` built by hand needs video up first; without it the refusal is a `DrawingException` saying so.
 - On the Pi, the Wayland session (`WAYLAND_DISPLAY`, `XDG_RUNTIME_DIR`). No headless run there.
 
 ## Install
 
 ```
-composer require jovian/venusian-sdl3
+composer require jovian/venusian-sdl3:0.10.x-dev
 ```
+
+There is no tagged release on Packagist yet, only the `0.10.x-dev` branch, so a plain `composer require` fails under the default `stable` minimum stability.
 
 Provider discovered through `extra.venusian.providers`. It registers `sdl3` on `app('drawing')`, and, with Surface's bridge bound, the `sdl3` stager on `app('toolkit-bridge')`. With HumanInput bound too, it registers the `sdl3` input engine on `app('human-input')`.
 
