@@ -48,6 +48,7 @@ Used by `PieFinderNode` and `PieInstallNode` ([ExtensionsFlow](/docs/{{version}}
 |------|-------|
 | `COMPOSER` | `venusian/installer` |
 | `BINARY` | `venusian` |
+| `BUILD` | `venusian/build` — what `install:sdk` requires |
 | `PACKAGIST_P2_URL` | `https://repo.packagist.org/p2/venusian/installer.json` |
 | `USER_AGENT` | `ScrapyardIO Installer` |
 | `CACHE_BODY_FILENAME` | `venusian-installer-version-check.json` |

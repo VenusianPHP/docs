@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-14
+
+* **Docs audit** against `VenusianPHP/installer` `0.10.3` (`d581c42`): version 0.10.2 → 0.10.3 in [Package](/docs/{{version}}/ecosystem/venusianphp-packages/installer/orientation/package) and [Application](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/application); `bin/venusian` registers `new`, `install:ext`, `install:sdk` plus `venusian-tool` commands; require constraints; `InstallerPackage::BUILD` in [Enums](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/enums); overview points at `build.json`, not the removed `config/build.php`.
+
 ### 2026-10-08
 
 * **Creation**: [InstallSdkCommand and ToolCommands](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/installsdk) — `install:sdk` runs `composer global require venusian/build`; `bin/venusian` adds the commands of every installed `venusian-tool` package (`extra.venusian.commands`), which is how `venusian build` appears. `InstallerPackage::BUILD`. `status: draft`.

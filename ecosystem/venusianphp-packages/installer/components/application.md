@@ -6,7 +6,7 @@ Symfony Console application that offers a Packagist self-update before dispatchi
 
 `Venusian\Installer\Console\Application` extends `Symfony\Component\Console\Application`.[^app]
 
-`bin/venusian` constructs `new Application('Venusian PHP Application Installer', '0.10.2')` and registers [NewApplicationCommand](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/newapplicationcommand).[^bin]
+`bin/venusian` constructs `new Application('Venusian PHP Application Installer', '0.10.3')` and registers [NewApplicationCommand](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/newapplicationcommand), [InstallExtensionCommand](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/installextensioncommand) and [install:sdk](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/installsdk), then every command class installed `venusian-tool` packages declare (`ToolCommands::fromInstalled()`).[^bin]
 
 ## doRun
 
@@ -21,7 +21,7 @@ return parent::doRun($input, $output);
 
 ## bin/venusian
 
-Loads the global Composer autoloader when installed globally (`../../../autoload.php`), else the checkout's `vendor/autoload.php`. Adds `NewApplicationCommand`; a throw prints its message to STDERR, exit 1. `reports the version composer.json declares from bin/venusian` and `registers the new command in bin/venusian` run it with the update check off.[^bin][^bin-test]
+Loads the global Composer autoloader when installed globally (`../../../autoload.php`), else the checkout's `vendor/autoload.php`. Adds `new`, `install:ext`, `install:sdk` and any `venusian-tool` commands whose class exists; a throw prints its message to STDERR, exit 1. `reports the version composer.json declares from bin/venusian` and `registers the new command in bin/venusian` run it with the update check off.[^bin][^bin-test]
 
 The watcher is constructor-injectable (`?PackagistReleaseWatcher $releaseWatcher = null`).
 
@@ -32,7 +32,7 @@ The watcher is constructor-injectable (`?PackagistReleaseWatcher $releaseWatcher
 - [Package](/docs/{{version}}/ecosystem/venusianphp-packages/installer/orientation/package)
 
 [^app]: Venusian\\Installer\\Console\\Application
-[^bin]: Entrypoint constructs Application 0.10.2
+[^bin]: Entrypoint constructs Application 0.10.3
 [^watcher]: maybeOfferUpdate
 [^watcher-test]: Pest coverage for the watcher itself
 [^app-test]: Pest coverage for doRun ordering and arguments
