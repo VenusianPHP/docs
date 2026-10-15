@@ -31,7 +31,7 @@ final class. Each struct is a final class whose properties are the C members.
 Through PIE:
 
 ```bash
-pie install php-io-extensions/vulkan
+pie install php-io-extensions/vulkan:0.10.x-dev
 ```
 
 From a checkout:
