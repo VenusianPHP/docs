@@ -8,10 +8,11 @@ PsySH session autoloader that aliases short class names from the Composer classm
 
 ## Rules
 
-- Vendor paths under the Composer vendor root are **not** aliased by default.
-- `probe.alias` forces include (namespace/class prefixes).[^config]
-- `probe.dont_alias` excludes matches.[^config]
-- Only bare names (no `\`) trigger aliasing; namespaced lookups pass through.
+- Classes are read from `vendor/composer/autoload_classmap.php` (vendor dir from `COMPOSER_VENDOR_DIR`, else `basePath()/vendor`). Only namespaced classes are candidates; the first class seen for a basename wins.
+- `probe.alias` prefixes are checked first and always allow aliasing, even for vendor classes.[^config]
+- Otherwise classes whose file is under the vendor root are **not** aliased.
+- `probe.dont_alias` prefixes exclude the remaining (non-vendor) matches.[^config]
+- Only bare names (no `\`) trigger aliasing; namespaced lookups pass through. Each alias prints `[!] Aliasing 'X' to 'Full\X' for this Probe session.`
 - Unregistered in `finally` / destructor after the shell exits.[^command]
 
 ## Related

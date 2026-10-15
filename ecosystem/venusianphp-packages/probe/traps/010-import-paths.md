@@ -1,6 +1,6 @@
 # 0.10 import paths
 
-0.8 → 0.10 map — Voyager\System gone; FrameworkCore contract, DataBindingException, signalsAreCached, venusian-voyager splits, no about.
+0.8 → 0.10 map — Voyager\System gone; FrameworkCore contract, DataBindingException, signalsAreCached, venusian-voyager splits, about moved to Core.
 
 ## Map
 
@@ -11,7 +11,7 @@
 | `voyager/*` / `venusian-voyager/*` `^0.8` | `venusian-voyager/*` `^0.10.0` |
 | `Voyager\System\Application` | `Voyager\Contracts\Core\FrameworkCore` (concrete `Voyager\Core\RenderedInstance`)[^core] |
 | `class_exists('Voyager\System\Application')` caster guard | Unguarded `FrameworkCore` key — contracts is required[^command] |
-| `Voyager\System\Console\AboutCommand` | None — 0.10 ships no `about` |
+| `Voyager\System\Console\AboutCommand` | `Voyager\Core\Console\AboutCommand` (`about`, registered by `ComputerServiceProvider`). Probe 0.10 adds no About entry. |
 | `Voyager\Contracts\Vessel\BindingResolutionException` | `Voyager\Contracts\Vessel\DataBindingException`[^binding] |
 | `eventsAreCached()` | `signalsAreCached()`[^caster] |
 | `Voyager\System\Console\Kernel` | `Voyager\Core\Console\Kernel`[^console-kernel] |
