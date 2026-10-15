@@ -6,7 +6,7 @@ The `glfw` stager for Venusian Surface: staged windows on GLFW 3.4 through ext-g
 
 ## Requirements
 
-- macOS or Linux with GLFW 3.4, ext-glfw ^0.10 and ext-opengl ^0.10. PHP 8.4.
+- macOS or Linux with GLFW 3.4, ext-glfw ^0.10 and ext-opengl ^0.10. PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`).
 - On macOS, ext-appkit for a lent GL context's CGL handle, the Metal layer and the safe area; ext-metal for the Metal layer.
 - ext-vulkan, and a Vulkan loader GLFW finds, for a lent Vulkan surface.
 - On the Pi, the Wayland session (`WAYLAND_DISPLAY`, `XDG_RUNTIME_DIR`), or X11 with `bridge.stage.glfw.platform` set to `x11`: GLFW finds Wayland's default socket even with only `DISPLAY` set.
@@ -14,8 +14,10 @@ The `glfw` stager for Venusian Surface: staged windows on GLFW 3.4 through ext-g
 ## Install
 
 ```
-composer require jovian/venusian-glfw
+composer require jovian/venusian-glfw:0.10.x-dev
 ```
+
+There is no tagged release on Packagist yet, only the `0.10.x-dev` branch, so a plain `composer require` fails under the default `stable` minimum stability. `venusian-surface/windows` is not on Packagist either: add a path or VCS repository for it from the Surface checkout.
 
 The provider is discovered through `extra.venusian.providers`. With Surface's bridge bound, it registers the `glfw` stager on `app('toolkit-bridge')`.
 

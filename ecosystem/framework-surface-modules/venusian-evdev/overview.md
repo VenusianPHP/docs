@@ -4,13 +4,16 @@ Game pads from Linux evdev for Venusian Surface's HumanInput: the `evdev` pad so
 
 ## Requirements
 
-- Linux, PHP 8.4+, ext-posi 0.10.
+- Linux, PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-posi ^0.10.
 - The user in the `input` group (`sudo usermod -aG input $USER`, then log in again). A node the user may not open is reported, naming the node and the group.
 
 ## Install
 
+jovian/venusian-evdev is not on Packagist yet. Add its GitHub repository, then require the branch:
+
 ```bash
-composer require jovian/venusian-evdev
+composer config repositories.venusian-evdev vcs https://github.com/jovian-packages/venusian-evdev
+composer require jovian/venusian-evdev:0.10.x-dev
 ```
 
 The provider registers `evdev` with HumanInput. Surface's `human-input.pads.linux` names it by default.
