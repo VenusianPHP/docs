@@ -63,6 +63,7 @@
         - [Fonts](/docs/{{version}}/surface/architecture/fonts)
         - [EmbeddedDisplays](/docs/{{version}}/surface/architecture/embeddeddisplays)
         - [Toolkit primitives](/docs/{{version}}/surface/architecture/toolkit-primitives)
+        - [HumanInput](/docs/{{version}}/surface/architecture/human-input)
     - API
         - [Window mail](/docs/{{version}}/surface/api/window-mail)
         - [View mail](/docs/{{version}}/surface/api/view-mail)
