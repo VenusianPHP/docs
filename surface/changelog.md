@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-14
+
+* Releasing: `split.yml` on a `v*` tag; `tests.yml` (PHP 8.4/8.5) gates it; `.github/split.sh` splits every component to `venusian-surface` with the same tag. [releasing](/docs/{{version}}/surface/runbooks/releasing)
+
 ### 2026-10-10
 
 * `TKLink`: `link(name, text, url)`, a link the toolkit opens; URL needs a scheme; posts nothing (toolkit links). [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives)

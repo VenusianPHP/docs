@@ -73,6 +73,7 @@
     - Runbooks
         - [Composing an app](/docs/{{version}}/surface/runbooks/composing-an-app)
         - [Testing](/docs/{{version}}/surface/runbooks/testing)
+        - [Releasing](/docs/{{version}}/surface/runbooks/releasing)
 - ## [GPIO](https://scrapyard-io.projectsaturnstudios.com)
 - ## Ecosystem
     - Standalone Extensions
