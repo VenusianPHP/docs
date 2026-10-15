@@ -192,7 +192,6 @@ The `casts` method should return an array where the key is the name of the attri
 - `AsFluent::class`
 - `AsHtmlString::class`
 - `AsStringable::class`
-- `AsUri::class`
 - `boolean`
 - `collection`
 - `date`
@@ -216,7 +215,7 @@ The `casts` method should return an array where the key is the name of the attri
 - `string`
 - `timestamp`
 
-The `bool` and `int` aliases are accepted wherever `boolean` and `integer` are. The `AsFluent`, `AsHtmlString`, `AsStringable`, and `AsUri` classes live in the `Voyager\Database\Instrument\Casts` namespace and cast the attribute to a `Voyager\NutsAndBolts\Fluent`, `Voyager\NutsAndBolts\HtmlString`, `Voyager\NutsAndBolts\DataObjects\Stringable`, and `Voyager\NutsAndBolts\Uri` instance respectively.
+The `bool` and `int` aliases are accepted wherever `boolean` and `integer` are. The `AsFluent`, `AsHtmlString`, and `AsStringable` classes live in the `Voyager\Database\Instrument\Casts` namespace and cast the attribute to a `Voyager\NutsAndBolts\Fluent`, `Voyager\NutsAndBolts\HtmlString`, and `Voyager\NutsAndBolts\DataObjects\Stringable` instance respectively.
 
 To demonstrate attribute casting, let's cast the `is_admin` attribute, which is stored in our database as an integer (`0` or `1`) to a boolean value:
 
