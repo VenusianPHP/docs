@@ -14,7 +14,7 @@ Refused (`ValueError`): unknown layout/order/scan; three-channel order on 32-bit
 
 ## FbBuffer
 
-`__construct(FbFormat, width, height)`, sides 1..65535. Starts as `fill(0)`: zero bytes, inverted planar planes at 1.
+`__construct(FbFormat, width, height)`, sides 1..65535, and `(width + 8) × height × 4` at most `ZEND_LONG_MAX`, else `ValueError` (only a 32-bit PHP reaches it, from about 23166² up; `FbFormat::size()` refuses the same sides). Starts as `fill(0)`: zero bytes, inverted planar planes at 1.
 
 | Call | Does |
 |---|---|
