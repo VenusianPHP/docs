@@ -16,14 +16,16 @@ The engine's framebuffer is an `OpenGLFramebuffer`, a Surface `GLFramebuffer`.
 
 - macOS: OpenGL 4.1 core through CGL. Apple deprecates it; SDK 15.4 still ships it.
 - Linux: EGL 1.5 with `EGL_MESA_platform_surfaceless` and OpenGL ES 3.1. Anti-aliased edges need `GL_MAX_SAMPLES` ≥ 4; a context with fewer refuses them by name.
-- PHP 8.4, `venusian-surface/drawing` ^0.10, ext-opengl ^0.10 with the pixel-store skip constants and, on Linux, `eglGetCurrentDisplay` / `eglGetCurrentSurface`.
+- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), `venusian-surface/drawing` ^0.10, ext-opengl ^0.10 with the pixel-store skip constants and, on Linux, `eglGetCurrentDisplay` / `eglGetCurrentSurface`.
 - No window, no display server: the engine's own context is offscreen. A window's context comes from a toolkit canvas as a `LentSurface`.
 
 ## Install
 
 ```
-composer require jovian/venusian-opengl
+composer require jovian/venusian-opengl:0.10.x-dev
 ```
+
+There is no tagged release on Packagist yet, only the `0.10.x-dev` branch, so a plain `composer require` fails under the default `stable` minimum stability.
 
 Provider discovered through `extra.venusian.providers`. It registers `opengl` on `app('drawing')`.
 
