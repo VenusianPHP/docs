@@ -1,6 +1,6 @@
 # Config
 
-config/bridge.php, config/windows.php, config/framebuffers.php, config/rasterize.php, config/images.php, config/drawing.php and config/embedded-displays.php keys.
+config/bridge.php, config/windows.php, config/framebuffers.php, config/rasterize.php, config/images.php, config/drawing.php, config/embedded-displays.php and config/human-input.php keys.
 
 ## Schema
 
@@ -10,6 +10,8 @@ config/bridge.php, config/windows.php, config/framebuffers.php, config/rasterize
 |---|---|---|
 | `toolkit.mac.default` | `appkit` | `appkit`, `gtk`, `qt` |
 | `toolkit.linux.default` | `gtk` | `gtk`, `qt` |
+| `stage.mac.default` | `appkit` | stager for `staged-windows`: `appkit`, `sdl3`, `glfw` |
+| `stage.linux.default` | `sdl3` | `sdl3`, `glfw` |
 
 Driver keys, read with code defaults by each driver (absent from the published file): `bridge.gtk.application_id`, `bridge.gtk.unique`, `bridge.qt.application_name`, `bridge.qt.desktop_file_name`. See each jovian driver bundle.
 
@@ -56,6 +58,16 @@ Driver keys, read with code defaults by each driver (absent from the published f
 | `defaults.addressable` | `dirty` | for a panel that takes region writes |
 | `defaults.whole` | `full` | for a panel that takes whole frames only |
 
+`human-input`:[^human-input]
+
+| Key | Default | Values |
+|---|---|---|
+| `pads.mac` | `gamecontroller` | pad source a package registered with `extendPads()`: `gamecontroller`, `sdl3`; `null` = circuits only |
+| `pads.linux` | `evdev` | `evdev`, `sdl3`; `null` = circuits only |
+| `joysticks` | `[]` | generic joysticks by reported name: `axes`, `buttons` index maps onto `GamepadAxis` / `GamepadButton` names, `hat`; unlisted joysticks use the default map (axes 0/1 left stick, 2/3 right stick, 4/5 triggers; buttons 0-3 south/east/west/north, 4/5 shoulders, 6/7 back/start; hat 0 the dpad) |
+
+Frame length comes from `sketches.refresh_rate` (default 60), not this file.
+
 [^bridge]: config/bridge.php
 [^windows]: config/windows.php
 [^framebuffers]: config/framebuffers.php
@@ -63,3 +75,4 @@ Driver keys, read with code defaults by each driver (absent from the published f
 [^images]: config/images.php
 [^drawing]: config/drawing.php
 [^embedded-displays]: config/embedded-displays.php
+[^human-input]: config/human-input.php
