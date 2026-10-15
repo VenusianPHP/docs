@@ -2,6 +2,22 @@
 
 GTK 4 toolkit driver for the Venusian Surface bridge.
 
+## Requirements
+
+- macOS or Linux with GTK 4 (through ext-gtk).
+- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-gtk ^0.10.
+- `venusian-surface/bridge`, `venusian-surface/contracts`, `venusian-surface/human-input` and `venusian-surface/windows` ^0.10, `venusian-voyager/nuts-and-bolts` ^0.10.1.
+
+## Install
+
+```
+composer require jovian/venusian-gtk
+```
+
+The latest tag is v0.10.1. `venusian-surface/windows` is not published on Packagist yet, so until it is, add a path or VCS repository for it (from the Surface checkout) before requiring this package.
+
+The provider (`VenusianGTKServiceProvider`) is discovered through `extra.venusian.providers`.
+
 ## Canvas
 
 `GTKCanvas` shows a `TKCanvas`'s framebuffer as a `GdkMemoryTexture` on a `GtkPicture`, in the `R8G8B8X8` layout (the fourth byte ignored, so opaque), stretched over the widget. Needs GTK 4.14.

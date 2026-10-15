@@ -2,6 +2,22 @@
 
 Qt 6 toolkit driver for the Venusian Surface bridge.
 
+## Requirements
+
+- macOS or Linux with Qt 6 (through ext-qt).
+- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-qt ^0.10.
+- `venusian-surface/bridge`, `venusian-surface/contracts` and `venusian-surface/windows` ^0.10, `venusian-voyager/nuts-and-bolts` ^0.10.1.
+
+## Install
+
+```
+composer require jovian/venusian-qt
+```
+
+The latest tag is v0.10.1. `venusian-surface/windows` is not published on Packagist yet, so until it is, add a path or VCS repository for it (from the Surface checkout) before requiring this package.
+
+The provider (`VenusianQtServiceProvider`) is discovered through `extra.venusian.providers`.
+
 ## Canvas
 
 `QtCanvas` shows a `TKCanvas`'s framebuffer as a `QLabel`'s pixmap: the RGBA8 bytes become a `QImage` in the `RGBX8888` format (the fourth byte ignored, so opaque), stretched over the label.
