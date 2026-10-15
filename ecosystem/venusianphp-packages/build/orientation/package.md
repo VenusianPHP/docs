@@ -1,17 +1,17 @@
 # Package
 
-venusian/build 0.10.0 — the venusian-tool package that adds `venusian build` to the installer.
+venusian/build 0.10.9 — the venusian-tool package that adds `venusian build` to the installer.
 
 ## What it is
 
 | Field | Value |
 |---|---|
-| Name | `venusian/build` 0.10.0[^composer] |
+| Name | `venusian/build` 0.10.9 (tag `v0.10.9`)[^composer] |
 | Type | `venusian-tool`[^composer][^test] |
-| PHP | `^8.4\|^8.5\|^8.6` |
+| PHP | `^8.4\|^8.5\|^8.6`; needs `ext-phar`, `ext-zip` |
 | Namespace | `Venusian\Build\` → `src/` |
 | Bin | none; `extra.venusian.commands` names `Venusian\Build\Console\BuildCommand`[^composer][^test] |
-| Install | `venusian install:sdk` = `composer global require venusian/build` |
+| Install | `venusian install:sdk` = `composer global require venusian/build --no-interaction` |
 
 The installer's `bin/venusian` reads every installed package of type `venusian-tool` through `Composer\InstalledVersions::getInstalledPackagesByType()` and adds the classes under `extra.venusian.commands`. No package → no `build` command.
 

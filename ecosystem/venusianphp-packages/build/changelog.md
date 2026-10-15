@@ -26,6 +26,10 @@ What changed in this package, newest first.
 
 * **macOS path**: a native compile at macOS 14 against a pinned static library set (`build-env/macos/`), the binary and phar in a `.app` with `Frameworks` for the Vulkan loader and MoltenVK, a strict hardened-runtime signature, a `.dmg`, and notarization with a Developer ID and a notarytool profile from the per-user config. The micro path (php-bin, host `.so` files, appended phar) is removed; `ExtensionSet` resolves the set for both OSes. [Build pipeline](/docs/{{version}}/ecosystem/venusianphp-packages/build/core/build-pipeline) step 6.
 
+### 2026-10-14
+
+* **Docs audit** against `VenusianPHP/build` `v0.10.9`: [Package](/docs/{{version}}/ecosystem/venusianphp-packages/build/orientation/package) version 0.10.0 → 0.10.9; the `ext-*` source is `composer.lock` only (packages plus `platform`), the app's `composer.json` is not read for extensions ([Build pipeline](/docs/{{version}}/ecosystem/venusianphp-packages/build/core/build-pipeline) step 3).
+
 ### 2026-10-10
 
 * **Leaner builds**: the phar ships what git would publish, for the app and each path-repository package, with an authoritative classmap; a sqlite app ships a fresh migrated `database/database.sqlite`; a scan over nikic/php-parser adds the extensions the app's own code calls and reports vendor-only ones; every target runs the built binary once on `.venusian-boot-check.php` before packaging. Stargazer: phar 26 MB from 46, `.dmg` 13 MB from 30, `.deb` 6.6 MB from 17.1. [Build pipeline](/docs/{{version}}/ecosystem/venusianphp-packages/build/core/build-pipeline) steps 5, 5a, 6 and 9; [Measured facts](/docs/{{version}}/ecosystem/venusianphp-packages/build/core/measured-facts) fact 25.
