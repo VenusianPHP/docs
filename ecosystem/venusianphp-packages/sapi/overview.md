@@ -1,7 +1,5 @@
 # Overview
 
-![CI](https://github.com/VenusianPHP/sapi/actions/workflows/ci.yml)
-
 [![CI](https://github.com/VenusianPHP/sapi/actions/workflows/ci.yml/badge.svg)](https://github.com/VenusianPHP/sapi/actions/workflows/ci.yml)
 
 The executable a packaged Venusian app is. A PHP SAPI in plain C, built into a php-src tree as `sapi/venusian` with the app's extensions compiled in. `venusian build` uses it; nothing else needs to.
@@ -13,6 +11,7 @@ What it does:
 * Sets `PHP_BINARY` to the resolved executable. The framework's process pools spawn it on a worker script; the phar's stub runs a script inside the phar when `argv[1]` names one.
 * Reads no `php.ini` from the host. Hard-coded: the CLI's settings (`html_errors=0`, `register_argc_argv=1`, `implicit_flush=1`, `output_buffering=0`, no time limits). Overridable defaults: `display_errors=stderr`, `memory_limit=1024M`.
 * Does not change the working directory. Exit codes pass through. Nothing is appended to the executable, so it signs strictly on macOS.
+* When stderr is discarded (closed or `/dev/null`, as with a Finder, desktop-menu or launchd launch), stderr — and stdout when it is discarded too — is appended to the app's log: `~/Library/Logs/<name>/<name>.log` on macOS, `$XDG_STATE_HOME/<name>/<name>.log` (default `~/.local/state`) elsewhere, each run starting with a `--- <timestamp> <executable> pid <n>` header. A terminal, pipe, file or the journal keeps its output.
 
 ### Build
 
@@ -23,7 +22,7 @@ cp -r /path/to/sapi php-src/sapi/venusian
 cd php-src && ./buildconf --force
 ./configure --disable-all --enable-venusian --enable-phar [--enable-zts] [extension flags…]
 make -j"$(nproc)"
- # sapi/venusian/venusian
+# sapi/venusian/venusian
 ```
 
 `venusian --venusian-version` prints the SAPI and PHP versions. Any other invocation runs the app.
@@ -38,7 +37,7 @@ Packs `tests/` into a phar with the stub shape `venusian/build` writes and check
 
 ### Platforms
 
-Linux and macOS, PHP 8.4, NTS and ZTS. Windows is not supported.
+Linux and macOS, PHP 8.4, NTS and ZTS (CI builds php-src 8.4.26 with `--enable-zts`). Windows is not supported.
 
 ### License
 
