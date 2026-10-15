@@ -17,7 +17,7 @@ composer install
 php bin/venusian
 ```
 
-`php bin/venusian` lists commands; `new` is registered.[^bin]
+`php bin/venusian` lists commands; `new`, `install:ext` and `install:sdk` are registered, plus `build` when `venusian/build` is installed.[^bin]
 
 This package does **not** path-repo `venusian/framework`. Tests are package-level and inject process/HTTP/clock collaborators.
 

@@ -1,19 +1,19 @@
 # Package
 
-venusian/installer 0.10.2 — global Composer CLI that scaffolds Venusian PHP applications.
+venusian/installer 0.10.3 — global Composer CLI that scaffolds Venusian PHP applications.
 
 ## What it is
 
-Composer package `venusian/installer` at **0.10.2** — a globally installable Symfony Console CLI (not a full Symfony HTTP app) whose bin is `bin/venusian`. Successor of `scrapyard-io/installer`.[^composer][^bin]
+Composer package `venusian/installer` at **0.10.3** — a globally installable Symfony Console CLI (not a full Symfony HTTP app) whose bin is `bin/venusian`. Successor of `scrapyard-io/installer`.[^composer][^bin]
 
 | Field | Value |
 |-------|-------|
 | Name | `venusian/installer`[^composer] |
-| Version | `0.10.2`[^composer] |
+| Version | `0.10.3`[^composer] |
 | PHP | `^8.4\|^8.5\|^8.6`[^composer] |
 | Namespace | `Venusian\Installer\` → `src/`[^composer] |
 | Bin | `bin/venusian`[^composer][^bin] |
-| Role | Scaffold a Venusian app via `composer create-project`, then offer the first-party PHP extensions through PIE |
+| Role | Scaffold a Venusian app via `composer create-project`, offer the first-party PHP extensions through PIE (`new`, `install:ext`), and install `venusian/build` (`install:sdk`) |
 | Skeleton | `venusian/venusian:^0.10.0` (`SkeletonPackage::VENUSIAN`)[^skeleton][^enums-test] |
 
 `.gitattributes` marks `/tests`, `/phpunit.xml`, `/.github`, `/.okf`, `/AGENTS.md`, `/CHANGELOG.md` `export-ignore`. No `CHANGELOG.md` in the tree.
@@ -22,9 +22,9 @@ Composer package `venusian/installer` at **0.10.2** — a globally installable S
 
 | Package | Constraint |
 |---------|------------|
-| `laravel/prompts` | `^0.3` |
+| `laravel/prompts` | `^0.3.19` |
 | `projectsaturnstudios/pocketflow-php` | `^0.2` |
-| `symfony/console` | `^7.0\|^8.0` |
+| `symfony/console` | `^7.4\|^8.0` |
 | `symfony/filesystem` | `^7.0\|^8.0` |
 | `symfony/process` | `^7.0\|^8.0` |
 
@@ -40,7 +40,9 @@ Does **not** require `venusian/framework` or `venusian/probe`.[^composer]
 
 | Path | Role |
 |------|------|
-| `bin/venusian` | Console entry (`Application` 0.10.2 + `NewApplicationCommand`); version equals `composer.json` (`BinaryTest`) |
+| `bin/venusian` | Console entry (`Application` 0.10.3 + `new`, `install:ext`, `install:sdk`, plus `venusian-tool` commands); version equals `composer.json` (`BinaryTest`) |
+| `src/Console/Commands/InstallExtensionCommand.php`, `InstallSdkCommand.php` | `install:ext`, `install:sdk` |
+| `src/Tools/ToolCommands.php` | `venusian-tool` command discovery |
 | `src/Console/Application.php` | `doRun` → Packagist self-update offer |
 | `src/Console/Commands/NewApplicationCommand.php` | `new` flow host |
 | `src/Enums/SkeletonPackage.php` | Skeleton Composer constraint |
@@ -50,13 +52,13 @@ Does **not** require `venusian/framework` or `venusian/probe`.[^composer]
 | `src/Prompts/` | `ChecklistPrompt`: multi-select with disabled rows |
 | `tests/` | Pest v4 specs (`pestphp/pest` `^4` in `require-dev`) |
 
-## Tree (measured at 6689f86)
+## Tree (measured at d581c42)
 
 | Item | Measured |
 |------|----------|
-| `src/**/*.php` | 27 files |
+| `src/**/*.php` | 30 files |
 | `src/Enums/` | 5 backed enums, all cases FULLY UPPERCASE; no `const` in `src/` |
-| `tests/**/*Test.php` | 15 Pest spec files, 81 `it()` cases; `tests/Fakes/` holds 2 test doubles |
+| `tests/**/*Test.php` | 18 Pest spec files, 101 `it()` cases; `tests/Fakes/` holds 2 test doubles |
 | `tests/Pest.php` | Pest v4 bootstrap (`Mockery::close()` in `afterEach`) |
 | `bin/` | `bin/venusian` only |
 | Root docs | `README.md` (install, usage, mermaid flow, update opt-out), `SECURITY.md`, `AGENTS.md`, `CLAUDE.md` → `AGENTS.md` |

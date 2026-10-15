@@ -137,7 +137,7 @@ cd example-app
 venusian build          # build/<Name>.app on macOS arm64
 ```
 
-See venusian/build's README for the interview, `config/build.php` and what the bundle contains.
+See venusian/build's README for the interview, `build.json` and what the bundle contains.
 
 ### Updates
 
