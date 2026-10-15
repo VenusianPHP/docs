@@ -1,0 +1,33 @@
+# Stargazer request architecture
+
+Shared builder, DTO, and NasaURL pattern every core NASA API leaf inherits.
+
+## Overview
+
+The public surface is `nasa()` → `NasaClient` → a typed `*APIService` → `PendingNasaRequest`. Services never hard-code hosts; they pass a [`NasaURL`](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/architecture/stargazer-api-coverage) case into `pending()`.[^urls][^service]
+
+`PendingNasaRequest` carries the endpoint path, query params, a namespaced call name (`stargazer.<api>.<endpoint>`), and a hydrator (a DTO class-string or a closure). Fluent `with()` / `__call` add query params. `get()` blocks and hydrates; `async()` returns a loop promise of the same value. See the [async lane](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/architecture/stargazer-async-lane).[^pending]
+
+## DTOs
+
+DTOs are `final readonly` classes under each family's `DataObjects/` folder. They implement `HydratesFromArray::fromArray()`.[^hydrator] List payloads become a `Voyager\NutsAndBolts\Collection` of DTOs; object payloads become one DTO. Shared coercion lives in `HydratesNasaData` (`text`, `optionalText`, `optionalInt`, `stringList`, `collectionOf`).
+
+Closed value sets are string- or int-backed enums with FULLY UPPERCASE cases. There are no class constants.
+
+## Auth
+
+`api_key` is appended only when `parse_url(NasaURL, PHP_URL_HOST)` is `api.nasa.gov`. EONET, TLE, Image Library, DONKI (CCMC's `DONKI-API`), APOD (science.nasa.gov's `apod-basic`), and TechTransfer (`technology.nasa.gov`) skip it. A missing key falls back to `DEMO_KEY`.
+
+## Schema
+
+| Piece | Role |
+|-------|------|
+| `NasaURL` | Only place a NASA host literal may live |
+| `NasaApiService` | Shared `pending()` / `query()` for every family |
+| `PendingNasaRequest` | URL + query + hydrator; `get()` / `async()` |
+| `HydratesFromArray` | `fromArray(array $data): static` |
+
+[^pending]: PendingNasaRequest
+[^service]: NasaApiService
+[^hydrator]: HydratesFromArray
+[^urls]: NasaURL host catalog

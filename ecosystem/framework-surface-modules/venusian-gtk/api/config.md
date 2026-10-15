@@ -1,0 +1,13 @@
+# Config
+
+bridge.gtk keys read by the driver.
+
+## Schema
+
+Read through the container's `config`; absent from Surface's published `config/bridge.php`, defaults in code.
+
+| Key | Default | Meaning |
+|---|---|---|
+| `app.id` | none: connect throws without it | desktop identity: Wayland app_id, X11 `WM_CLASS` (program name), bus name when unique; a packaged build names its `.desktop` file after it |
+| `bridge.gtk.unique` | `false` | `true` = one primary instance per id (a second process becomes remote) |
+| `windows.about.*` | Surface config | About dialog fields |

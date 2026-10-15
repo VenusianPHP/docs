@@ -1,0 +1,727 @@
+- ## Core Framework
+    - Getting Started
+        - [Installation](/docs/{{version}}/framework/getting-started/installation)
+        - [Configuration](/docs/{{version}}/framework/getting-started/configuration)
+        - [Agentic Development](/docs/{{version}}/framework/getting-started/agentic-development)
+        - [Directory Structure](/docs/{{version}}/framework/getting-started/directory-structure)
+        - [Deployment](/docs/{{version}}/framework/getting-started/deployment)
+    - The Basics
+        - [Entry Points](/docs/{{version}}/framework/the-basics/entry-points)
+        - [Sketches](/docs/{{version}}/framework/the-basics/sketches)
+        - [Loop Mail](/docs/{{version}}/framework/the-basics/loop-mail)
+        - [Workflows](/docs/{{version}}/framework/the-basics/workflows)
+        - [Error Handling](/docs/{{version}}/framework/the-basics/error-handling)
+        - [Logging](/docs/{{version}}/framework/the-basics/logging)
+    - Architecture Concepts
+        - [Service Container](/docs/{{version}}/framework/architecture-concepts/container)
+        - [Service Providers](/docs/{{version}}/framework/architecture-concepts/providers)
+        - [Event Loop](/docs/{{version}}/framework/architecture-concepts/event-loop)
+    - Digging Deeper
+        - [Computer Console](/docs/{{version}}/framework/digging-deeper/computer)
+        - [Broadcasting](/docs/{{version}}/framework/digging-deeper/broadcasting)
+        - [Cache](/docs/{{version}}/framework/digging-deeper/cache)
+        - [Collections](/docs/{{version}}/framework/digging-deeper/collections)
+        - [Concurrency](/docs/{{version}}/framework/digging-deeper/concurrency)
+        - [Context](/docs/{{version}}/framework/digging-deeper/context)
+        - [Contracts](/docs/{{version}}/framework/digging-deeper/contracts)
+        - [Signals](/docs/{{version}}/framework/digging-deeper/signals)
+        - [File Storage](/docs/{{version}}/framework/digging-deeper/filesystem)
+        - [Helpers](/docs/{{version}}/framework/digging-deeper/helpers)
+        - [HTTP Client](/docs/{{version}}/framework/digging-deeper/http-client)
+        - [Processes](/docs/{{version}}/framework/digging-deeper/processes)
+        - [Queues](/docs/{{version}}/framework/digging-deeper/queues)
+        - [Strings](/docs/{{version}}/framework/digging-deeper/strings)
+    - Security
+        - [Encryption](/docs/{{version}}/framework/security/encryption)
+        - [Hashing](/docs/{{version}}/framework/security/hashing)
+    - Database
+        - [Database: Getting Started](/docs/{{version}}/framework/database/database)
+        - [Database: Query Builder](/docs/{{version}}/framework/database/queries)
+        - [Database: Pagination](/docs/{{version}}/framework/database/pagination)
+        - [Database: Migrations](/docs/{{version}}/framework/database/migrations)
+        - [Database: Seeding](/docs/{{version}}/framework/database/seeding)
+        - [Redis](/docs/{{version}}/framework/database/redis)
+    - Instrument ORM
+        - [Instrument: Getting Started](/docs/{{version}}/framework/instrument-orm/instrument)
+        - [Instrument: Relationships](/docs/{{version}}/framework/instrument-orm/instrument-relationships)
+        - [Instrument: Collections](/docs/{{version}}/framework/instrument-orm/instrument-collections)
+        - [Instrument: Mutators & Casting](/docs/{{version}}/framework/instrument-orm/instrument-mutators)
+        - [Instrument: Serialization](/docs/{{version}}/framework/instrument-orm/instrument-serialization)
+        - [Instrument: Factories](/docs/{{version}}/framework/instrument-orm/instrument-factories)
+- ## Displays & Graphics
+    - [Overview](/docs/{{version}}/surface/overview)
+    - [Changelog](/docs/{{version}}/surface/changelog)
+    - Guide
+        - [Components](/docs/{{version}}/surface/guide/components)
+    - Architecture
+        - [Bridge](/docs/{{version}}/surface/architecture/bridge)
+        - [Windows](/docs/{{version}}/surface/architecture/windows)
+        - [Framebuffers](/docs/{{version}}/surface/architecture/framebuffers)
+        - [Drawing](/docs/{{version}}/surface/architecture/drawing)
+        - [Rasterize](/docs/{{version}}/surface/architecture/rasterize)
+        - [Images](/docs/{{version}}/surface/architecture/images)
+        - [Fonts](/docs/{{version}}/surface/architecture/fonts)
+        - [EmbeddedDisplays](/docs/{{version}}/surface/architecture/embeddeddisplays)
+        - [Toolkit primitives](/docs/{{version}}/surface/architecture/toolkit-primitives)
+    - API
+        - [Window mail](/docs/{{version}}/surface/api/window-mail)
+        - [View mail](/docs/{{version}}/surface/api/view-mail)
+        - [Styling](/docs/{{version}}/surface/api/styling)
+        - [Menu profiles](/docs/{{version}}/surface/api/menu-profiles)
+        - [Config](/docs/{{version}}/surface/api/config)
+    - Runbooks
+        - [Composing an app](/docs/{{version}}/surface/runbooks/composing-an-app)
+        - [Testing](/docs/{{version}}/surface/runbooks/testing)
+- ## [GPIO](https://scrapyard-io.projectsaturnstudios.com)
+- ## Ecosystem
+    - Standalone Extensions
+        - php-io-extensions/appkit
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/appkit/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/appkit/changelog)
+            - Guide
+                - [Binding surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+                - [Run-loop modes](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/run-loop-modes)
+            - Architecture
+                - [Object model](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/object-model)
+                - [Callouts](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/callouts)
+                - [Glue trampolines](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/glue-trampolines)
+                - [Layout bindings](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/layout-bindings)
+                - [Video bindings](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/video-bindings)
+                - [Errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/errors-and-threads)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/appkit/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/appkit/runbooks/adding-a-binding)
+        - php-io-extensions/box2d
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/box2d/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/box2d/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/box2d/api/bindings)
+            - Architecture
+                - [Guards and errors](/docs/{{version}}/ecosystem/standalone-extensions/box2d/architecture/guards-and-errors)
+                - [Workers and callbacks](/docs/{{version}}/ecosystem/standalone-extensions/box2d/architecture/workers-and-callbacks)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/box2d/runbooks/build-install-test)
+        - php-io-extensions/epoll
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/epoll/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/epoll/changelog)
+            - Guide
+                - [Module](/docs/{{version}}/ecosystem/standalone-extensions/epoll/guide/module)
+            - API
+                - [Functions](/docs/{{version}}/ecosystem/standalone-extensions/epoll/api/functions)
+                - [Constants](/docs/{{version}}/ecosystem/standalone-extensions/epoll/api/constants)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/epoll/runbooks/build-install-test)
+        - php-io-extensions/fb
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/fb/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/fb/changelog)
+            - Guide
+                - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/fb/guide/overview)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/fb/runbooks/build-install-test)
+        - php-io-extensions/ftdi
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/changelog)
+            - Guide
+                - [Module](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/guide/module)
+                - [libftdi 1.5 guards](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/guide/libftdi-15-guards)
+            - API
+                - [Objects](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/api/objects)
+                - [Functions](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/api/functions)
+                - [Async transfers and the libusb pump](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/api/async-transfers-and-the-libusb-pump)
+                - [EEPROM](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/api/eeprom)
+                - [Constants](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/api/constants)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/runbooks/build-install-test)
+            - Reference
+                - [Upgrade from 0.9](/docs/{{version}}/ecosystem/standalone-extensions/ftdi/reference/upgrade-from-09)
+        - php-io-extensions/glfw
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/glfw/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/glfw/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/glfw/api/bindings)
+            - Architecture
+                - [Handles and callbacks](/docs/{{version}}/ecosystem/standalone-extensions/glfw/architecture/handles-and-callbacks)
+                - [Platform facts](/docs/{{version}}/ecosystem/standalone-extensions/glfw/architecture/platform-facts)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/glfw/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/glfw/runbooks/adding-a-binding)
+        - php-io-extensions/gtk
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/gtk/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/gtk/changelog)
+            - Guide
+                - [Binding surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface)
+            - Architecture
+                - [Object model](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/object-model)
+                - [Callouts](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/callouts)
+                - [Errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/errors-and-threads)
+                - [Layout and styling](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/layout-and-styling)
+                - [Video and the media backend](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/video-and-the-media-backend)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/gtk/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/gtk/runbooks/adding-a-binding)
+        - php-io-extensions/imgdec
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/imgdec/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/imgdec/changelog)
+            - Guide
+                - [Decoders](/docs/{{version}}/ecosystem/standalone-extensions/imgdec/guide/decoders)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/imgdec/runbooks/build-install-test)
+        - php-io-extensions/kqueue
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/changelog)
+            - Guide
+                - [Module](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/guide/module)
+            - API
+                - [Functions](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/api/functions)
+                - [Structs](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/api/structs)
+                - [Constants](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/api/constants)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/runbooks/build-install-test)
+        - php-io-extensions/metal
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/metal/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/metal/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/metal/api/bindings)
+            - Architecture
+                - [Object model](/docs/{{version}}/ecosystem/standalone-extensions/metal/architecture/object-model)
+                - [Errors](/docs/{{version}}/ecosystem/standalone-extensions/metal/architecture/errors)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/metal/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/metal/runbooks/adding-a-binding)
+        - php-io-extensions/opengl
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/opengl/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/opengl/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/opengl/api/bindings)
+            - Architecture
+                - [Contexts](/docs/{{version}}/ecosystem/standalone-extensions/opengl/architecture/contexts)
+                - [Data](/docs/{{version}}/ecosystem/standalone-extensions/opengl/architecture/data)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/opengl/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/opengl/runbooks/adding-a-binding)
+        - php-io-extensions/pcurl
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/changelog)
+            - API
+                - [Pcurl\Multi](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/api/pcurlmulti)
+            - Architecture
+                - [C ABI](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/architecture/c-abi)
+            - Build & packaging
+                - [Zephir + PIE install](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/build-packaging/zephir-pie-install)
+            - Traps
+                - [Needs ext-curl first](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/needs-ext-curl-first)
+                - [Same libcurl as ext-curl](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/same-libcurl-as-ext-curl)
+                - [Callback cycles](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/callback-cycles)
+                - [Stubs regenerates ext](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/stubs-regenerates-ext)
+                - [Do not rebuild in place](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/do-not-rebuild-in-place)
+        - php-io-extensions/posi
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/posi/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/posi/changelog)
+            - Guide
+                - [Module](/docs/{{version}}/ecosystem/standalone-extensions/posi/guide/module)
+            - API
+                - [Descriptors and paths](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/descriptors-and-paths)
+                - [Processes](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/processes)
+                - [Termios](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/termios)
+                - [Native buffers](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/native-buffers)
+                - [Constants](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/constants)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/posi/runbooks/build-install-test)
+            - Reference
+                - [Upgrade from 0.9](/docs/{{version}}/ecosystem/standalone-extensions/posi/reference/upgrade-from-09)
+        - php-io-extensions/qt
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/qt/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/qt/changelog)
+            - Guide
+                - [Binding surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+                - [Layout and geometry](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/layout-and-geometry)
+                - [Video](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/video)
+            - Architecture
+                - [Object model](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/object-model)
+                - [Signals](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/signals)
+                - [Errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/errors-and-threads)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/qt/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/qt/runbooks/adding-a-binding)
+                - [Generating enums](/docs/{{version}}/ecosystem/standalone-extensions/qt/runbooks/generating-enums)
+        - php-io-extensions/rasterize
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/rasterize/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/rasterize/changelog)
+            - Guide
+                - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/rasterize/guide/overview)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/rasterize/runbooks/build-install-test)
+        - php-io-extensions/sdl3
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/api/bindings)
+            - Architecture
+                - [Handles](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/architecture/handles)
+                - [Structs](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/architecture/structs)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/runbooks/adding-a-binding)
+        - php-io-extensions/vulkan
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/api/bindings)
+            - Architecture
+                - [Handles](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/architecture/handles)
+                - [Structs](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/architecture/structs)
+                - [Constants](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/architecture/constants)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/runbooks/adding-a-binding)
+    - VenusianPHP Packages
+        - venusian/build
+            - [Overview](/docs/{{version}}/ecosystem/venusianphp-packages/build/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/venusianphp-packages/build/changelog)
+            - Orientation
+                - [Package](/docs/{{version}}/ecosystem/venusianphp-packages/build/orientation/package)
+            - Core
+                - [Build pipeline](/docs/{{version}}/ecosystem/venusianphp-packages/build/core/build-pipeline)
+                - [Measured facts](/docs/{{version}}/ecosystem/venusianphp-packages/build/core/measured-facts)
+        - venusian/installer
+            - [Overview](/docs/{{version}}/ecosystem/venusianphp-packages/installer/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/venusianphp-packages/installer/changelog)
+            - Orientation
+                - [Package](/docs/{{version}}/ecosystem/venusianphp-packages/installer/orientation/package)
+            - Core
+                - [Node orchestration](/docs/{{version}}/ecosystem/venusianphp-packages/installer/core/node-orchestration)
+                - [ExtensionsFlow](/docs/{{version}}/ecosystem/venusianphp-packages/installer/core/extensionsflow)
+            - Components
+                - [NewApplicationCommand](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/newapplicationcommand)
+                - [InstallExtensionCommand](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/installextensioncommand)
+                - [install:sdk](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/installsdk)
+                - [ComposerProjectCreator](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/composerprojectcreator)
+                - [ProcessRunner](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/processrunner)
+                - [Host](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/host)
+                - [ChecklistPrompt](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/checklistprompt)
+                - [SummarizeExtensions](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/summarizeextensions)
+                - [PackagistReleaseWatcher](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/packagistreleasewatcher)
+                - [ResolveDirectory](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/resolvedirectory)
+                - [PrepareSharedBag](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/preparesharedbag)
+                - [Enums](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/enums)
+                - [Application](/docs/{{version}}/ecosystem/venusianphp-packages/installer/components/application)
+            - Playbooks
+                - [New application](/docs/{{version}}/ecosystem/venusianphp-packages/installer/playbooks/new-application)
+                - [Local development](/docs/{{version}}/ecosystem/venusianphp-packages/installer/playbooks/local-development)
+        - Venusian SAPI
+            - [Overview](/docs/{{version}}/ecosystem/venusianphp-packages/sapi/overview)
+            - [Behaviour](/docs/{{version}}/ecosystem/venusianphp-packages/sapi/behaviour)
+            - [Changelog](/docs/{{version}}/ecosystem/venusianphp-packages/sapi/changelog)
+        - venusian/probe
+            - [Overview](/docs/{{version}}/ecosystem/venusianphp-packages/probe/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/venusianphp-packages/probe/changelog)
+            - Orientation
+                - [Package](/docs/{{version}}/ecosystem/venusianphp-packages/probe/orientation/package)
+            - Components
+                - [ProbeServiceProvider](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/probeserviceprovider)
+                - [ProbeCommand](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/probecommand)
+                - [ProbeCaster](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/probecaster)
+                - [ClassAliasAutoloader](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/classaliasautoloader)
+                - [Config](/docs/{{version}}/ecosystem/venusianphp-packages/probe/components/config)
+            - Conventions
+                - [Companion provider (not Voyager domain)](/docs/{{version}}/ecosystem/venusianphp-packages/probe/conventions/companion-provider-not-voyager-domain)
+            - Traps
+                - [Pcntl hardware fork](/docs/{{version}}/ecosystem/venusianphp-packages/probe/traps/pcntl-hardware-fork)
+                - [0.10 import paths](/docs/{{version}}/ecosystem/venusianphp-packages/probe/traps/010-import-paths)
+                - [0.8 import paths](/docs/{{version}}/ecosystem/venusianphp-packages/probe/traps/08-import-paths)
+                - [0.7 import paths](/docs/{{version}}/ecosystem/venusianphp-packages/probe/traps/07-import-paths)
+            - Playbooks
+                - [Require probe](/docs/{{version}}/ecosystem/venusianphp-packages/probe/playbooks/require-probe)
+                - [Use probe](/docs/{{version}}/ecosystem/venusianphp-packages/probe/playbooks/use-probe)
+        - venusian/terran
+            - [Overview](/docs/{{version}}/ecosystem/venusianphp-packages/terran/overview)
+            - [Engine](/docs/{{version}}/ecosystem/venusianphp-packages/terran/engine)
+            - [Input](/docs/{{version}}/ecosystem/venusianphp-packages/terran/input)
+            - [Scenes](/docs/{{version}}/ecosystem/venusianphp-packages/terran/scenes)
+            - [Physics](/docs/{{version}}/ecosystem/venusianphp-packages/terran/physics)
+            - [Changelog](/docs/{{version}}/ecosystem/venusianphp-packages/terran/changelog)
+    - Framework/Surface Modules
+        - jovian/venusian-appkit
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/changelog)
+            - Guide
+                - [Session](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/session)
+                - [Windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus)
+                - [Staged windows](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/staged-windows)
+                - [Primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/primitives)
+                - [Input](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/input)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/runbooks/testing)
+        - jovian/venusian-evdev
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-evdev/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-evdev/changelog)
+            - Guide
+                - [Pads](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-evdev/guide/pads)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-evdev/runbooks/testing)
+        - jovian/venusian-glfw
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-glfw/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-glfw/changelog)
+            - Guide
+                - [Stager](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-glfw/guide/stager)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-glfw/runbooks/testing)
+        - jovian/venusian-gtk
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/changelog)
+            - Guide
+                - [Session](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/session)
+                - [Windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus)
+                - [Primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/primitives)
+                - [Input](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/input)
+            - API
+                - [Config](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/api/config)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/runbooks/testing)
+        - jovian/venusian-metal
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-metal/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-metal/changelog)
+            - Guide
+                - [Engine](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-metal/guide/engine)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-metal/runbooks/testing)
+        - jovian/venusian-opengl
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-opengl/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-opengl/changelog)
+            - Guide
+                - [Engine](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-opengl/guide/engine)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-opengl/runbooks/testing)
+        - jovian/venusian-qt
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/changelog)
+            - Guide
+                - [Session](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/session)
+                - [Windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus)
+                - [Primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/primitives)
+            - API
+                - [Config](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/api/config)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/runbooks/testing)
+        - jovian/venusian-sdl3
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-sdl3/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-sdl3/changelog)
+            - Guide
+                - [Stager](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-sdl3/guide/stager)
+                - [Input](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-sdl3/guide/input)
+                - [Engine](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-sdl3/guide/engine)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-sdl3/runbooks/testing)
+        - jovian/venusian-vulkan
+            - [Overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-vulkan/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-vulkan/changelog)
+            - Guide
+                - [Engine](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-vulkan/guide/engine)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-vulkan/runbooks/testing)
+    - GPIO Modules
+        - microscrap/gpio
+            - [Overview](/docs/{{version}}/ecosystem/gpio-modules/gpio/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/gpio-modules/gpio/changelog)
+            - Orientation
+                - [Package (0.10)](/docs/{{version}}/ecosystem/gpio-modules/gpio/orientation/package-010)
+                - [Ecosystem docs](/docs/{{version}}/ecosystem/gpio-modules/gpio/orientation/ecosystem-docs)
+                - [Pair with protocol peers](/docs/{{version}}/ecosystem/gpio-modules/gpio/orientation/pair-with-protocol-peers)
+            - Architecture
+                - [Helpers → gpiod facades → posi](/docs/{{version}}/ecosystem/gpio-modules/gpio/architecture/helpers-gpiod-facades-posi)
+            - Conventions
+                - [1:1 libgpiod wrap](/docs/{{version}}/ecosystem/gpio-modules/gpio/conventions/11-libgpiod-wrap)
+                - [Enums for gpiod](/docs/{{version}}/ecosystem/gpio-modules/gpio/conventions/enums-for-gpiod)
+            - Traps
+                - [GPIO device permissions](/docs/{{version}}/ecosystem/gpio-modules/gpio/traps/gpio-device-permissions)
+                - [`function_exists` load order](/docs/{{version}}/ecosystem/gpio-modules/gpio/traps/function-exists-load-order)
+            - Log
+        - microscrap/i2c
+            - [Overview](/docs/{{version}}/ecosystem/gpio-modules/i2c/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/gpio-modules/i2c/changelog)
+            - Orientation
+                - [Package (0.10)](/docs/{{version}}/ecosystem/gpio-modules/i2c/orientation/package-010)
+                - [Ecosystem docs](/docs/{{version}}/ecosystem/gpio-modules/i2c/orientation/ecosystem-docs)
+                - [Pair with protocol peers](/docs/{{version}}/ecosystem/gpio-modules/i2c/orientation/pair-with-protocol-peers)
+            - Architecture
+                - [Helpers bus posix](/docs/{{version}}/ecosystem/gpio-modules/i2c/architecture/helpers-bus-posix)
+            - Conventions
+                - [1:1 extension wrap](/docs/{{version}}/ecosystem/gpio-modules/i2c/conventions/11-extension-wrap)
+                - [Enums for kernel constants](/docs/{{version}}/ecosystem/gpio-modules/i2c/conventions/enums-for-kernel-constants)
+            - Traps
+                - [SMBus helpers ≠ I2C_SMBUS ioctl](/docs/{{version}}/ecosystem/gpio-modules/i2c/traps/smbus-helpers-i2c-smbus-ioctl)
+                - [`I2CBus::$addr` stale after set_slave](/docs/{{version}}/ecosystem/gpio-modules/i2c/traps/i2cbusaddr-stale-after-set-slave)
+                - [Need i2c group permissions](/docs/{{version}}/ecosystem/gpio-modules/i2c/traps/need-i2c-group-permissions)
+                - [`function_exists` load order](/docs/{{version}}/ecosystem/gpio-modules/i2c/traps/function-exists-load-order)
+            - Log
+        - microscrap/mpsse
+            - [Overview](/docs/{{version}}/ecosystem/gpio-modules/mpsse/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/gpio-modules/mpsse/changelog)
+            - Orientation
+                - [Package (0.10)](/docs/{{version}}/ecosystem/gpio-modules/mpsse/orientation/package-010)
+                - [Ecosystem docs](/docs/{{version}}/ecosystem/gpio-modules/mpsse/orientation/ecosystem-docs)
+            - Architecture
+                - [Helpers → MPSSE → FTDI](/docs/{{version}}/ecosystem/gpio-modules/mpsse/architecture/helpers-mpsse-ftdi)
+            - Conventions
+                - [1:1 libmpsse wrap](/docs/{{version}}/ecosystem/gpio-modules/mpsse/conventions/11-libmpsse-wrap)
+                - [Enums for MPSSE](/docs/{{version}}/ecosystem/gpio-modules/mpsse/conventions/enums-for-mpsse)
+            - Traps
+                - [Usb permissions ftdi sio](/docs/{{version}}/ecosystem/gpio-modules/mpsse/traps/usb-permissions-ftdi-sio)
+                - [`function_exists` load order](/docs/{{version}}/ecosystem/gpio-modules/mpsse/traps/function-exists-load-order)
+                - [Mode mismatch workflows](/docs/{{version}}/ecosystem/gpio-modules/mpsse/traps/mode-mismatch-workflows)
+            - Log
+        - microscrap/scrapyard-linux
+            - [Overview](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/concepts/overview)
+                - [Digital IO](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/concepts/digital-io)
+                - [I2C](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/concepts/i2c)
+                - [SPI](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/concepts/spi)
+                - [UART](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/concepts/uart)
+                - [PWM](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/concepts/pwm)
+                - [Testing](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-linux/concepts/testing)
+            - Log
+        - microscrap/scrapyard-usb
+            - [Overview](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/concepts/overview)
+                - [FTDI bridge](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/concepts/ftdi-bridge)
+                - [MPSSE](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/concepts/mpsse)
+                - [Digital IO](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/concepts/digital-io)
+                - [UART](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/concepts/uart)
+                - [Testing](/docs/{{version}}/ecosystem/gpio-modules/scrapyard-usb/concepts/testing)
+            - Log
+        - microscrap/spi
+            - [Overview](/docs/{{version}}/ecosystem/gpio-modules/spi/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/gpio-modules/spi/changelog)
+            - Orientation
+                - [Package (0.10)](/docs/{{version}}/ecosystem/gpio-modules/spi/orientation/package-010)
+                - [Ecosystem docs](/docs/{{version}}/ecosystem/gpio-modules/spi/orientation/ecosystem-docs)
+                - [Pair with protocol peers](/docs/{{version}}/ecosystem/gpio-modules/spi/orientation/pair-with-protocol-peers)
+            - Architecture
+                - [Helpers → Device → posix](/docs/{{version}}/ecosystem/gpio-modules/spi/architecture/helpers-device-posix)
+            - Conventions
+                - [1:1 extension wrap](/docs/{{version}}/ecosystem/gpio-modules/spi/conventions/11-extension-wrap)
+                - [Enums for spidev flags](/docs/{{version}}/ecosystem/gpio-modules/spi/conventions/enums-for-spidev-flags)
+            - Traps
+                - [Native spi_transfer vs posi_mem](/docs/{{version}}/ecosystem/gpio-modules/spi/traps/native-spi-transfer-vs-posi-mem)
+                - [Half-duplex vs full-duplex](/docs/{{version}}/ecosystem/gpio-modules/spi/traps/half-duplex-vs-full-duplex)
+            - Log
+        - microscrap/uart
+            - [Overview](/docs/{{version}}/ecosystem/gpio-modules/uart/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/gpio-modules/uart/changelog)
+            - Orientation
+                - [Package (0.10)](/docs/{{version}}/ecosystem/gpio-modules/uart/orientation/package-010)
+                - [Ecosystem docs](/docs/{{version}}/ecosystem/gpio-modules/uart/orientation/ecosystem-docs)
+                - [Pair with protocol peers](/docs/{{version}}/ecosystem/gpio-modules/uart/orientation/pair-with-protocol-peers)
+            - Architecture
+                - [Helpers termios ext](/docs/{{version}}/ecosystem/gpio-modules/uart/architecture/helpers-termios-ext)
+            - Conventions
+                - [1:1 extension wrap](/docs/{{version}}/ecosystem/gpio-modules/uart/conventions/11-extension-wrap)
+                - [Enums for termios flags](/docs/{{version}}/ecosystem/gpio-modules/uart/conventions/enums-for-termios-flags)
+            - Traps
+                - [BaudRate value vs numeric](/docs/{{version}}/ecosystem/gpio-modules/uart/traps/baudrate-value-vs-numeric)
+                - [Serial device permissions](/docs/{{version}}/ecosystem/gpio-modules/uart/traps/serial-device-permissions)
+            - Log
+    - Dept of Scrapyard Robotics
+        - dept-of-scrapyard-robotics/adxl34x
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/concepts/overview)
+                - [Connecting](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/concepts/connecting)
+                - [Reading](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/concepts/reading)
+                - [Chip settings](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/concepts/chip-settings)
+                - [Interrupts](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/concepts/interrupts)
+                - [Configuration](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/concepts/configuration)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/adxl34x/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/ahtx0
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ahtx0/overview)
+        - dept-of-scrapyard-robotics/bmp
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/bmp/overview)
+        - dept-of-scrapyard-robotics/gc9a01
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/gc9a01/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/gc9a01/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/gc9a01/concepts/overview)
+                - [Connecting](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/gc9a01/concepts/connecting)
+                - [Registers](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/gc9a01/concepts/registers)
+                - [Drawing frames](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/gc9a01/concepts/drawing-frames)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/gc9a01/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/generic-fans
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/generic-fan/overview)
+        - generic-gps
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/generic-gps/overview)
+        - dept-of-scrapyard-robotics/generic-servos
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/generic-servo/overview)
+        - dept-of-scrapyard-robotics/hc-sr04
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/hc-sr04/overview)
+        - dept-of-scrapyard-robotics/jd79661
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/jd79661/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/jd79661/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/jd79661/concepts/overview)
+                - [Connecting a JD79661](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/jd79661/concepts/connecting-a-jd79661)
+                - [Drawing and refreshing](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/jd79661/concepts/drawing-and-refreshing)
+                - [Configuration](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/jd79661/concepts/configuration)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/jd79661/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/lis3dx
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/lis3dx/overview)
+        - dept-of-scrapyard-robotics/seesaw-mini-gamepad
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/seesaw-mini-gamepad/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/seesaw-mini-gamepad/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/seesaw-mini-gamepad/concepts/overview)
+                - [Seesaw protocol](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/seesaw-mini-gamepad/concepts/seesaw-protocol)
+                - [Polling the gamepad](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/seesaw-mini-gamepad/concepts/polling-the-gamepad)
+                - [Settings and config](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/seesaw-mini-gamepad/concepts/settings-and-config)
+            - Log
+        - dept-of-scrapyard-robotics/sh1106
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/concepts/overview)
+                - [Connecting an SH1106](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/concepts/connecting-an-sh1106)
+                - [SH1106Configuration](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/concepts/sh1106configuration)
+                - [Drawing frames](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/concepts/drawing-frames)
+                - [Panel settings](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/concepts/panel-settings)
+                - [Wiring config](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/concepts/wiring-config)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/sh1106/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/spectra6
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/spectra6/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/spectra6/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/spectra6/concepts/overview)
+                - [Connecting a Spectra 6 panel](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/spectra6/concepts/connecting-a-spectra-6-panel)
+                - [Drawing and refreshing](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/spectra6/concepts/drawing-and-refreshing)
+                - [Configuration](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/spectra6/concepts/configuration)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/spectra6/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/ssd1306
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/concepts/overview)
+                - [Connecting an SSD1306](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/concepts/connecting-an-ssd1306)
+                - [SSD1306Configuration](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/concepts/ssd1306configuration)
+                - [Drawing frames](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/concepts/drawing-frames)
+                - [Panel settings](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/concepts/panel-settings)
+                - [Wiring config](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/concepts/wiring-config)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1306/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/ssd1680
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1680/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1680/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1680/concepts/overview)
+                - [Connecting an SSD1680](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1680/concepts/connecting-an-ssd1680)
+                - [Drawing and refreshing](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1680/concepts/drawing-and-refreshing)
+                - [Configuration](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1680/concepts/configuration)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/ssd1680/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/st77xx
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/concepts/overview)
+                - [Connecting an ST77xx panel](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/concepts/connecting-an-st77xx-panel)
+                - [Controllers — boot and configuration](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/concepts/controllers-boot-and-configuration)
+                - [Drawing frames](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/concepts/drawing-frames)
+                - [Panel settings](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/concepts/panel-settings)
+                - [Wiring config](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/concepts/wiring-config)
+            - Runbooks
+                - [Hardware smoke](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/st77xx/runbooks/hardware-smoke)
+            - Log
+        - dept-of-scrapyard-robotics/tsl2591
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/tsl2591/overview)
+        - dept-of-scrapyard-robotics/veml7700
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/veml7700/overview)
+        - dept-of-scrapyard-robotics/vl6180x
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/vl6180x/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/vl6180x/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/vl6180x/concepts/overview)
+                - [Connecting a VL6180X](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/vl6180x/concepts/connecting-a-vl6180x)
+                - [Ranging](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/vl6180x/concepts/ranging)
+                - [Settings](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/vl6180x/concepts/settings)
+                - [Wiring config](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/vl6180x/concepts/wiring-config)
+            - Log
+        - dept-of-scrapyard-robotics/wii-connector
+            - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/wii-connector/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/wii-connector/changelog)
+            - Concepts
+                - [Overview](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/wii-connector/concepts/overview)
+                - [Extension protocol](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/wii-connector/concepts/extension-protocol)
+                - [Polling a controller](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/wii-connector/concepts/polling-a-controller)
+                - [Settings and config](/docs/{{version}}/ecosystem/dept-of-scrapyard-robotics/wii-connector/concepts/settings-and-config)
+            - Log
+    - Other Packages
+        - projectsaturnstudios/forte
+            - [Overview](/docs/{{version}}/ecosystem/other-packages/forte/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/other-packages/forte/changelog)
+            - Guide
+                - [Overview](/docs/{{version}}/ecosystem/other-packages/forte/guide/overview)
+            - Architecture
+                - [Loop](/docs/{{version}}/ecosystem/other-packages/forte/architecture/loop)
+                - [Transport](/docs/{{version}}/ecosystem/other-packages/forte/architecture/transport)
+                - [Promises](/docs/{{version}}/ecosystem/other-packages/forte/architecture/promises)
+                - [Scaling](/docs/{{version}}/ecosystem/other-packages/forte/architecture/scaling)
+            - Guides
+                - [Reverb compatibility](/docs/{{version}}/ecosystem/other-packages/forte/guides/reverb-compatibility)
+            - Runbooks
+                - [Testing](/docs/{{version}}/ecosystem/other-packages/forte/runbooks/testing)
+        - projectsaturnstudios/venusian-stargazer
+            - [Overview](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/changelog)
+            - Guide
+                - [Getting started — Venusian Stargazer](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/guide/getting-started-venusian-stargazer)
+            - Architecture
+                - [Stargazer request architecture](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/architecture/stargazer-request-architecture)
+                - [Stargazer async lane](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/architecture/stargazer-async-lane)
+                - [Stargazer API coverage](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/architecture/stargazer-api-coverage)
+            - Core API families
+                - [DONKI](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/donki)
+                - [NeoWs](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/neows)
+                - [EONET](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/eonet)
+                - [APOD](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/apod)
+                - [EPIC](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/epic)
+                - [InSight](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/insight)
+                - [TLE](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/tle)
+                - [TechTransfer](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/techtransfer)
+                - [Image and Video Library](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/image-and-video-library)
+                - [GIBS](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/core-api-families/gibs)
+            - Deferred
+                - [Deferred NASA APIs](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/deferred/deferred-nasa-apis)
+        - projectsaturnstudios/venusian-weatherman
+            - [Overview](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/changelog)
+            - Guide
+                - [Getting started — Venusian Weatherman](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/guide/getting-started-venusian-weatherman)
+            - Architecture
+                - [Weatherman request architecture](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/architecture/weatherman-request-architecture)
+                - [Weatherman async lane](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/architecture/weatherman-async-lane)
+                - [Weatherman API coverage](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/architecture/weatherman-api-coverage)
+            - Core API families
+                - [Points](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/core-api-families/points)
+                - [Forecast](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/core-api-families/forecast)
+                - [Alerts](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/core-api-families/alerts)
+                - [Stations](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/core-api-families/stations)
+                - [Observations](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/core-api-families/observations)
+            - Deferred
+                - [Deferred weather.gov APIs](/docs/{{version}}/ecosystem/other-packages/venusian-weatherman/deferred/deferred-weathergov-apis)
+    - Projects
+        - venusian-scraypard-presents/stargazer
+            - [Overview](/docs/{{version}}/ecosystem/projects/stargazer/overview)
