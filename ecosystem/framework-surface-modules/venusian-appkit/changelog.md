@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-15
+
+* `AppkitTextArea`: read-only, wrap, monospace, text-block line backgrounds, range colours, line selection over UTF-16, clip-view scroll position and `ViewScrolled`. Requires ext-appkit ^0.10.1 and Surface ^0.10.1. [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/primitives)
+
 ### 2026-10-10
 
 * AppkitLink: TKLink over a selectable label with an NSLinkAttributeName attributed text (toolkit links).
