@@ -2,6 +2,11 @@
 
 What changed in this package, newest first.
 
+### 2026-10-14
+
+* GtkTextIter (a copied boxed kind), GtkTextMark, GtkTextTag, GtkTextTagTable, GtkAdjustment; buffer tags, iters, selection and insert mark; text view monospace, cursor visibility and line y-range; scrolled-window adjustments; g_object_set_property (compare-app text panes, C1). Shipped in tag v0.10.1 (`PHP_GTK_VERSION` 0.10.1). [surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface)
+* g_signal_emit_by_name refuses an int that does not fit its parameter's C type, through the same check g_object_set_property uses (C1 final review). [surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface)
+
 ### 2026-10-10
 
 * GtkLinkButton, GtkLabel markup and current URI, GCancellable, GAsyncResult, GtkUriLauncher (ext-gtk's first ready callback); GdkGLContext::realize frees its GError (toolkit links). [surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface)
