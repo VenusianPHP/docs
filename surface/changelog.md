@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-15
+
+* Text panes: `TKTextArea` read-only, wrap, line backgrounds, range styles, line selection, scroll position and `ViewScrolled`; `FontSpec` monospace; `TextRangeStyle` and `ScrollPosition`. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [styling](/docs/{{version}}/surface/api/styling), [view mail](/docs/{{version}}/surface/api/view-mail)
+
 ### 2026-10-14
 
 * Releasing: `split.yml` on a `v*` tag; `tests.yml` (PHP 8.4/8.5) gates it; `.github/split.sh` splits every component to `venusian-surface` with the same tag. [releasing](/docs/{{version}}/surface/runbooks/releasing)

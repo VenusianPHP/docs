@@ -4,7 +4,7 @@ Splits, providers, container bindings, published configs.
 
 ## Overview
 
-`venusian/surface` (root, version key `0.10.0`) `replace`s every split at `self.version`. Splits with a manifest this line:[^root]
+`venusian/surface` (root, version key `0.10.1`) `replace`s every split at `self.version`. Splits with a manifest this line:[^root]
 
 | Split | Namespace | Holds | Requires |
 |---|---|---|---|
