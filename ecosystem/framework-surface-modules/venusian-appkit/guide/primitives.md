@@ -53,7 +53,7 @@ Hugging only acts on an intrinsic size. A view without one hugs through the 480 
 | Spinner | `NSProgressIndicator` SPINNING, hidden when stopped | — |
 | Progress bar | `NSProgressIndicator` BAR 0..1; null = indeterminate, animating | — |
 | Text input | `NSTextField` / `NSSecureTextField` | TextChanged (`controlTextDidChange:`), TextSubmitted (action on Return) |
-| Text area | `NSTextView::scrollableTextView()` (native = scroll view) | TextChanged (`textDidChange:`) |
+| Text area | `NSTextView::scrollableTextView()` (native = scroll view); read-only, wrap, monospace, line backgrounds, range colours, line selection (UTF-16), scroll position / `ViewScrolled` | TextChanged (`textDidChange:`) |
 | Checkbox / toggle / toggle button | checkbox `NSButton` / `NSSwitch` / PUSH_ON_PUSH_OFF `NSButton` | Toggled |
 | Slider | continuous `NSSlider` | ValueChanged |
 | Dropdown | `NSPopUpButton`, options as menu items (repeats stay separate) | SelectionChanged |
