@@ -2,6 +2,11 @@
 
 What changed in this package, newest first.
 
+### 2026-10-14
+
+* Text storage attributes (NSMutableAttributedString, NSTextStorage, foreground and background colour names), NSTextBlock and paragraph text blocks, NSClipView scrolling and bounds notifications, NSTextView selection, resizing and max size, NSTextContainer size and width tracking, NSLayoutManager glyph ranges and rects, the monospaced system font; NSRange returned (compare-app text panes, C1). Shipped in tag v0.10.1 (`PHP_APPKIT_VERSION` 0.10.1). [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+* attribute:atIndex:effectiveRange:; colour, paragraph-style, font and link attribute values of the wrong class refused with TypeError instead of failing at draw time (C1 final review). [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+
 ### 2026-10-10
 
 * `NSParagraphStyle` alignment, `NSMutableParagraphStyle` init / setAlignment:, `NSParagraphStyleAttributeName`: attributed text draws by its paragraph style, not the field's alignment, so a centred link needs one. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
