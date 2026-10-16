@@ -47,7 +47,7 @@ Mail rules: interaction mail only through `post()` = not echoing a code write (`
 | spinner | `GtkSpinner` | - |
 | progress bar | `GtkProgressBar`; null fraction pulses from a 100 ms GLib timeout, removed on a fraction or removal | - |
 | text input | `GtkEntry`; secret = visibility off | GtkEditable `changed` (once per user-visible edit) → TextChanged; `activate` (Enter) → TextSubmitted |
-| text area | `GtkTextView` in `GtkScrolledWindow` (the widget) | one TextChanged per outermost buffer user action (a replace deletes then inserts); outside an action per change |
+| text area | `GtkTextView` in `GtkScrolledWindow` (the widget); read-only, wrap, monospace (CSS), tag line backgrounds / range colours, line selection, scroll position / `ViewScrolled` (held across layout until adjustments settle) | one TextChanged per outermost buffer user action (a replace deletes then inserts); outside an action per change |
 | checkbox / toggle button | `GtkCheckButton` / `GtkToggleButton` | `toggled` → Toggled |
 | toggle | `GtkSwitch` | `notify::active` → Toggled |
 | slider | `GtkScale` H, value hidden; step = range/100, page = range/10, rescaled per range | `value-changed` → ValueChanged |
