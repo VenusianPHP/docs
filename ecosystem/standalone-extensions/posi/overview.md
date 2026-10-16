@@ -326,6 +326,59 @@ fclose($port);   // closes $fd too
 
 ---
 
+##### `posix_fileno($stream): int|false`
+
+Returns the descriptor a PHP stream wraps, or `false` when it wraps none (same idea as C `fileno(3)`). Socket streams give their socket, file streams their file descriptor. The descriptor is not duplicated and still belongs to the stream. A stream with no descriptor, such as `php://memory`, fails with `posi_errno()` at `EBADF`.
+
+* `$stream` — any PHP stream resource.
+
+**Example**
+
+```php
+[$a, $b] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
+posix_write(posix_fileno($a), 'hi', 2);
+echo fread($b, 2);   // hi
+```
+
+---
+
+##### `posix_dup(int $fd): int`
+
+Returns a new descriptor for the same open file, or `-1` (same semantics as C `dup(2)`). Closing one copy leaves the other open.
+
+* `$fd` — an open file descriptor.
+
+**Example**
+
+```php
+$copy = posix_dup(posix_fileno($a));
+posix_write($copy, 'again', 5);
+posix_close($copy);   // $a stays open
+```
+
+---
+
+##### `posix_socket_fdopen(int $fd)`
+
+Wraps a stream-socket descriptor as a PHP socket stream, or returns `false` (C `fdopen(3)`, for sockets). Where `posix_fdopen()` gives a plain file stream, this one comes from PHP's `tcp` transport: `stream_socket_accept()`, `stream_socket_get_name()` and `stream_socket_enable_crypto()` work on it and on every connection it accepts. The descriptor is not duplicated: the stream owns it and `fclose()` closes it. A descriptor that is not open fails with `EBADF`, a non-socket with `ENOTSOCK`, a datagram socket with `EPROTOTYPE`.
+
+The use: threads can't share PHP streams, but they share descriptors. One thread listens, every other thread opens its own stream over a `dup()` of that socket and accepts on it.
+
+* `$fd` — an open `SOCK_STREAM` socket descriptor (TCP or Unix).
+
+**Example**
+
+```php
+$server = stream_socket_server('tcp://127.0.0.1:8080');
+$fd = posix_fileno($server);
+
+// In each ext-parallel thread:
+$listener = posix_socket_fdopen(posix_dup($fd));
+$connection = stream_socket_accept($listener);
+```
+
+---
+
 #### Descriptor control
 
 ##### `fcntl(int $fd, int $cmd, mixed $arg, mixed &$value): int`
@@ -745,8 +798,8 @@ php -n -d extension="$PWD/modules/posi.so" vendor/bin/pest
 ```
 
 ```console
-Tests:    55 passed (173 assertions)
-Duration: 0.16s
+Tests:    1 skipped, 66 passed (202 assertions)
+Duration: 0.34s
 ```
 
 `-n` skips your `php.ini`, so the suite tests the clone and not an installed `posi.so`; without it, a PHP that already loads posi warns `Module "posi" is already loaded` and keeps the installed one. Where ext/posix is a shared extension rather than built in, as on Debian packaging, add `-d extension=posix` before the posi one, since `-n` dropped the ini that loads it. A module only loads in the PHP whose `phpize` built it: for Homebrew's ZTS build, run `phpize` and pass `--with-php-config` from `/opt/homebrew/opt/php@8.4-zts/bin`.

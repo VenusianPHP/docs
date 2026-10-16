@@ -12,7 +12,7 @@ POSIX only. OS-specific event APIs stay out: epoll, eventfd, timerfd, signalfd (
 
 | File | Holds |
 |---|---|
-| `posi.c` | descriptors, paths, `fcntl`, `ioctl`, `ppoll`, `fdopen`, wait, native buffers, `posi_errno`, MINIT constants, module entry |
+| `posi.c` | descriptors, paths, `fcntl`, `ioctl`, `ppoll`, `fdopen`, `fileno`, `dup`, `socket_fdopen`, wait, native buffers, `posi_errno`, MINIT constants, module entry |
 | `posi_termios.c` | termios functions, `posi_set_baud_rate`; declared in `php_posi.h`, function table in `posi.c` |
 | `php_posi.h` | version, module globals, `POSI_RECORD_ERRNO`, `POSI_ARG_INT` |
 | `posi.stub.php` | every function and `#ifdef`-guarded constant; source of `posi_arginfo.h` |
