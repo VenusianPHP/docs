@@ -7,13 +7,13 @@
 
 ## Introduction
 
-This repository holds the documentation for Venusian: the core framework, Surface (displays and graphics), and the ecosystem of extensions, GPIO modules and packages around them. The online version lives at [venusian.projectsaturnstudios.com/docs](https://venusian.projectsaturnstudios.com/docs).
+This repository holds the documentation for Venusian, the core framework, Surface (displays and graphics) and the ecosystem of extensions and packages around them, and for ScrapyardIO, the GPIO framework for Venusian with its PHP IO extensions, microscrap modules and chip drivers. Venusian's documentation lives at [venusian.projectsaturnstudios.com/docs](https://venusian.projectsaturnstudios.com/docs), ScrapyardIO's at [scrapyard-io.projectsaturnstudios.com/docs](https://scrapyard-io.projectsaturnstudios.com/docs).
 
 ## Layout
 
-Each release line has its own branch: `0.10.x` documents Venusian 0.10. Pages are plain Markdown, one file per page, under `framework/`, `surface/` and `ecosystem/`. [`documentation.md`](documentation.md) is the sidebar: its `##` entries are the top-level sections, and its links set the reading order.
+Each release line has its own branch: `0.10.x` documents Venusian 0.10. Pages are plain Markdown, one file per page, under `framework/`, `surface/`, `scrapyard-io/` and `ecosystem/`. Each site has its own sidebar: [`documentation.md`](documentation.md) for Venusian and [`scrapyard-io.md`](scrapyard-io.md) for ScrapyardIO. A sidebar's `##` entries are its top-level sections, and its links set the reading order. Every page belongs to exactly one sidebar.
 
-Links between pages use the `{{version}}` placeholder, which the site replaces with the branch being read:
+Links between pages of the same site use the `{{version}}` placeholder, which the site replaces with the branch being read; a page on the other site is linked by its absolute URL, such as `https://scrapyard-io.projectsaturnstudios.com/docs/scrapyard-io/getting-started/installation`:
 
 ```markdown
 [Service Container](/docs/{{version}}/framework/architecture-concepts/container)
@@ -21,7 +21,7 @@ Links between pages use the `{{version}}` placeholder, which the site replaces w
 
 ## Contributing
 
-Thank you for considering contributing to the Venusian documentation! Open a pull request against the branch of the release line you are documenting. A new page needs an entry in `documentation.md`; the link check fails the pull request when a sidebar entry has no page, a page has no sidebar entry, or a `/docs/{{version}}/…` link points at a page that does not exist.
+Thank you for considering contributing to the Venusian documentation! Open a pull request against the branch of the release line you are documenting. A new page needs an entry in its site's sidebar; the link check fails the pull request when a sidebar entry has no page, a page is in no sidebar or in both, or a `/docs/{{version}}/…` link points at a page that does not exist or lives on the other site.
 
 ## Code of Conduct
 

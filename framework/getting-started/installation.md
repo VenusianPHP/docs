@@ -6,7 +6,7 @@ What Venusian is, how to install PHP and the venusian installer, create and run 
 
 Venusian is a PHP framework for applications that run on an event loop. Instead of answering one request and exiting, a Venusian application is a long-running process: a command you run with `php computer`, a sketch that keeps going frame after frame with `php rocket`, worker pools that take blocking work off the loop, and, when you are ready to ship, a packaged build another machine installs and runs.
 
-The same application can drive a desktop window, read a sensor on a Raspberry Pi, or talk to a database and an HTTP API, all without blocking the loop. A framework gives you the structure and starting point for that work, so you can focus on what your application does.
+The same application can drive a desktop window, run on a Raspberry Pi, or talk to a database and an HTTP API, all without blocking the loop. A framework gives you the structure and starting point for that work, so you can focus on what your application does.
 
 ### Why Venusian?
 
@@ -102,14 +102,14 @@ php computer install:ext
 php computer install:ext pcurl
 ```
 
-The installer's own `install:ext` command offers every first-party extension, including `epoll`, `kqueue` and `pcurl`, the `appkit`, `gtk` and `qt` toolkit bindings, `fb`, `rasterize`, `imgdec`, `posi` and `ftdi`. Without a terminal, name the extension and pass `--no-interaction`:
+The installer's own `install:ext` command offers every first-party extension, including `epoll`, `kqueue` and `pcurl`, the `appkit`, `gtk` and `qt` toolkit bindings, `fb`, `rasterize` and `imgdec`. Without a terminal, name the extension and pass `--no-interaction`:
 
 ```shell
 venusian install:ext
 
 venusian install:ext imgdec
 
-venusian install:ext posi --no-interaction
+venusian install:ext epoll --no-interaction
 ```
 
 ### Running Your Application

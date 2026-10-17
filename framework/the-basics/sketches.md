@@ -156,7 +156,7 @@ A sketch has the same output helpers as a Computer command: `line`, `newLine`, `
 public function boot(): void
 {
     $this->info('Thermometer ready.');
-    $this->table(['Sensor', 'Bus'], [['bme280', 'i2c-1']]);
+    $this->table(['Unit', 'Interval'], [['celsius', '5s']]);
 }
 ```
 

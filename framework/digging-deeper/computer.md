@@ -83,7 +83,7 @@ Probe does not alias classes in your vendor namespaces. If you would like some o
 
 #### Forking Before Each Statement
 
-PsySH can fork the process before each statement so that a fatal error does not end the REPL. Probe leaves this off by default, because the fork is unsafe with macOS native frameworks that hardware libraries such as FTDI and libusb rely on. If you need fatal error isolation and are not opening native device handles, you may enable it with the `PROBE_USE_PCNTL` environment variable or the `use_pcntl` option of your `probe.php` configuration file.
+PsySH can fork the process before each statement so that a fatal error does not end the REPL. Probe leaves this off by default, because the fork is unsafe with the macOS native frameworks that device libraries such as libusb rely on. If you need fatal error isolation and are not opening native device handles, you may enable it with the `PROBE_USE_PCNTL` environment variable or the `use_pcntl` option of your `probe.php` configuration file.
 
 ## Generator Commands
 

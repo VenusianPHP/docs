@@ -4,7 +4,7 @@ PsySH pcntl forking defaults off — forks break macOS CoreFoundation/IOKit path
 
 ## Trap
 
-PsySH can fork (`pcntl`) before each statement so a fatal error does not kill the REPL. That fork is **unsafe** with macOS CoreFoundation / IOKit, which MPSSE, FTDI, and libusb touch.[^config]
+PsySH can fork (`pcntl`) before each statement so a fatal error does not kill the REPL. That fork is **unsafe** with macOS CoreFoundation / IOKit, which device libraries such as libusb touch.[^config]
 
 ## Rule
 

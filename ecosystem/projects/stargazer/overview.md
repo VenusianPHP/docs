@@ -16,7 +16,7 @@ Venusian is a PHP application framework with expressive, elegant syntax for buil
 - [Robust background job processing](https://venusian.projectsaturnstudios.com/docs/queues)
 - [Computer CLI](https://venusian.projectsaturnstudios.com/docs/computer) and [Probe REPL](https://venusian.projectsaturnstudios.com/docs/computer#probe)
 
-Venusian is accessible, powerful, and provides tools required for large, robust applications — including driving GPIO, I2C, SPI, UART, and related hardware through companion packages.
+Venusian is accessible, powerful, and provides tools required for large, robust applications.
 
 ## Learning Venusian
 
