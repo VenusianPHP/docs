@@ -1,6 +1,6 @@
 # Build, install, test
 
-install-macos.sh into php84 + zhp, Pest suite, smoke, clean tree.
+install-macos.sh into php84 + zhp, Pest, the probe build, smoke, clean tree.
 
 ## Overview
 
@@ -17,6 +17,19 @@ php84 examples/smoke.php          # SMOKE_OK
 php84 examples/smoke.php --hold=10 # icon stays up 10 s to look at
 rm -rf vendor composer.lock
 ```
+
+Probe build (`tests/Probes`; skipped by any other build). Build in a scratch copy, never install it:
+
+```bash
+P=$(mktemp -d)/appkit && rsync -a --exclude vendor --exclude .git ./ "$P"/
+(cd "$P" && /opt/homebrew/opt/php@8.4/bin/phpize \
+  && ./configure --enable-appkit --enable-appkit-probes --with-php-config=/opt/homebrew/opt/php@8.4/bin/php-config && make)
+composer install
+APPKIT_PROBE_EXT="$P/modules/appkit.so" php84 -n -d memory_limit=128M -d extension="$P/modules/appkit.so" vendor/bin/pest tests/Probes
+rm -rf "$(dirname "$P")" vendor composer.lock
+```
+
+Each probe test runs its call in a child of that PHP (`-n`, only the probe build loaded) twice: site on (refused, clean exit) and `APPKIT_PROBE_OFF=<id>` (the signal). `MainThreadTest` needs a ZTS build (`zhp`, built with `php@8.4-zts`'s phpize/php-config) and ext-parallel (`APPKIT_PROBE_PARALLEL` or the extension_dir's `parallel.so`). Sites: [errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/errors-and-threads).
 
 Smoke steps: Dock icon up (`lsappinfo list` type `Foreground`), pump, 50 ms budget, posted-event wake, pipe-fd wake, kqueue fd nested in the run loop, `run()` stopped by a callout, Dock icon gone (`BackgroundOnly`). Needs a logged-in GUI session.[^smoke]
 
