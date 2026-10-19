@@ -7,7 +7,7 @@
 1:1 PHP bindings of GTK 4 and the GLib main loop GTK runs on, written directly
 in C against the Zend API. C functions keep their names (`g_timeout_add`,
 `g_signal_connect`); functions on a type are methods of the class named after it
-(`g_application_register(app)` is `$app->register()`). No defaults, no
+(`g_application_register(app, cancellable, &error)` is `$app->register($cancellable)`). No defaults, no
 composites: behaviour is composed by the caller.
 
 Linux first, macOS too. GTK 4.12+, GLib 2.74+, PHP 8.4+, NTS and ZTS.
@@ -24,7 +24,8 @@ and close windows, and build menu bars from menu models and actions:
 | `GObject` | `G_OBJECT_TYPE_NAME` |
 | `GApplication` | `g_application_id_is_valid`, `get_application_id`, `get_flags`, `get_is_registered`, `get_is_remote`, `register`, `activate`, `hold`, `release`, `quit`, `run`, `g_action_map_add/remove/lookup_action`, `g_action_group_has/list/activate_action` |
 | `GtkApplication` | `gtk_application_new`, `add_window`, `remove_window`, `get_active_window`, `get_windows`, `get_menubar`, `set_menubar`, `set_accels_for_action`, `get_accels_for_action` |
-| `GtkWidget` | `set_visible` (as `show`/`hide`/`setVisible`), `get_visible`, `get_realized`, `get_mapped`, `get/set_hexpand`, `get/set_vexpand`, `get_parent`, `insert_action_group`, `activate_action_variant`, `activate`, `get/set_halign`, `get/set_valign`, `get/set_size_request`, `get_width`, `get_height`, `get/set_sensitive`, `is_sensitive`, `get_color`, `set_margin_start/end/top/bottom`, `add/remove/has_css_class`, `measure`, `compute_bounds`, `get_first_child`, `get_next_sibling`, `get_native`, `get_root`, `gtk_native_get_surface` (as `getSurface`), `grab_focus`, `has_focus` |
+| `GtkWidget` | `show`, `hide`, `get/set_visible`, `get_realized`, `get_mapped`, `get/set_hexpand`, `get/set_vexpand`, `get_parent`, `insert_action_group`, `activate_action_variant`, `activate`, `get/set_halign`, `get/set_valign`, `get/set_size_request`, `get_width`, `get_height`, `get/set_sensitive`, `is_sensitive`, `get_color`, `set_margin_start/end/top/bottom`, `add/remove/has_css_class`, `measure`, `compute_bounds`, `get_first_child`, `get_next_sibling`, `get_native`, `get_root`, `grab_focus`, `has_focus` |
+| `GtkNative`, `GtkRoot` (windows, popovers) | `get_surface`, `get_surface_transform`, `get_for_surface`, `realize`, `unrealize`; `get_display`, `get/set_focus` |
 | `GtkWindow` | `new`, `get/set_title`, `get/set_default_size`, `get/set_child`, `present`, `close`, `destroy`, `is_active`, `get/set_transient_for`, `get/set_application`, `get/set_modal`, `get/set_hide_on_close`, `get_focus` |
 | `GtkApplicationWindow` | `new`, `get/set_show_menubar`, `get_id` |
 | `GtkAboutDialog` | `new`, `get/set_program_name`, `get/set_version`, `get/set_copyright`, `get/set_comments`, `get/set_website` |
@@ -37,7 +38,7 @@ and close windows, and build menu bars from menu models and actions:
 | `GtkLinkButton` | `new`, `new_with_label`, `get/set_uri`, `get/set_visited` |
 | `GCancellable`, `GAsyncResult`, `GtkUriLauncher` | `new`, `cancel`, `is_cancelled`; —; `new`, `get/set_uri`, `launch`, `launch_finish` |
 | `GtkEntry`, `GtkEntryBuffer` | `new`, `get_buffer`, `get/set_placeholder_text`, `get/set_visibility`; `get/set_text` |
-| `GtkTextView`, `GtkTextBuffer` | `new`, `get_buffer`, `get/set_editable`, `set_wrap_mode`, `get/set_monospace`, `get/set_cursor_visible`, `get_line_yrange`; `set_text`, `get_text` (by offsets), `begin/end_user_action`, `get_tag_table`, `get_iter_at_line`, `get_iter_at_line_offset`, `get_start/end_iter`, `apply/remove_tag`, `get_selection_bounds`, `select_range`, `get_insert`, `get_iter_at_mark`, `get_line_count` |
+| `GtkTextView`, `GtkTextBuffer` | `new`, `get_buffer`, `get/set_editable`, `set_wrap_mode`, `get/set_monospace`, `get/set_cursor_visible`, `get_line_yrange`; `set_text`, `get_text` (between two iters), `begin/end_user_action`, `get_tag_table`, `get_iter_at_line`, `get_iter_at_line_offset`, `get_start/end_iter`, `apply/remove_tag`, `get_selection_bounds`, `select_range`, `get_insert`, `get_iter_at_mark`, `get_line_count` |
 | `GtkTextIter`, `GtkTextMark`, `GtkTextTag`, `GtkTextTagTable`, `GtkAdjustment` | iter (a copy that keeps its buffer alive; stale once the text changes: `GtkException`) `get_line`, `get_line_offset`, `get_offset`, `has_tag`, `get_tags`; —; `new`; `add`, `remove`, `lookup`; `get/set_value`, `get_lower`, `get_upper`, `get_page_size` (signal `value-changed`) |
 | `GtkScale` | `new_with_range`, `gtk_range_get/set_value`, `gtk_range_set_range`, `gtk_range_set_increments`, `get/set_draw_value` |
 | `GtkDropDown`, `GtkStringList`, `GtkStringObject` | `new_from_strings`, `get/set_selected`, `get_selected_item`, `set_model`; `new`, `append`, `remove`, `splice`, `get_string`, `g_list_model_get_n_items`; `get_string` |
@@ -50,14 +51,15 @@ and close windows, and build menu bars from menu models and actions:
 | `GtkSettings`, properties | `get_default`; `g_object_get_property`, `g_object_set_property` (any GObject property, as a signal argument converts) |
 | Keyvals | `gdk_keyval_to_unicode`, `gdk_keyval_to_lower`; `GDK_*_MASK` constants, enums `GtkPropagationPhase`, `GdkScrollUnit`, `GdkScrollRelativeDirection` (4.20+) |
 | `GtkPicture`, `GtkSeparator`, `GtkScrolledWindow` | `new`, `new_for_filename`, `set_filename`, `get/set_content_fit`, `get/set_paintable`, `get/set_can_shrink`; `new`; `new`, `get/set_child`, `set_policy`, `get_hadjustment`, `get_vadjustment` |
-| `GdkTexture`, `GdkMemoryTexture`, `GdkMemoryTextureBuilder` | `get_width`, `get_height`; `new` from bytes or an address in a `GdkMemoryFormat`; GTK 4.16+ builder: fluent setters, bytes from a string or an address with a length, an update texture and an update region of `[x, y, width, height]` rects, `build` (null when unset) |
-| `GdkDmabufTextureBuilder` | Linux, GTK 4.14+: fluent `setDisplay`, `setWidth`, `setHeight`, `setFourcc`, `setModifier`, `setPremultiplied`, `setNPlanes`, per plane `setFd` (borrowed: keep it open while the textures live), `setStride`, `setOffset`, `setUpdateTexture`, `setUpdateRegion`, `build(?callable $destroy)` (`$destroy` runs once GTK has finalized the texture and is done with the fds; a failed import throws its `GError`) |
+| `GtkPaned`, `GtkNotebook` | `new(GtkOrientation)`, `get/set_start_child`, `get/set_end_child` (a child parented elsewhere → `ValueError`), `get/set_position` (negative unsets it), `get/set_resize_start_child`, `get/set_resize_end_child`, `get/set_shrink_start_child`, `get/set_shrink_end_child`, `get/set_wide_handle`; `new`, `append_page`, `remove_page`, `page_num`, `get_n_pages`, `get/set_current_page`, `get_nth_page`, `set/get_tab_label_text`, `get/set_show_tabs`, `get/set_scrollable` (GTK's own indexes: -1 the last page, past the end nothing; a tab label set on a child that is not a page, which GTK asserts on, → `ValueError`); signals `notify::position`, `switch-page` |
+| `GBytes`, `GdkTexture`, `GdkMemoryTexture`, `GdkMemoryTextureBuilder` | `new` (a string's bytes, or an address and a size), `get_size`, `get_data`; `get_width`, `get_height`; `new` from a `GBytes` in a `GdkMemoryFormat` (null when the bytes cannot hold the image); GTK 4.16+ builder: setters returning nothing, `set_bytes(GBytes)`, an update texture and an update region (`CairoRegion`), `build` (null when unset) |
+| `GdkDmabufTextureBuilder` | Linux, GTK 4.14+: `setDisplay`, `setWidth`, `setHeight`, `setFourcc`, `setModifier`, `setPremultiplied`, `setNPlanes`, per plane `setFd` (borrowed: keep it open while the textures live), `setStride`, `setOffset`, `setUpdateTexture`, `setUpdateRegion`, `build(?callable $destroy)` (`$destroy` runs once GTK has finalized the texture and is done with the fds; a failed import throws its `GError`) |
 | `GdkDmabufFormats` | GTK 4.14+, from `GdkDisplay::getDmabufFormats()`: `getNFormats`, `getFormat` (`[fourcc, modifier]`), `contains(fourcc, modifier)`; empty off Linux |
 | `GtkColumnView`, `GtkColumnViewColumn` | `new`, `append/remove_column`, `get/set_model`, `set_show_row/column_separators`; `new`, `get/set_title`, `set_expand`, `set_resizable` |
 | `GtkSignalListItemFactory`, `GtkListItem`, `GtkSingleSelection` | `new` (signals `setup`, `bind`, `unbind`, `teardown`); `get_position`, `get_item`, `get/set_child`; `new`, `get/set_selected`, `get_selected_item`, `set_autoselect`, `set_can_unselect`, `get_model` |
-| `GtkMediaStream`, `GtkMediaFile`, `GtkVideo` | `play`, `pause`, `get/set_playing`, `get_ended`, `get_error`, `seek`, `is_seekable`, `get_timestamp`, `get_duration`, `get/set_muted`, `get/set_loop`, `has_video`; `new_for_filename`, `set_filename`, `clear`; `new`, `get/set_media_stream`, `get/set_autoplay`, `set_loop`; function `gtk_media_backend_available` |
+| `GtkMediaStream`, `GtkMediaFile`, `GtkVideo` | `play`, `pause`, `get/set_playing`, `get_ended`, `get_error`, `seek`, `is_seekable`, `get_timestamp`, `get_duration`, `get/set_muted`, `get/set_loop`, `has_video`; `new`, `new_for_filename`, `set_filename`, `clear`; `new`, `get/set_media_stream`, `get/set_autoplay`, `set_loop` |
 | `GtkPopoverMenuBar` | `new_from_model`, `get/set_menu_model` |
-| `GtkPopover`, `GtkPopoverMenu` | `set/get_pointing_to` (four ints; get refused with no parent), `set/get_has_arrow`, `popup`, `popdown`, signal `closed`; menu `new_from_model`, `get_menu_model`; attached with its own `setParent` / `unparent` (`gtk_widget_set_parent`, bound for popovers only) |
+| `GtkPopover`, `GtkPopoverMenu` | `set/get_pointing_to` (a `GdkRectangle`; get writes it by reference and returns GTK's gboolean), `set/get_has_arrow`, `popup`, `popdown`, signal `closed`; menu `new_from_model`, `get_menu_model`; attached with its own `setParent` / `unparent` (`gtk_widget_set_parent`, bound for popovers only) |
 | `GMenuModel`, `GMenu`, `GMenuItem` | `get_n_items`, `is_mutable`; `new`, `append`, `append_item`, `append_section`, `append_submenu`, `prepend`, `insert`, `remove`, `remove_all`, `freeze`; `new`, `set_label`, `set_detailed_action`, `set_action_and_target_value`, `set/get_attribute_value`, `set_submenu`, `set_section` |
 | `GSimpleAction`, `GSimpleActionGroup` | `new`, `new_stateful`, `set_enabled`, `set_state`, `g_action_get_name/enabled/state`, `g_action_activate`, `g_action_change_state`; `new`, `g_action_map_add/remove/lookup_action`, `g_action_group_has/list/activate_action` |
 | `GVariant` | `new_boolean/string/int32/double`, `get_boolean/string/int32/double`, `get_type_string`, `is_of_type`, `print` |
@@ -68,19 +70,34 @@ Enums: `GApplicationFlags`, `GIOCondition`, `GtkOrientation`, `GtkAlign`,
 `GtkPolicyType`. Constants: `G_SOURCE_CONTINUE`, `G_SOURCE_REMOVE`,
 `GTK_STYLE_PROVIDER_PRIORITY_APPLICATION`, `GTK_INVALID_LIST_POSITION`. Errors:
 `GError` (a GError, with its `domain`; also what `GtkMediaStream::getError()`
-returns), `GtkException` (a call refused before reaching GTK). The stubs in
+returns), `GtkException` (a call refused because making it crashes; see below). The stubs in
 `stubs/` are the full declaration.
+
+GTK answers for itself: its criticals, warnings, NULLs and clamping reach PHP
+as GTK gives them. The extension refuses a call only where making it was shown
+to crash the process or read freed memory, each such site with a probe in
+`tests/Probes`: a widget before GTK is initialised; on macOS, a GDK call or a
+context iteration off the process main thread; a stale `GtkTextIter`; a text
+mark that is not the buffer's; a detailed action name GIO or GTK cannot parse;
+an index outside a region's rectangles; a string shorter than the size or
+character count asked of it; a class compiled against newer GTK than the one
+running. A source or signal handler dispatched on a thread other than the one
+whose PHP made it is dropped, and a PHP class cannot implement the native
+interfaces (`GAction`, `GListModel`, `GtkNative` and the rest) unless its parent
+class's GType does. A PHP int with no form in the C parameter's type is a
+`ValueError`. `./configure --enable-gtk-probes` builds the switch the probes use
+(env `PHPGTK_PROBE_OFF=<site>` turns one site off); never for a release.
 
 Video needs GTK's media backend module: `libgtk-4-media-gstreamer` on Debian
 (the installer checks), none in Homebrew's gtk4 (the installer warns;
-`gtk_media_backend_available()` answers false and `GtkVideo` shows nothing).
+`GtkMediaFile::new()->typeName()` is `GtkNoMediaFile` and `GtkVideo` shows nothing).
 
 ## Example
 
 ```php
 $app = GtkApplication::new('com.example.App', GApplicationFlags::DEFAULT_FLAGS);
 g_signal_connect($app, 'activate', fn (GtkApplication $app) => null);
-$app->register();   // startup: GTK initialises
+$app->register(null);   // startup: GTK initialises
 $app->hold();
 
 $ctx = GMainContext::default();

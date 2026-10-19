@@ -16,6 +16,10 @@ Arguments annotated `(transfer full)` (`gtk_column_view_new`, `gtk_column_view_c
 
 Constructors (`GtkApplication::new`) box the new object, then drop the creation reference: PHP's own reference is the only one left.
 
+GBytes → `g_bytes_ref/unref` (`GBytes::new` hands PHP the new reference); GParamSpec → `g_param_spec_ref_sink/unref`.
+
+Interfaces (`GAction`, `GListModel`, `GdkPaintable`, `GtkNative`, …) stand for native GTypes: `phpgtk_interface_native_only` makes declaring a PHP class that implements one a fatal error, unless it extends a bound class whose GType does. A plain PHP object has no native form to hand GTK.
+
 Wrappers are not constructible, not cloneable, not serializable; identity is `===`.
 
 [^runtime]: Boxing, handlers
