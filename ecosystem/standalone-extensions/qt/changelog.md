@@ -2,6 +2,25 @@
 
 What changed in this package, newest first.
 
+### 2026-10-18
+
+* Qt 1:1 (0.10.2): every method is one native call under Qt's name, parameters and defaults. Value classes `QPoint`, `QPointF`, `QSize`, `QRect`, `QDate`, `QKeySequence`, `QByteArray` replace arrays and strings; `QThread`, `QLayoutItem`, `QPointingDevice`, `QCalendarWidget`; window flags on the widget constructors; applications take `(int &$argc, array $argv, int $flags)`; `invokeMethod` takes the connection type; `QTextEdit\ExtraSelection` is the struct; `QImage` borrows its buffer with Qt's cleanup function; `QMenu::popup(QPoint)`, `addMenu(title)`, `QUrl::toString(options)`; abstract classes are abstract. `QSurfaceFormat::setDefaultFormat` and `QCoreApplication::setAttribute`/`testAttribute` with `Qt\ApplicationAttribute`: a GL widget composites only when its context shares with the window's, which on macOS means the same profile as Qt's default. [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface), [layout](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/layout-and-geometry), [object model](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/object-model)
+* Qt answers for itself: refusals stay only where a probe showed a crash, each with its `bindings.json` site and a test in `tests/Probes` (`--enable-qt-probes`); the main-thread and second-application checks are macOS-only. [errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/errors-and-threads), [build](/docs/{{version}}/ecosystem/standalone-extensions/qt/runbooks/build-install-test)
+* Signal arguments of the value types reach PHP in their classes; `QEventFilter` hands over every event as `(watched, event)`. [signals](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/signals)
+* `Qt::NoTitleBarBackgroundHint`'s check is guarded for Qt 6.9, so the extension builds on Qt 6.4–6.8 again.
+
+### 2026-10-16
+
+* `QSplitter`, `QSplitterHandle` and `QTabWidget` (compare-app split and tabs, C2). Shipped in tag v0.10.2 (`PHP_QT_VERSION` 0.10.2; there is no v0.10.1 tag). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+* The Debian/Ubuntu installer checks for Qt 6.4, the floor config.m4 builds against (Ubuntu 24.04 ships 6.4.2). Shipped in tag v0.10.2 (`PHP_QT_VERSION` 0.10.2; there is no v0.10.1 tag).
+
+### 2026-10-14
+
+* QColor, QBrush, QTextCharFormat, QTextCursor, QTextBlock, QTextEditExtraSelection values; QTextDocument; QScrollBar; QFontDatabase::systemFont; QPlainTextEdit cursor, extra selections, wrap mode, interaction flags and scroll bars (compare-app text panes, C1). Shipped in tag v0.10.2 (`PHP_QT_VERSION` 0.10.2; there is no v0.10.1 tag). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+* QTextCursor::movePosition and the QTextCursor\MoveOperation enum (C1 final review: a wrapped line's last row). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+* QPlainTextEdit::viewport, whose resizes re-wrap the text (C1 final review). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+* QEvent constructor for the types Qt sends as a plain QEvent, so a test can deliver window activation without the OS granting it (C1 final review). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+
 ### 2026-10-10
 
 * `QInputEvent::setTimestamp` (ms, not negative), so tests stamp events the way Qt stamps real ones. [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)

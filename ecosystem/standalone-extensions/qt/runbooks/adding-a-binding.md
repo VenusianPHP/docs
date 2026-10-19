@@ -9,7 +9,8 @@ Stub, gen_stub, one .cpp per header group, config.m4 source list, PHPQT_THIS, ow
 3. New class: `register_class_<Class>(parent ce)`, `phpqt_object_setup()`, `phpqt_map_class("<C++ class>", ce)` inside the group's `phpqt_register_<Group>()`. Declare ce + register fn in `src/runtime.h`, define the ce in `src/qt.cpp`, call register in MINIT after its parent; enums go in `phpqt_register_enums()`. New `.cpp` → `config.m4` source list.[^runtime][^module]
 4. Method body:
    * `PHPQT_THIS(Type, self)` first: the wrapped object, or `QtException` when Qt deleted it.
-   * `PHPQT_REQUIRE_MAIN_THREAD()` for application construction and `exec()`.
+   * The native call, under its name, with Qt's parameters and defaults; whatever Qt does passes through. A check before it only where a probe shows the call crashes, as a site ([errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/errors-and-threads)); `PHPQT_REQUIRE_MAIN_THREAD()` (macOS only) belongs on application, widget and `QWindow` constructors.
+   * Arguments through the marshal helpers: `phpqt_arg` / `phpqt_value_arg` for wrappers, `phpqt_long_fits` for an int narrower than PHP's, `phpqt_zval_to_variant` for a `QVariant`, `phpqt_string_list` / `phpqt_int_list` for lists.
    * Return objects through `phpqt_box` (identity map). Constructors: PHP owns what it created unless a parent takes it ([object model](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/object-model)).
    * Enums out via `phpqt_return_enum`; signals connect through the dynamic slot ([signals](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/signals)).
 5. Include path form: `<QtCore/QEvent>`, `<QtWidgets/QApplication>` (framework-style on the Mac, same on Linux).

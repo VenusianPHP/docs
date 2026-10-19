@@ -27,6 +27,16 @@ php examples/smoke.php     # SMOKE_OK
 rm -rf vendor composer.lock build.log
 ```
 
+Probe builds, for the tests in `tests/Probes` (they skip on a release build): copy the tree out of the repo, then `phpize && ./configure --enable-qt --enable-qt-probes && make`. Run Pest with the release `qt.so` left out of the ini scan and the probe one loaded; child processes load it through `PHPQT_PROBE_EXT`:
+
+```bash
+mkdir ini && cp $(php-config --ini-dir)/*.ini ini/ && rm ini/*qt*.ini
+echo "extension=$PWD/probe/modules/qt.so" > ini/30-qt-probe.ini
+PHP_INI_SCAN_DIR=$PWD/ini PHPQT_PROBE_EXT=$PWD/probe/modules/qt.so php -d memory_limit=128M vendor/bin/pest tests/Probes
+```
+
+Each probe test runs its code in a child twice: the site kept (the refusal), then `PHPQT_PROBE_OFF=<id>` (the crash, by signal). The main-thread cases need a ZTS PHP with ext-parallel; the libgmalloc cases and the macOS-only sites skip on Linux. Never ship a probe build.
+
 Smoke steps: QApplication up (macOS: Dock icon via `lsappinfo`; Linux: display server connected); pump; 50 ms single-shot QTimer budget; `wakeUp()`; `singleShot` functor; pipe-fd wake through QSocketNotifier; kqueue (macOS) / epoll (Linux) fd nested in Qt's dispatcher; `exec()` ended by `quit()`; disconnect; application destroyed.[^smoke]
 
 [^debian]: install-debian-trixie.sh
