@@ -14,7 +14,7 @@ Watches keyed by `(int) $stream` — PHP resource id, not kernel fd. Drivers res
 
 ### Dispatch
 
-Level-triggered on all three drivers: unread bytes report again next wait. One read per wakeup is enough for plain TCP. Not for TLS → [transport](/docs/{{version}}/ecosystem/other-packages/forte/architecture/transport).
+Level-triggered on all three drivers: unread bytes report again next wait. One read per wakeup is enough for plain TCP. Not for TLS → [transport](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/transport).
 
 `onReadable/onWritable` replace the callback for that stream; mask change synced to driver. Driver refusal (select over ceiling) → map change rolled back, `RuntimeException` → server refuses that socket, keeps serving.
 

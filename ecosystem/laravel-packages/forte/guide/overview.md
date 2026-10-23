@@ -19,11 +19,11 @@ Reverb's `src/Servers/Reverb/` (ReactPHP transport) is gone; `src/Servers/Forte/
 
 ReactPHP has no epoll/kqueue backend usable from userland, so Forte replaces the whole stack, not one package. `composer.json` carries no `react/*`, `clue/*`, `evenement/*`, `ratchet/pawl`, dev included. Forte supplies:
 
-* loop → [loop](/docs/{{version}}/ecosystem/other-packages/forte/architecture/loop)
-* TCP/TLS/HTTP server, WebSocket connection → [transport](/docs/{{version}}/ecosystem/other-packages/forte/architecture/transport)
-* promises → [promises](/docs/{{version}}/ecosystem/other-packages/forte/architecture/promises)
-* Redis client → [scaling](/docs/{{version}}/ecosystem/other-packages/forte/architecture/scaling)
-* test WebSocket + HTTP clients → [testing](/docs/{{version}}/ecosystem/other-packages/forte/runbooks/testing)
+* loop → [loop](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/loop)
+* TCP/TLS/HTTP server, WebSocket connection → [transport](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/transport)
+* promises → [promises](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/promises)
+* Redis client → [scaling](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/scaling)
+* test WebSocket + HTTP clients → [testing](/docs/{{version}}/ecosystem/laravel-packages/forte/runbooks/testing)
 
 Kept: `ratchet/rfc6455` (frame parser `MessageBuffer`, `ServerNegotiator`, `ResponseVerifier`; no loop), `guzzlehttp/psr7`, symfony routing/http-foundation (Reverb's router), `pusher/pusher-php-server`.
 

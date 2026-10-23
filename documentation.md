@@ -391,21 +391,29 @@
                 - [Engine](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-vulkan/guide/engine)
             - Runbooks
                 - [Testing](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-vulkan/runbooks/testing)
-    - Other Packages
+    - Laravel Packages
         - projectsaturnstudios/forte
-            - [Overview](/docs/{{version}}/ecosystem/other-packages/forte/overview)
-            - [Changelog](/docs/{{version}}/ecosystem/other-packages/forte/changelog)
+            - [Overview](/docs/{{version}}/ecosystem/laravel-packages/forte/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/laravel-packages/forte/changelog)
             - Guide
-                - [Overview](/docs/{{version}}/ecosystem/other-packages/forte/guide/overview)
+                - [Overview](/docs/{{version}}/ecosystem/laravel-packages/forte/guide/overview)
             - Architecture
-                - [Loop](/docs/{{version}}/ecosystem/other-packages/forte/architecture/loop)
-                - [Transport](/docs/{{version}}/ecosystem/other-packages/forte/architecture/transport)
-                - [Promises](/docs/{{version}}/ecosystem/other-packages/forte/architecture/promises)
-                - [Scaling](/docs/{{version}}/ecosystem/other-packages/forte/architecture/scaling)
+                - [Loop](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/loop)
+                - [Transport](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/transport)
+                - [Promises](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/promises)
+                - [Scaling](/docs/{{version}}/ecosystem/laravel-packages/forte/architecture/scaling)
             - Guides
-                - [Reverb compatibility](/docs/{{version}}/ecosystem/other-packages/forte/guides/reverb-compatibility)
+                - [Reverb compatibility](/docs/{{version}}/ecosystem/laravel-packages/forte/guides/reverb-compatibility)
             - Runbooks
-                - [Testing](/docs/{{version}}/ecosystem/other-packages/forte/runbooks/testing)
+                - [Testing](/docs/{{version}}/ecosystem/laravel-packages/forte/runbooks/testing)
+        - projectsaturnstudios/rocketship
+            - [Overview](/docs/{{version}}/ecosystem/laravel-packages/rocketship/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/laravel-packages/rocketship/changelog)
+            - Guide
+                - [Migrating from Octane](/docs/{{version}}/ecosystem/laravel-packages/rocketship/guide/migrating-from-octane)
+                - [The native server](/docs/{{version}}/ecosystem/laravel-packages/rocketship/guide/native-server)
+                - [Adding a server](/docs/{{version}}/ecosystem/laravel-packages/rocketship/guide/adding-a-server)
+    - Other Packages
         - projectsaturnstudios/venusian-stargazer
             - [Overview](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/overview)
             - [Changelog](/docs/{{version}}/ecosystem/other-packages/venusian-stargazer/changelog)
