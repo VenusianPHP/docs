@@ -1,6 +1,6 @@
 # Glue trampolines
 
-The native code beyond 1:1 calls: subclasses and callbacks PHP cannot write (ObjCDelegate, ObjCTarget, ObjCObserver, ObjCDrawView, ObjCOpenGLView, ObjCStageWindow, blocks, CF callbacks), value marshalling and the pointer hand-off. Each forwards and adds nothing.
+The native code beyond 1:1 calls: subclasses and callbacks PHP cannot write (ObjCDelegate, ObjCTarget, ObjCObserver, ObjCDrawView, ObjCOpenGLView, ObjCStageWindow, ObjCFocusView, ObjCKeyWindow, blocks, CF callbacks), value marshalling and the pointer hand-off. Each forwards and adds nothing.
 
 ## Overview
 
@@ -16,6 +16,8 @@ Rule: glue forwards the native arguments it receives to PHP and returns PHP's re
 | `ObjCDrawView::initWithFrameDraw` | `drawRect:` |
 | `ObjCOpenGLView::initWithFramePixelFormatDraw` | `drawRect:` |
 | `ObjCStageWindow` `on` / `off` | `canBecomeKeyWindow`, `canBecomeMainWindow` |
+| `ObjCFocusView` `on` / `off` | `acceptsFirstResponder` |
+| `ObjCKeyWindow` `on` / `off` | `keyDown:` with the event |
 | `NSEvent::addLocalMonitorForEventsMatchingMaskHandler` | handler block `^NSEvent *(NSEvent *)` |
 | `NSNotificationCenter::addObserverForNameObjectQueueUsingBlock` | block `^(NSNotification *)` |
 | `CFFileDescriptor::create` | `CFFileDescriptorCallBack` |
@@ -46,6 +48,14 @@ KVO observer. `observe(object, keyPath, options, context)` = `addObserver:forKey
 
 NSWindow subclass `PHPStageWindow`. `on('canBecomeKeyWindow' | 'canBecomeMainWindow', fn (): bool)` sets the handler that override asks; `off()` clears it. Without a handler, or when it did not run, the override answers `super`'s (NO for a borderless window). Other names are kept and never asked. Made through the inherited `initWithContentRectStyleMaskBackingDefer()`: `appkit_called_class` maps a glue class to its runtime class through the class map when no ObjC class carries the PHP name.
 
+## ObjCFocusView
+
+NSView subclass `PHPFocusView`. `on('acceptsFirstResponder', fn (): bool)` sets the handler the override asks; `off()` clears it. Without a handler, or when it did not run, the override answers `super`'s (NO). AppKit asks on a click and on a Tab along the key-view loop; `makeFirstResponder:` does not ask. Made through the inherited `initWithFrame()`.
+
+## ObjCKeyWindow
+
+NSWindow subclass `PHPKeyWindow`. `on('keyDown:', fn (NSEvent): bool)` sets the handler `keyDown:` calls with the event boxed; `off()` clears it. True = handled. False, or no handler run = `[super keyDown:]`, NSWindow's own handling (Tab and Shift-Tab walk the key-view loop). AppKit sends the window `keyDown:` only for a key no view in the responder chain took. Made through the inherited `initWithContentRectStyleMaskBackingDefer()`.
+
 ## ObjCDrawView
 
 NSView subclass `PHPDrawView`; `drawRect:` boxes `(view, dirty NSRect)` → PHP callout, inside the view's graphics context (`NSGraphicsContext::currentContext()->CGContext()`). Partial redraw: `setNeedsDisplayInRect:` per damaged rect, AppKit asks once per dirty region; with `NSViewLayerContentsRedrawPolicy::ON_SET_NEEDS_DISPLAY` the layer keeps the rest. Callout lifetime = view's (released in `dealloc`).
@@ -61,5 +71,5 @@ NSOpenGLView subclass `PHPOpenGLView`; `drawRect:` calls `$draw(view, dirty NSRe
 * `CFFileDescriptor` callout: `(CFFileDescriptor, int callBackTypes)`.
 * GameController discovery completion: no arguments.
 
-[^glue]: PHPAppKitDelegate, PHPAppKitTarget, PHPAppKitObserver, PHPStageWindow, PHPDrawView, PHPOpenGLView
+[^glue]: PHPAppKitDelegate, PHPAppKitTarget, PHPAppKitObserver, PHPStageWindow, PHPFocusView, PHPKeyWindow, PHPDrawView, PHPOpenGLView
 [^bindings]: glue
