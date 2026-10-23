@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-20
+
+* **listen**: `posix_listen` added, `listen(2)` 1:1, with `SOMAXCONN` registered if absent ([descriptors](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/descriptors-and-paths), [constants](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/constants)). SocketTest 16 passed + 1 skipped on php84, zhp and the Pi. Shipped in tag v0.10.6; `PHP_POSI_VERSION` and the composer.json `version` read 0.10.6, matching the tag.
+
 ### 2026-10-14
 
 * **Socket descriptors**: `posix_fileno`, `posix_dup`, `posix_socket_fdopen` added for sharing one listening socket across ext-parallel threads ([descriptors](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/descriptors-and-paths)). Suite 67 passed (66 + 1 skipped on php84, which has no ext-parallel). Shipped in tag v0.10.5; `PHP_POSI_VERSION` and the composer.json `version` read 0.10.6 at that tag.

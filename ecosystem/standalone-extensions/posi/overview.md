@@ -379,6 +379,23 @@ $connection = stream_socket_accept($listener);
 
 ---
 
+##### `posix_listen(int $fd, int $backlog): int`
+
+Marks a bound socket as accepting connections. Returns `0`, or `-1` (same semantics as C `listen(2)`). A non-socket fails with `ENOTSOCK`, a datagram socket with `EOPNOTSUPP`.
+
+* `$fd` — a bound `SOCK_STREAM` socket descriptor (TCP or Unix).
+* `$backlog` — the queue length for pending connections; `SOMAXCONN` asks for the system maximum.
+
+**Example**
+
+```php
+$server = stream_socket_server('unix:///tmp/app.sock', $errno, $error, STREAM_SERVER_BIND);
+posix_listen(posix_fileno($server), SOMAXCONN);
+$connection = stream_socket_accept($server);
+```
+
+---
+
 #### Descriptor control
 
 ##### `fcntl(int $fd, int $cmd, mixed $arg, mixed &$value): int`
