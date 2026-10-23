@@ -7,8 +7,8 @@ NSStackView, NSGridView and Auto Layout anchors/constraints as bound; what PHP m
 Three ways to place a view, all AppKit's own; PHP never computes geometry.
 
 * **Stack**: `NSStackView::stackViewWithViews([...])`, then orientation, spacing, edge insets, alignment, distribution. Arranged subviews are the stack's own list (`arrangedSubviews`), distinct from `subviews`.[^stack]
-* **Grid**: `NSGridView::gridViewWithNumberOfColumnsRows(c, r)`; rows added as arrays of views, `null` = empty cell (bound as `NSGridCell.emptyContentView`; reads back as `null`). Merged cells block `removeRowAtIndex` for their rows (AppKit raises → `AppKitException`).[^grid]
-* **Constraints**: anchors from `NSView` (`leadingAnchor()` …); `constraintEqualToConstant`/`GreaterThanOrEqual` only on dimension anchors (width/height), `AppKitException` otherwise. Activate with `NSLayoutConstraint::activateConstraints([...])`.[^layout]
+* **Grid**: `NSGridView::gridViewWithNumberOfColumnsRows(c, r)`; rows added as arrays of views; an empty cell takes `NSGridCell::emptyContentView()` (a `null` element is a TypeError; AppKit reads the cell's `contentView` back as `null`). Merged cells block `removeRowAtIndex` for their rows (AppKit raises → `AppKitException`).[^grid]
+* **Constraints**: anchors from `NSView` as AppKit's subclasses: `widthAnchor()`/`heightAnchor()` → `NSLayoutDimension`, leading/trailing/centerX → `NSLayoutXAxisAnchor`, top/bottom/centerY → `NSLayoutYAxisAnchor`. The `…ToConstant` constraints are `NSLayoutDimension` methods only. Activate with `NSLayoutConstraint::activateConstraints([...])`.[^layout]
 
 Constructors build the class they are called on: `NSStackView::initWithFrame()` is an `NSStackView`, `NSGridView::gridViewWithNumberOfColumnsRows()` called on a subclass makes that subclass.
 

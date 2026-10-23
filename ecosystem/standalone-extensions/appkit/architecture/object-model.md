@@ -13,7 +13,7 @@ Class choice when boxing:
 * ObjC: walk `object_getClass()` → superclasses; first name registered with `appkit_map_objc_class()` wins; fallback `NSObject`.
 * CF: `CFGetTypeID()` against the bound types; fallback `CFType`.
 
-Wrappers are not constructible (private `__construct`), not cloneable (`clone_obj = NULL`), not serializable, and `==` between two different wrappers is uncomparable (identity is `===`).
+Wrappers are not constructible (private `__construct`; the glue classes `ObjCDelegate`, `ObjCTarget`, `ObjCObserver` have their own, callable once), not cloneable (`clone_obj = NULL`), not serializable, and `==` between two different wrappers is uncomparable (identity is `===`).
 
 Autorelease: every binding body runs in `@autoreleasepool` (`APPKIT_BEGIN/END`). Returned objects are boxed (retained) before the pool drains.
 
