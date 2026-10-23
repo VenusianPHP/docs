@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-16
+
+* Split and tabs: `TKSplitView` (`split(name, horizontal)`, panes, divider positions as fractions of visible panes) and `TKTabView` (`tabs(name)`, pages as columns, titles, selection); `SplitMoved` and `TabSelected` view mail. Released in v0.10.2. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [view mail](/docs/{{version}}/surface/api/view-mail)
+
 ### 2026-10-15
 
 * Text panes: `TKTextArea` read-only, wrap, line backgrounds, range styles, line selection, scroll position and `ViewScrolled`; `FontSpec` monospace; `TextRangeStyle` and `ScrollPosition`. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [styling](/docs/{{version}}/surface/api/styling), [view mail](/docs/{{version}}/surface/api/view-mail)
