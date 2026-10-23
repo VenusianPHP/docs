@@ -2,6 +2,18 @@
 
 What changed in this package, newest first.
 
+### 2026-10-17
+
+* 1:1 with GTK, 0.10.2. GTK's own answers pass through; refusals are only the probe-backed crash guards, each a `bindings.json` site with a `tests/Probes` test; `--enable-gtk-probes` builds the switch. [errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/errors-and-threads), [build](/docs/{{version}}/ecosystem/standalone-extensions/gtk/runbooks/build-install-test)
+* Native shapes: out-parameters by reference with the gboolean returned (`computePoint`, `computeBounds`, `getPosition`, `getSurfaceTransform`, `getSelectionBounds`, `getIterAtLine*`, `getLineYrange`, `getPointingTo`); GObject interfaces (`GAction`, `GActionMap`, `GActionGroup`, `GListModel`, `GtkSelectionModel`, `GdkPaintable`, `GtkStyleProvider`, `GtkNative`, `GtkRoot`), native-only; graphene and `GdkRectangle` structs; `GBytes`; `getText` over iters; native NULL as null. [surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface), [object model](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/object-model)
+* Removed: `gtk_media_backend_available()` (`GtkMediaFile::new()->typeName()`), `GtkWidget::getSurface` (on `GtkNative`). [video](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/video-and-the-media-backend), [layout](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/layout-and-styling)
+* Glue forwards only: one PHP → GValue converter for handler returns, emit and set_property; GtkTextIter, GBytes and GParamSpec signal arguments as objects; a callback dispatched off its owner thread is dropped; `GtkUriLauncher::launch` takes a null callback. [callouts](/docs/{{version}}/ecosystem/standalone-extensions/gtk/architecture/callouts)
+
+### 2026-10-16
+
+* `GtkPaned` and `GtkNotebook` (compare-app split and tabs, C2). 0.10.2. [surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface)
+* Builds against a PHP whose ext/sockets is shared (Debian and Ubuntu packages leave HAVE_SOCKETS out of php_config.h). 0.10.2.
+
 ### 2026-10-14
 
 * GtkTextIter (a copied boxed kind), GtkTextMark, GtkTextTag, GtkTextTagTable, GtkAdjustment; buffer tags, iters, selection and insert mark; text view monospace, cursor visibility and line y-range; scrolled-window adjustments; g_object_set_property (compare-app text panes, C1). Shipped in tag v0.10.1 (`PHP_GTK_VERSION` 0.10.1). [surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface)

@@ -27,6 +27,15 @@ rm -rf vendor composer.lock build.log
 
 Smoke steps: register (startup initialises GTK) + hold + activate; Dock icon (macOS, `lsappinfo`) or app id owned on the session bus (Linux); pump; 50 ms budget; `wakeup()`; idle; pipe-fd wake; kqueue (macOS) / epoll (Linux) fd nested in GLib's poll; `run()` ended by `quit()`; release.[^smoke]
 
+Probe build (shows each kept refusal's crash; never installed for use). In a scratch copy, not the tree:
+
+```bash
+phpize && ./configure --enable-gtk --enable-gtk-probes && make
+PHPGTK_PROBE_EXT=$PWD/modules/gtk.so php -d extension=$PWD/modules/gtk.so vendor/bin/pest tests/Probes
+```
+
+The parent PHP must load the probe build itself (`PHPGTK_PROBES` defined), so its conf.d must not also load the installed `gtk.so`: point `PHP_INI_SCAN_DIR` at a copy of conf.d without `30-gtk.ini`. Each probe runs a child process twice, the site kept and `PHPGTK_PROBE_OFF=<id>`, and asserts the refusal, then the signal. libgmalloc probes (stale iters, regions, GBytes) run on macOS only. `VersionGateTest` needs `PHPGTK_OLD_GTK_HOST` / `PHPGTK_OLD_GTK_EXT` (a host with an older GTK runtime). On a release build every probe test skips.
+
 [^debian]: install-debian-trixie.sh
 [^mac]: install-macos.sh
 [^smoke]: examples/smoke.php
