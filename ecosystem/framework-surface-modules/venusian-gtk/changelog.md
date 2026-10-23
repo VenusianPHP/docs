@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-18
+
+* v0.10.4: composes on ext-gtk ^0.10.2's 1:1 bindings instead of the conveniences the extension used to provide (text buffer reads and iters, `register(null)`). The session throws `BridgeException` when GTK makes no application for `app.id` (GLib takes only a valid reverse-DNS id). Requires ext-gtk ^0.10.2.
+
 ### 2026-10-15
 
 * `GTKTextArea`: read-only, wrap, monospace (CSS), tag line backgrounds and range colours, line selection, adjustment scroll position and `ViewScrolled`. Layout-changing hooks hold `ViewScrolled` (and any scroll asked for meanwhile) until adjustments settle or 500 ms pass; a user scroll inside the settle posts once at its end. Requires ext-gtk ^0.10.1 and Surface ^0.10.1. [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/primitives)
