@@ -13,7 +13,7 @@
 [![Laravel](https://img.shields.io/badge/Laravel-11%20%7C%2012%20%7C%2013-ff2d20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/docs/reverb)
 [![License](https://img.shields.io/github/license/projectsaturnstudios/forte?style=flat-square)](https://github.com/projectsaturnstudios/forte/tree/HEAD/LICENSE)
 [![Loop](https://img.shields.io/badge/loop-epoll%20%7C%20kqueue%20%7C%20select-blue?style=flat-square)](#installation)
-[![OKF](https://img.shields.io/badge/OKF-0.2-6f42c1?style=flat-square&label=knowledge%20bundle)](/docs/{{version}}/ecosystem/other-packages/forte/overview)
+[![OKF](https://img.shields.io/badge/OKF-0.2-6f42c1?style=flat-square&label=knowledge%20bundle)](/docs/{{version}}/ecosystem/laravel-packages/forte/overview)
 
 </div>
 
@@ -127,7 +127,7 @@ This codebase was built with LLM assistance under human direction. Prompts, revi
 
 This repository carries an [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle at [`.okf/`](https://github.com/projectsaturnstudios/forte/tree/HEAD/.okf): Markdown with YAML frontmatter, readable by you and loadable by a coding agent. It records what the README doesn't: which parts of the tree are Reverb's and which are Forte's, how the loop picks and drives epoll, kqueue or `stream_select()`, how a connection moves from TCP accept through TLS and the WebSocket handshake, what scaling sends over Redis, how a Reverb app's `.env` and config keep working, and a log of every change that altered behaviour.
 
-Start at [`.okf/index.md`](/docs/{{version}}/ecosystem/other-packages/forte/overview). [`AGENTS.md`](https://github.com/projectsaturnstudios/forte/blob/HEAD/AGENTS.md) is the short rule sheet an agent reads before touching the transport, the forked Reverb code, or the config; each rule points into the bundle for the reason behind it.
+Start at [`.okf/index.md`](/docs/{{version}}/ecosystem/laravel-packages/forte/overview). [`AGENTS.md`](https://github.com/projectsaturnstudios/forte/blob/HEAD/AGENTS.md) is the short rule sheet an agent reads before touching the transport, the forked Reverb code, or the config; each rule points into the bundle for the reason behind it.
 
 Point your agent at the repo and it has the same context the maintainer has. Point yourself at it when the README's answer is "it does X" and you want "because".
 
