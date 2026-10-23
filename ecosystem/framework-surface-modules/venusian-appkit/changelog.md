@@ -2,6 +2,22 @@
 
 What changed in this package, newest first.
 
+### 2026-10-23
+
+* v0.10.5 tracks Surface v0.10.5. Requires ext-appkit ^0.10.5 and Surface contracts and windows ^0.10.5. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview)
+* `AppkitTree`: TKTree over an `NSOutlineView`, one cached `NSString` item per node id, label cells in the node's colours; `NodeSelected`, `NodeExpanded` and `NodeActivated` (double click, Return / Enter) post only for user actions. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview#trees)
+* Canvas pointer and wheel: `AppkitCanvasPointer` posts `CanvasPressed`, `CanvasDragged`, `CanvasReleased` and `CanvasWheeled` for a canvas that watches the pointer, one press owned at a time; a wheel over it is withheld from dispatch. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus#canvas-pointer)
+* Menu enabled state and accelerators: `setItemEnabled()` / `isItemEnabled()` on bars, windows and the default bar; `'keys'` accelerators become key equivalents and modifier masks. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus#menu-bar)
+* Child windows are sheets on their parent; `confirmClose()` posts `WindowCloseRequested` from `windowShouldClose:`; button roles (`AppkitButtonKeys`: Return / Enter to the default button, Esc to the cancel button); the default bar is blocked while a child is key. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus#window)
+* Focus and window keys: `focus()` / `hasFocus()` on every primitive, `focused()` / `setInitialFocus()` on the window, `FocusLost` / `FocusGained` for the user's moves (`AppkitFocus`), focusable canvases, `WindowKeyPressed` from the window's `keyDown:` (`AppkitWindowKeys`). A text input posts `TextSubmitted` only for Return and keypad Enter. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus#focus-and-window-keys)
+* Dialogs, clipboard and desktop: `AppkitDialogs` (alerts and open / save panels as sheets), `AppkitClipboard` (`NSPasteboard`), `AppkitDesktop` (`NSWorkspace`). [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus#dialogs)
+* Removed primitives are freed: the glue objects reach their primitive through a `WeakReference`.
+
+### 2026-10-18
+
+* v0.10.4: composes on ext-appkit ^0.10.2's 1:1 bindings (layer setters through `layer()`, `ObjCStageWindow` key / main answers from `focusable`, the GL view's draw handler making its context current and flushing it, CG and I/O Kit return codes as `WindowException`). Requires ext-appkit ^0.10.2. [staged windows](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/staged-windows)
+* `AppkitSplitView` (`NSSplitView`, equal first layout, positions as fractions, `SplitMoved` at the end of a divider drag) and `AppkitTabView` (`NSTabView`, `TabSelected` for user switches). [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview#split-and-tab-views)
+
 ### 2026-10-15
 
 * `AppkitTextArea`: read-only, wrap, monospace, text-block line backgrounds, range colours, line selection over UTF-16, clip-view scroll position and `ViewScrolled`. Requires ext-appkit ^0.10.1 and Surface ^0.10.1. [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/primitives)

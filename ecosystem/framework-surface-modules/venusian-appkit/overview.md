@@ -5,8 +5,8 @@ AppKit toolkit driver for the Venusian Surface bridge.
 ## Requirements
 
 - macOS (AppKit through ext-appkit).
-- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-appkit ^0.10.1.
-- `venusian-surface/bridge`, `venusian-surface/contracts`, `venusian-surface/human-input` and `venusian-surface/windows` ^0.10.1, `venusian-voyager/nuts-and-bolts` ^0.10.1.
+- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-appkit ^0.10.5.
+- `venusian-surface/contracts` and `venusian-surface/windows` ^0.10.5, `venusian-surface/bridge` and `venusian-surface/human-input` ^0.10.1, `venusian-voyager/nuts-and-bolts` ^0.10.1.
 
 ## Install
 
@@ -14,7 +14,7 @@ AppKit toolkit driver for the Venusian Surface bridge.
 composer require jovian/venusian-appkit
 ```
 
-The latest tag is v0.10.3. `venusian-surface/windows` is not published on Packagist yet, so until it is, add a path or VCS repository for it (from the Surface checkout) before requiring this package.
+The latest tag is v0.10.5.
 
 The provider (`VenusianAppkitServiceProvider`) is discovered through `extra.venusian.providers`.
 
@@ -103,9 +103,89 @@ foreach (HumanInput::gameControllers() as $pad) {        // 'gc-<hash>': a DualS
 
 A profile's edit roles become AppKit's own Edit items: `undo:`, `redo:`, `cut:`, `copy:`, `paste:` and `selectAll:` with no target, on Cmd-Z, Shift-Cmd-Z, Cmd-X, Cmd-C, Cmd-V and Cmd-A. AppKit sends them to the focused text field, text view or table, and greys them out when nothing focused takes them; a custom item in the same folder stays enabled. macOS routes Cmd-C and the rest to a text field only through the menu bar, so a window whose profile has no Edit folder gets none of them.
 
-## Links
+## Menu state and accelerators
 
+`$window->setItemEnabled('view.refresh', false)` disables a node of the window's bar; `isItemEnabled()` reads its own state back. The driver's `setItemEnabled()` does the same for the default bar, and a default bar built later starts from it. A folder that is disabled disables every node below it; when it is enabled again, each node below it returns to its own state. A node that is not enabled shows as disabled, posts nothing, and its key equivalent does nothing. The calls post nothing. `'enabled' => false` in a profile or a context menu makes a node start disabled.
+
+In a folder with edit roles, the menu keeps autoenable on so the roles follow the first responder, and AppKit ignores `setEnabled` there: an item is disabled by a null action, a folder by its own `NSMenuItem` as target with an action that the item does not implement (`venusianDisabledFolder:`). An enabled folder there has a target that does nothing.
+
+`'keys' => 'Primary+Shift+F5'` becomes a key equivalent and a modifier mask (`AppkitMenuBar::keyEquivalent()`, `modifierMask()`): letters lower case with Shift in the mask, function keys as AppKit's function-key characters, Backspace as `NSBackspaceCharacter` (the Delete key chooses it), Escape as `"\e"`. AppKit sends a key to the menu before the focused view, so an accelerator gets its key first.
+
+## Child windows, close confirmation, button roles
+
+`driver()->open('goto', 300, 120, null, $main)` opens a child: a sheet on `$main`, which takes no input until the sheet closes. `$main->close()` closes the child first. While a child is key, the menu bar shows the default bar with every item but the edit roles disabled.
+
+`$window->confirmClose()` keeps the window open on its close button and posts `WindowCloseRequested`; `close()` still closes it.
+
+`$button->setRole(ButtonRole::DEFAULT)` makes Return and keypad Enter click the button, wherever the focus is, except in a text area; `ButtonRole::CANCEL` does the same for Esc. The default button draws as the default button. Esc in a child with no cancel button closes it (or posts `WindowCloseRequested` while it confirms close).
+
+## Focus and window keys
+
+`$input->focus()` makes the input first responder (`makeFirstResponder:`) and posts nothing; `hasFocus()` and `$window->focused()` read it back. A text area, table or tree focuses its inner view. A view that takes no first responder (a label, a default canvas) throws `WindowException`. `$window->setInitialFocus($input)` focuses it on each `present()`, which posts no focus mail either (AppKit's own first key view included). Code that hides or disables the focused view posts nothing. The user's moves, by click or Tab, post `FocusLost` then `FocusGained`, compared after each event the session dispatches.
+
+A canvas takes no focus until `$canvas->setFocusable()`; then a click on it takes focus (on a lent OpenGL view too), and Tab moves on. `setFocusable(true, takesTab: true)` keeps Tab and Shift-Tab on it (an editor pane). Tab and Shift-Tab walk the views in their on-screen order.
+
+A key that nothing took (a menu accelerator, the default and cancel buttons, the focused view) reaches the window's `keyDown:` and posts `WindowKeyPressed` with the physical key, the layout's text (`''` for a function key), the modifiers and the repeat flag. A focused text input takes every key it is sent, function keys included (F5 is its completion), so none reaches the window from one; use a menu accelerator for a command.
+
+```php
+$window->setInitialFocus($window->view('m.path'));
+$window->present();
+// loop($mail): WindowKeyPressed('main', Key::F5, '', new Modifiers(), false) when F5 is pressed outside a text input
+```
+
+## Dialogs, clipboard, desktop
+
+```php
+$id = driver()->dialogs()->alert($main, new Alert('Save changes?', 'Two files', ['Save', 'Discard', 'Cancel']));
+// loop($mail): AlertAnswered($id, 0 | 1 | 2) on dialog.alert.<id>; -1 when $main closed first
+$id = driver()->dialogs()->openFiles($main, new OpenRequest('Compare', getcwd(), multiple: true));
+$id = driver()->dialogs()->saveFile($main, new SaveRequest(name: 'report.txt'));
+// loop($mail): FilesChosen($id, [absolute paths]) on dialog.files.<id>; [] when cancelled or $main closed first
+driver()->clipboard()->setText('/path/to/file');
+driver()->desktop()->open('/path/to/file'); // its default app; InvalidArgumentException when nothing is there
+```
+
+Alerts and panels are sheets on their parent (`NSAlert`, `NSOpenPanel`, `NSSavePanel`). Return answers the default button, Esc the cancel button, keypad Enter as Return. A parent holds one sheet: a second dialog or a child throws `WindowException` while one is open, and the close button does nothing. `$main->close()` answers the open dialog first.
+
+## Links
 `link(name, text, url)` is a selectable label whose attributed text carries `NSLinkAttributeName` (an NSURL, or the URL string when NSURL cannot parse it) and the font: AppKit draws it as a link and opens it through NSWorkspace when it is clicked, in the browser for http and https, and nothing posts. A disabled link is a disabled control.
+
+## Split and tab views
+
+`split(name, horizontal)` is an NSSplitView with thin dividers whose arranged subviews are the panes; a hidden pane collapses, and `positions()` / `setPositions()` are the dividers between visible panes as fractions of the split's length. Its first layout shares the length equally unless positions were set before it. A user's divider drag posts `view.split-moved.<window>.<path>` (`SplitMoved`) once it ends, if a divider moved: NSSplitView tracks the drag in a nested loop, so a local event monitor takes the mouse-down on a divider and dispatches it itself, and the drag ends when that dispatch returns. Window resizes and `setPositions()` post nothing.
+
+`tabs(name)` is an NSTabView with one item per `addPage()`, identified by the page's name, the page's column pinned inside the item's view. A user's tab switch posts `view.tab-selected.<window>.<path>` (`TabSelected`); `select()`, adding the first page and removing the selected one post nothing.
+
+```php
+$split = $window->column('main')->split('panes')->fill();
+$split->column('left')->textArea('a', $left)->fill();
+$split->column('right')->textArea('b', $right)->fill();
+$split->setPositions([0.5]);
+
+$tabs = $window->column('main')->tabs('sessions')->fill();
+$tabs->addPage('one', 'left.txt ↔ right.txt')->label('hint', 'Drop files here');
+```
+
+## Trees
+
+`tree(name, columns, nodes)` is an NSOutlineView in an NSScrollView. It has one NSTableColumn per `TableColumn`, and the first is the outline column. A data source answers from the nodes. Its items are one NSString per node id, kept by the driver because AppKit does not retain them, and kept for an id across `setNodes()` because AppKit keys expansion and selection by the item. Each cell is a label with the node's text, in the node's colour for that column. These post mail, but only for the user's actions:
+
+- a user's selection: `view.node-selected.<window>.<path>` (`NodeSelected`), and only when the selected node changed;
+- a user's expand or collapse: `view.node-expanded.<window>.<path>` (`NodeExpanded`);
+- a double click, or Return or Enter while the outline is first responder: `view.node-activated.<window>.<path>` (`NodeActivated`). A local key-down monitor takes Return and Enter before AppKit does.
+
+`expand()`, `selectNode()` and `setNodes()` post nothing. AppKit closes a node's expanded descendants with it and reopens them when it opens again; those post nothing. A descendant that code collapsed while it was hidden stays collapsed.
+
+```php
+use Surface\Contracts\Windows\Primitives\TableColumn;
+use Surface\Contracts\Windows\Primitives\TreeNode;
+use Surface\NutsAndBolts\Color;
+
+$tree = $window->column('main')->tree('files', [new TableColumn('name', 'Name'), new TableColumn('size', 'Size')], [
+    new TreeNode('src', ['name' => 'src'], [new TreeNode('src/a.php', ['name' => 'a.php', 'size' => '2 KB'], colors: ['name' => Color::rgb(200, 0, 0)])]),
+])->fill();
+$tree->expand('src')->selectNode('src/a.php');
+```
 
 ## Right-click mail
 
@@ -118,3 +198,18 @@ foreach ($mail as $m) {
     }
 }
 ```
+
+## Canvas pointer mail
+
+A canvas that watches the pointer posts what the user does on it, in points from its top-left:
+
+```php
+$board = $window->column('m')->canvas('board')->fill()->watchPointer();
+```
+
+* `view.pressed.<window>.<path>` (`x`, `y`, `button`, `clicks`, `modifiers`) when a button goes down on it. That canvas then owns the press: another button posts nothing until it ends, and `clicks` is AppKit's click count, so a triple click is 3.
+* `view.dragged.<window>.<path>` for each move that changed the point while the button is held, outside the canvas and the window too (the coordinates go negative or past its size).
+* `view.released.<window>.<path>` exactly once per press: at the button's release, or at the press's last point when a context menu opens for it. A press the code ends — `watchPointer(false)`, disabling the canvas or a group above it, removing it, closing the window — posts nothing, as no mail comes from code.
+* `view.wheeled.<window>.<path>` (`dx`, `dy`, `precise`, `modifiers`) for the wheel over it, which the canvas keeps: a scroll view around it does not scroll. `precise` is true for trackpad points, false for notches (one notch is 1.0). While it is not watching, the wheel scrolls that view as before and nothing posts.
+
+`view.clicked` and the right-click rules post as they do otherwise, watching or not.
