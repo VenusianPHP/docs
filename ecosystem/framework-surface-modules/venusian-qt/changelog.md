@@ -2,6 +2,18 @@
 
 What changed in this package, newest first.
 
+### 2026-10-23
+
+* v0.10.5 tracks Surface v0.10.5. Requires ext-qt ^0.10.5, Surface contracts and windows ^0.10.5, and now `venusian-surface/human-input` ^0.10.1 (the keymaps for window keys). [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/overview)
+* `QtSplitView` (`QSplitter`, equal first layout, positions as fractions, `SplitMoved` at the release of a handle drag) and `QtTabView` (`QTabWidget`, `TabSelected` for user switches). [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/primitives#containers)
+* `QtTree`: TKTree over a read-only `QTreeWidget`, one item per node; `NodeSelected`, `NodeExpanded` and `NodeActivated` (double click, Return / Enter on every platform) post only for user actions. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/overview#trees)
+* Canvas pointer and wheel: `QtCanvasPointer` posts `CanvasPressed`, `CanvasDragged`, `CanvasReleased` and `CanvasWheeled` for a canvas that watches the pointer, one press owned at a time. Clicks and right clicks now work on a canvas lent to Metal or Vulkan. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus#canvas-pointer)
+* Menu enabled state and accelerators: `setItemEnabled()` / `isItemEnabled()` on bars, windows and the default bar; `'keys'` accelerators through `QtMenuBar::shortcut()`; `QtMenuKeys` lets a shortcut take its key before a focused text widget. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus#menu-bar)
+* Child windows are window-modal (a sheet on macOS, a dialog elsewhere); `confirmClose()` posts `WindowCloseRequested`; button roles (`QtButtonKeys`); an empty parentless bar on macOS when no default profile is set. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus#window)
+* Focus and window keys: `focus()` / `hasFocus()` on every primitive, `focused()` / `setInitialFocus()` on the window, `FocusLost` / `FocusGained` from `FocusIn` (`QtFocus`), focusable canvases, `WindowKeyPressed` for keys that reach the window (`QtWindowKeys`). [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus#window)
+* Dialogs, clipboard and desktop: `QtDialogs` (`QMessageBox`, `QFileDialog`, window-modal), `QtClipboard`, `QtDesktop` (`QDesktopServices`). [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus#dialogs)
+* Removed primitives are freed: `QtVideo`'s player slots reach it through a `WeakReference`.
+
 ### 2026-10-18
 
 * v0.10.4: composes on ext-qt ^0.10.2's 1:1 bindings: sizes, points and rects are `QSize`/`QPoint`/`QPointF`/`QRect`, the datepicker posts and takes `QDate`, menu shortcuts are `QKeySequence` text, canvas pixels go through a `QByteArray` (a NUL byte no longer cuts them short), and the application is built with `argc` and `argv`. Requires ext-qt ^0.10.2. [session](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/session)
