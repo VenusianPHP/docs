@@ -2,6 +2,18 @@
 
 What changed in this package, newest first.
 
+### 2026-10-23
+
+* v0.10.5 tracks Surface v0.10.5. Requires ext-gtk ^0.10.5 and Surface contracts and windows ^0.10.5. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/overview)
+* `GTKSplitView` (a `GtkBox` over one `GtkPaned` slot per pane, equal first layout, positions as fractions, `SplitMoved` at the release of a handle drag) and `GTKTabView` (`GtkNotebook`, `TabSelected` for user switches). [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/primitives#containers)
+* `GTKTree`: TKTree over a `GtkColumnView` on a `GtkTreeListModel`, a `GtkTreeExpander` in the first column, cell colours from one CSS provider per tree; `NodeSelected`, `NodeExpanded` and `NodeActivated` post only for user actions. [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/primitives#leaves)
+* Canvas pointer and wheel: `GTKCanvasPointer` posts `CanvasPressed`, `CanvasDragged` and `CanvasReleased` (one press owned at a time, clicks from GTK's double-click settings); `GTKCanvas::wheeled()` posts `CanvasWheeled` and keeps the wheel from an enclosing scroll view. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus#canvas-pointer)
+* Menu enabled state and accelerators: `setItemEnabled()` / `isItemEnabled()` on bars, windows and the default bar; `'keys'` accelerators through `GTKMenuBar::accelerator()` with GDK key names. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus#menu-bar)
+* Child windows are transient and modal to their parent; `confirmClose()` posts `WindowCloseRequested` from close-request; button roles (`GTKButtonKeys`); on macOS the default bar is blocked while a child is active. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus#window)
+* Focus and window keys: `focus()` / `hasFocus()` on every primitive, `focused()` / `setInitialFocus()` on the window, `FocusLost` / `FocusGained` from `notify::focus-widget` (`GTKFocus`), focusable canvases, `WindowKeyPressed` from a bubble-phase key controller (`GTKWindowKeys`). [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus#window)
+* Dialogs, clipboard and desktop: `GTKDialogs` (`GtkAlertDialog`, `GtkFileDialog`), `GTKClipboard`, `GTKDesktop` (`GtkFileLauncher`). [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus#dialogs)
+* Removed primitives are freed: the Mac text keys controller reaches its primitive through a `WeakReference`.
+
 ### 2026-10-18
 
 * v0.10.4: composes on ext-gtk ^0.10.2's 1:1 bindings instead of the conveniences the extension used to provide (text buffer reads and iters, `register(null)`). The session throws `BridgeException` when GTK makes no application for `app.id` (GLib takes only a valid reverse-DNS id). Requires ext-gtk ^0.10.2.
