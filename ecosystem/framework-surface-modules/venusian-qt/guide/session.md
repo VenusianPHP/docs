@@ -8,7 +8,7 @@ QApplication session - construct once, stay up with no windows, budgeted dispatc
 
 | Hook | Qt calls |
 |---|---|
-| initialize (once) | `new QApplication([argv0])`, `setApplicationName`, `setDesktopFileName`; single-shot `PRECISE_TIMER` for budgets |
+| initialize (once) | where a GL context can be lent, `QSurfaceFormat::setDefaultFormat()` with the canvas's GL format and `SHARE_OPEN_GL_CONTEXTS` (platform read the way `QGuiApplication` picks it, since `platformName()` is empty until the application exists); `new QApplication(argc, [argv0])`, `setApplicationName`, `setDesktopFileName`; single-shot `PRECISE_TIMER` for budgets |
 | connect | `setQuitOnLastWindowClosed(false)` |
 | disconnect | `setQuitOnLastWindowClosed(true)` (Qt default) |
 | `pump($ns)` | budget > 0: start the timer (ceil ms) + one `processEvents(WAIT_FOR_MORE_EVENTS)` on the dispatcher, stop the timer; then up to `DRAIN_LIMIT` (64) `processEvents(ALL_EVENTS)` while they dispatch; then `sendPostedEvents(null, DEFERRED_DELETE)`; on macOS, then `QtCanvas::sweepSdlWindows()` |

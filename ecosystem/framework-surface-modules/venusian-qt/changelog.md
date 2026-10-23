@@ -2,6 +2,15 @@
 
 What changed in this package, newest first.
 
+### 2026-10-18
+
+* v0.10.4: composes on ext-qt ^0.10.2's 1:1 bindings: sizes, points and rects are `QSize`/`QPoint`/`QPointF`/`QRect`, the datepicker posts and takes `QDate`, menu shortcuts are `QKeySequence` text, canvas pixels go through a `QByteArray` (a NUL byte no longer cuts them short), and the application is built with `argc` and `argv`. Requires ext-qt ^0.10.2. [session](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/session)
+* Lent GL views reach the screen: the session makes the canvas's GL format Qt's default and shares contexts before the application exists, so the window's compositor shares with the GL view (before, macOS showed the wrong image and Linux black). [session](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/guide/session)
+
+### 2026-10-14
+
+* QtTextArea: read-only, wrap, monospace (system fixed font), extra-selection line backgrounds and range colours, line selection over UTF-16, scroll-bar scroll position and `ViewScrolled` (text panes).
+
 ### 2026-10-10
 
 * QtLink: TKLink over a rich-text QLabel that opens its link (toolkit links).
