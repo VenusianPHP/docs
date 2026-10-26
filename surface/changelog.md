@@ -2,6 +2,31 @@
 
 What changed in this package, newest first.
 
+### 2026-10-23
+
+* `TKPrimitive::focus()` refuses a primitive under a hidden container ("not shown") and one disabled itself or through a container ("cannot take focus"), without asking the native: a toolkit would focus a widget the user cannot see or use. Released in v0.10.5. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives)
+
+### 2026-10-22
+
+* Focus and window keys (compare-app toolkit C9), Surface layer: `TKPrimitive::focus()` / `hasFocus()`, `TKCanvas::setFocusable($on, $takesTab)` / `isFocusable()` / `takesTab()`, `ToolkitWindow::focused()` / `setInitialFocus()`; `FocusGained`, `FocusLost`, `WindowKeyPressed`; the key precedence. Released in v0.10.5. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [windows](/docs/{{version}}/surface/architecture/windows), [view mail](/docs/{{version}}/surface/api/view-mail), [mail](/docs/{{version}}/surface/api/window-mail)
+
+### 2026-10-21
+
+* Dialogs, clipboard and desktop (compare-app toolkit C7), Surface layer: `Dialogs`, `Clipboard`, `Desktop`, `Alert`, `OpenRequest`, `SaveRequest`; `AlertAnswered`, `FilesChosen`; `ToolkitDialogs` (request ids, one modal per parent, parent-close answers); `dialogs()` / `clipboard()` / `desktop()` on drivers and `ToolkitWindowManager`. Released in v0.10.5. [windows](/docs/{{version}}/surface/architecture/windows), [mail](/docs/{{version}}/surface/api/window-mail)
+
+### 2026-10-20
+
+* Modal children, close veto and button roles (compare-app toolkit C6), Surface layer: `ToolkitWindowDriver::open()` and `ToolkitWindowManager::open()` take a parent; `ToolkitWindow::parent()`, `confirmClose()`, `isConfirmingClose()`; `ChildWindows` (parent rules, `childOf`); `ButtonRole`, `TKButton::setRole()` / `role()` / `holder()`. Released in v0.10.5. [windows](/docs/{{version}}/surface/architecture/windows)
+* Menu enabled state and accelerators (compare-app toolkit C5), Surface layer: `Accelerator`, `MenuStates`, node keys `keys` and `enabled`, `hotkey` limited to accelerator characters, id and accelerator collisions refused, `setItemEnabled()` / `isItemEnabled()` on windows, drivers and `ToolkitWindowManager`. Released in v0.10.5. [menu profiles](/docs/{{version}}/surface/api/menu-profiles)
+
+### 2026-10-19
+
+* Canvas pointer (compare-app toolkit C4), Surface layer: `TKCanvas::watchPointer()` / `isWatchingPointer()` (abstract flag, nothing written to the native, `WindowException` once removed); `CanvasPressed`, `CanvasDragged`, `CanvasReleased`, `CanvasWheeled` with the press and wheel rules. Released in v0.10.5. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [view mail](/docs/{{version}}/surface/api/view-mail)
+
+### 2026-10-18
+
+* Tree (compare-app toolkit C3): `TKTree` over `TreeNode`s (cells and colours per column, children), expansion record kept across collapse and `setNodes`; `NodeSelected`, `NodeActivated`, `NodeExpanded`. Released in v0.10.5. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [view mail](/docs/{{version}}/surface/api/view-mail)
+
 ### 2026-10-16
 
 * Split and tabs: `TKSplitView` (`split(name, horizontal)`, panes, divider positions as fractions of visible panes) and `TKTabView` (`tabs(name)`, pages as columns, titles, selection); `SplitMoved` and `TabSelected` view mail. Released in v0.10.2. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [view mail](/docs/{{version}}/surface/api/view-mail)
