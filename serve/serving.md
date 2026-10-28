@@ -10,7 +10,7 @@ Run your application with `php computer serve`: an HTTP/1.1 server on the applic
 php computer serve
 ```
 
-The server listens on `127.0.0.1:8000` by default. It prints one line per request when the console is a terminal, or with `-v`; `--quiet` silences them.
+The server listens on `127.0.0.1:8020` by default. It prints one line per request when the console is a terminal, or with `-v`; `--quiet` silences them.
 
 <a id="command-options"></a>
 ## Command Options
@@ -34,7 +34,7 @@ All of the server's settings live in `config/serve.php`:
 | Key | Default | Description |
 | --- | --- | --- |
 | `host` | `127.0.0.1` (`SERVE_HOST`) | The address to listen on. |
-| `port` | `8000` (`SERVE_PORT`) | The port to listen on. |
+| `port` | `8020` (`SERVE_PORT`) | The port to listen on. |
 | `max_in_flight` | `1` (`SERVE_MAX_IN_FLIGHT`) | Requests one worker handles at once. Values above 1 are refused on anything but Linux. |
 | `workers` | `1` (`SERVE_WORKERS`) | Worker processes sharing the port, balanced by the kernel. Values above 1 are refused on anything but Linux. |
 | `https` | `false` (`SERVE_HTTPS`) | Mark every request as HTTPS, for a proxy that terminates TLS in front of the server. |

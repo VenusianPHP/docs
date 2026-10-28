@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-28
+
+* **Version**: 0.11.0 in `composer.json` and `PHP_POSI_VERSION` (`php_posi.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change; built and loaded on Homebrew PHP 8.4 NTS and ZTS.
+
 ### 2026-10-20
 
 * **listen**: `posix_listen` added, `listen(2)` 1:1, with `SOMAXCONN` registered if absent ([descriptors](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/descriptors-and-paths), [constants](/docs/{{version}}/ecosystem/standalone-extensions/posi/api/constants)). SocketTest 16 passed + 1 skipped on php84, zhp and the Pi. Shipped in tag v0.10.6; `PHP_POSI_VERSION` and the composer.json `version` read 0.10.6, matching the tag.

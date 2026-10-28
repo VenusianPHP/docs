@@ -20,7 +20,7 @@ Nothing needs registering by hand. The package's `composer.json` names `Mariner\
 <a id="installing-the-web-files"></a>
 ## Installing the Web Files
 
-A web application needs route files and a public front controller. The `install:web` command publishes the three of them:
+A web application needs route files, a public front controller and a page to show at `/`. The `install:web` command publishes all four:
 
 ```shell
 php computer install:web
@@ -28,11 +28,28 @@ php computer install:web
 
 | File | What it holds |
 | --- | --- |
-| `routes/web.php` | Routes in the `web` middleware group: cookies, the session, shared errors, CSRF protection and route model binding. It starts with a `/` route and a `/up` health check route, which answers `200 OK` behind PHP-FPM; under `php computer serve` the server answers `/up` before the application does. |
+| `routes/web.php` | Routes in the `web` middleware group: cookies, the session, shared errors, CSRF protection and route model binding. It starts with a `/` route that shows the welcome page and a `/up` health check route, which answers `200 OK` behind PHP-FPM; under `php computer serve` the server answers `/up` before the application does. |
 | `routes/api.php` | Routes in the `api` middleware group, under the `api` prefix. |
 | `public/index.php` | The front controller for servers that start PHP for each request, such as PHP-FPM. `php computer serve` does not use it. |
+| `resources/views/welcome.blade.php` | The [welcome page](#the-welcome-page) the `/` route shows. |
 
-A file that already exists is left alone. Pass `--force` to overwrite all three.
+A file that already exists is left alone. Pass `--force` to overwrite all four.
+
+The command also gets the application ready to answer its first request:
+
+- It creates `storage/framework/sessions` and `storage/framework/views`, where file sessions and compiled views are written. Sessions use the `file` driver by default, so no database is needed.
+- It sets `APP_KEY` in `.env` when the key is empty or missing, creating `.env` from `.env.example` first if there is none. Cookies, sessions and CSRF protection are encrypted with it. An existing key is never replaced, even with `--force`.
+
+Then start the server and open `http://127.0.0.1:8020`:
+
+```shell
+php computer serve
+```
+
+<a id="the-welcome-page"></a>
+### The Welcome Page
+
+`resources/views/welcome.blade.php` is a plain Blade view: it says your app is up and answering, shows the installed versions of `venusian/serve` and `venusian/framework` and the PHP version and SAPI it runs under, and links to the documentation and to serve on GitHub. It is yours to change or replace; point the `/` route in `routes/web.php` at your own page when you have one.
 
 <a id="route-files"></a>
 ### Route Files

@@ -32,6 +32,8 @@ Every method is named after the C call it binds and takes ext-curl's `CurlMultiH
 
 A callback return of `null` counts as 0. A throw returns `-1` to libcurl, and the exception propagates out of the pcurl or ext-curl call that fired it. On libcurl older than 8.16, a timer callback that fails (throw or `-1`) inside `curl_multi_add_handle` leaves the rejected easy in libcurl's timer tree; the next call on that multi hangs or crashes. Fixed upstream in 8.16.0.
 
+On libcurl older than 8.10.0, `curlMultiSocketAction($m, CURL_SOCKET_TIMEOUT, 0)` clears libcurl's record of the last timeout it reported, and when no expiry is left pending afterwards the timer callback is not called at all: no `-1`, and no chance for the callback to return `-1` or throw.[^curl-8-5] 8.10.0 keeps the last reported timeout across that action and sends the `-1`.[^curl-14561] A loop that drops its deadline when the timer fires is unaffected. A transfer timeout (`CURLOPT_TIMEOUT_MS`) keeps an expiry pending until the transfer finishes, so the callback fires the same way on every version; the suite's handles set one for that reason.[^pest]
+
 ## Errors
 
 `Exception("expected a CurlMultiHandle")` for any `$multi` whose class is not exactly `CurlMultiHandle` (including a `CurlHandle`). `Exception` for malformed `extra_fds`.
@@ -42,3 +44,6 @@ libcurl constants are the caller's (int-backed enums), e.g. `CURL_SOCKET_TIMEOUT
 
 [^zep]: [multi.zep](https://github.com/php-io-extensions/pcurl/blob/HEAD/pcurl/multi.zep)
 [^api-c]: [multi-api.c](https://github.com/php-io-extensions/pcurl/blob/HEAD/src/multi-api.c)
+[^curl-8-5]: [libcurl 8.5.0 lib/multi.c](https://github.com/curl/curl/blob/curl-8_5_0/lib/multi.c): `multi_socket()` clears `timer_lastcall`; `Curl_update_timer()`
+[^curl-14561]: [curl a58b50f](https://github.com/curl/curl/commit/a58b50fca6), PR 14561, first released in 8.10.0
+[^pest]: [easyFor() in tests/Pest.php](https://github.com/php-io-extensions/pcurl/blob/HEAD/tests/Pest.php)

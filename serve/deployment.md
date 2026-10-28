@@ -28,7 +28,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Port $server_port;
-        proxy_pass http://127.0.0.1:8000;
+        proxy_pass http://127.0.0.1:8020;
     }
 }
 ```

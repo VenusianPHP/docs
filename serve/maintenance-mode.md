@@ -63,7 +63,7 @@ PreventRequestsDuringMaintenance::except(['/webhooks/*']);
 <a id="maintenance-mode-drivers"></a>
 ## Maintenance Mode Drivers
 
-The state lives where `config/app.php` says:
+The state lives where the `maintenance` option of serve's `config/webapp.php` says. Set `APP_MAINTENANCE_DRIVER` and `APP_MAINTENANCE_STORE`, or publish the file with `php computer vendor:publish --tag=mariner-config` to edit it:
 
 ```php
 'maintenance' => [

@@ -146,7 +146,7 @@ $ php --ri kqueue
 kqueue
 
 kqueue support => enabled
-Version => 0.10.x
+Version => 0.11.x
 ```
 
 ### API
