@@ -22,7 +22,7 @@ To query the database from code running on the event loop without blocking it, s
 The configuration for Venusian's database services is located in your application's `config/database.php` configuration file. In this file, you may define all of your database connections, as well as specify which connection should be used by default. Most of the configuration options within this file are driven by the values of your application's environment variables. Examples for each of Venusian's supported database systems are provided in this file, and the default connection is `sqlite`.
 
 > [!NOTE]
-> The `neo4j` connection listed in `config/database.php` is not served by the SQL database manager described on this page. It belongs to the separate Graph component (`Voyager\Graph`), which needs the `laudis/neo4j-php-client` package.
+> The `neo4j` connection listed in `config/database.php` is not served by the SQL database manager described on this page. It belongs to the separate Graph component (`Voyager\Graph`), which needs the `laudis/neo4j-php-client` package; see [Database: Graph (Neo4j)](/docs/{{version}}/framework/database/graph).
 
 <a id="sqlite-configuration"></a>
 #### SQLite Configuration
@@ -455,3 +455,42 @@ If you would like to inspect a database connection that is not your application'
 ```php
 $columns = app('db')->connection('sqlite')->getSchemaBuilder()->getColumns('users');
 ```
+
+<a id="outside-an-app"></a>
+## Using the Database Outside an App
+
+The database layer also works in a plain PHP script, without a Venusian application. `Voyager\Database\Capsule\Manager` builds a database manager with its own container: add a connection, make it global to use its static methods, and boot Instrument to use models:
+
+```php
+use Voyager\Database\Capsule\Manager as Capsule;
+use Voyager\Database\Instrument\Model;
+
+$capsule = new Capsule;
+
+$capsule->addConnection([
+    'driver' => 'sqlite',
+    'database' => __DIR__.'/database.sqlite',
+    'prefix' => '',
+]);
+
+$capsule->setAsGlobal();
+$capsule->bootInstrument();
+
+Capsule::schema()->create('users', function ($table) {
+    $table->increments('id');
+    $table->string('email')->unique();
+    $table->integer('votes')->default(0);
+    $table->timestamps();
+});
+
+$users = Capsule::table('users')->where('votes', '>', 100)->get();
+
+$results = Capsule::select('select * from users where id = ?', [1]);
+
+class User extends Model {}
+
+$active = User::where('votes', '>', 1)->get();
+```
+
+Static calls the capsule does not define, like `select`, go to the default connection. To fire model events, give the capsule a dispatcher with `setEventDispatcher()` before `bootInstrument()`.
+

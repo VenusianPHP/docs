@@ -6,6 +6,9 @@ Shipping a Venusian application to the machines it runs on: packaged apps for co
 
 A Venusian application is not served by a web server. It is a set of long-running processes, the sketches you start with `php rocket`, the queue workers you start with `php computer queue:work`, and the worker pools those processes spawn, and it runs where its work is: on a person's computer, on a device at the edge, or in the background as a daemon.
 
+> [!NOTE]
+> With [`venusian/serve`](/docs/{{version}}/serve/installation) an application also serves HTTP, from `php computer serve` or behind PHP-FPM; see [its deployment page](/docs/{{version}}/serve/deployment).
+
 | Target | How it ships |
 | --- | --- |
 | A consumer Mac or Linux desktop | A [packaged application](#packaging-applications): a `.dmg` or `.deb` carrying its own PHP runtime. |
