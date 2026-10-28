@@ -50,13 +50,6 @@
         - [Instrument: Mutators & Casting](/docs/{{version}}/framework/instrument-orm/instrument-mutators)
         - [Instrument: Serialization](/docs/{{version}}/framework/instrument-orm/instrument-serialization)
         - [Instrument: Factories](/docs/{{version}}/framework/instrument-orm/instrument-factories)
-- ## Web Server
-    - [Installation](/docs/{{version}}/serve/installation)
-    - [Serving Your Application](/docs/{{version}}/serve/serving)
-    - [Deployment](/docs/{{version}}/serve/deployment)
-    - [Maintenance Mode](/docs/{{version}}/serve/maintenance-mode)
-    - [Async Web APIs](/docs/{{version}}/serve/async)
-    - [Serving From a Sketch](/docs/{{version}}/serve/sketches)
 - ## Displays & Graphics
     - [Overview](/docs/{{version}}/surface/overview)
     - [Changelog](/docs/{{version}}/surface/changelog)
@@ -83,6 +76,13 @@
         - [Composing an app](/docs/{{version}}/surface/runbooks/composing-an-app)
         - [Testing](/docs/{{version}}/surface/runbooks/testing)
         - [Releasing](/docs/{{version}}/surface/runbooks/releasing)
+- ## Web Server
+    - [Installation](/docs/{{version}}/serve/installation)
+    - [Serving Your Application](/docs/{{version}}/serve/serving)
+    - [Deployment](/docs/{{version}}/serve/deployment)
+    - [Maintenance Mode](/docs/{{version}}/serve/maintenance-mode)
+    - [Async Web APIs](/docs/{{version}}/serve/async)
+    - [Serving From a Sketch](/docs/{{version}}/serve/sketches)
 - ## [GPIO](https://scrapyard-io.projectsaturnstudios.com)
 - ## Ecosystem
     - Standalone Extensions
