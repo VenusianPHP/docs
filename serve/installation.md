@@ -32,7 +32,7 @@ php computer install:web
 | `routes/api.php` | Routes in the `api` middleware group, under the `api` prefix. |
 | `public/index.php` | The front controller for servers that start PHP for each request, such as PHP-FPM. `php computer serve` does not use it. |
 | `resources/views/welcome.blade.php` | The [welcome page](#the-welcome-page) the `/` route shows. |
-| `database/migrations/0001_01_01_000000_create_users_table.php` | The `users` table, `password_reset_tokens` for password resets and `sessions` for the `database` session driver. Run `php computer migrate` to create them. |
+| `database/migrations/0001_01_01_000000_create_users_table.php` | The `users` table, `password_reset_tokens` for password resets and `sessions` for the `database` session driver. Run `php computer migrate` to create them. If your application already has a `*_create_users_table.php` migration, it is kept and no second one is written. `php computer vendor:publish --tag=mariner-migrations` publishes the same file. |
 
 A file that already exists is left alone. Pass `--force` to overwrite the first four; the migration is never overwritten, since your application may have run or changed it.
 
