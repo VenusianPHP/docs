@@ -8,7 +8,7 @@ Deferred Venusian provider that registers command.probe and merges/publishes pro
 
 It implements `DeferrableProvider` and `provides()` → `['command.probe']`, so it loads when that binding (or command list path) needs it. Console bootstrap must call `loadDeferredProviders()` so deferred probe is available for `computer probe` / help listing.[^provider]
 
-## 0.10 API
+## 0.11 API
 
 | Concern | Target |
 |---------|--------|
