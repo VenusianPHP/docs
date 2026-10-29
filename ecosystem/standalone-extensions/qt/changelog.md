@@ -2,8 +2,26 @@
 
 What changed in this package, newest first.
 
+### 2026-10-28
+
+* **Version**: 0.11.0 in `PHP_QT_VERSION` (`php_qt.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. SurfaceTest drops `QScrollBar` from the private-constructor rows: it has had a public constructor since 2026-10-23. Built and loaded on Homebrew PHP 8.4 NTS and ZTS (208 passed, 26 skipped each) and the Pi on 8.4 ZTS (206 passed, 28 skipped).
+
+### 2026-10-27
+
+* `QMessageBox` icon (`QMessageBox\Icon`, generated from qmessagebox.h) and checkBox (+set); `QFileDialog` nameFilters (+set) and filter (+set, `QDir\Filter` generated from qdir.h, or an int of or-ed bits); `QClipboard` clear and mimeData; `QMimeData` (constructor, hasText, formats). `scripts/gen-enum.php` reads an enumerator marked `QT_DEPRECATED_VERSION_X_*("…")`, as Qt 6.11 marks `QDir::Modified`. 647 / 11435. Shipped in tag v0.11.0 (`PHP_QT_VERSION` 0.11.0).
+
+### 2026-10-26
+
+* `QKeyEvent::matches()` with `QKeySequence\StandardKey` (generated from qkeysequence.h); `QInputMethodEvent` (constructor with the preedit text and an attribute list, `setCommitString`, `commitString`, `preeditString`), `QInputMethodEvent\AttributeType` and the struct `QInputMethodEvent\Attribute`; the event filter boxes an input method event as its class. 634 / 11435. Shipped in tag v0.11.0 (`PHP_QT_VERSION` 0.11.0).
+
+### 2026-10-24
+
+* `QWidget::style()`, `QStyle` (abstract, the application's style object) with `subElementRect()`, `QStyle\SubElement` (generated from qstyle.h, identical on Qt 6.4 and 6.11), and the value classes `QStyleOption` (`initFrom()`) and `QStyleOptionButton`, held as its `QStyleOption` base: a face laid out inside the rect the style draws a push button's contents into. Shipped in tag v0.11.0 (`PHP_QT_VERSION` 0.11.0).
+
 ### 2026-10-23
 
+* Fix: a process that freed its `QApplication` before a widget or window segfaulted in `~QWidget` (xcb). PHP's shutdown does that when a reused object handle puts a window after the application. With no application, an owned parentless widget or window is left to the process exit. Shipped in tag v0.11.0 (`PHP_QT_VERSION` 0.11.0). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+* `QCompleter`, `QAbstractItemModel` (abstract), `QStringListModel`, `QIcon`, `QToolButton`, `QActionGroup`; `QComboBox` editable, line edit, completer, insert policy, edit text; `QAbstractButton` icons, `QPushButton` flat; a public `QScrollBar` constructor; `QWheelEvent::phase`; `QWidget::mapToGlobal`, accessible name; `QTabWidget::insertTab`. Enums `Qt\ToolButtonStyle`, `Qt\CaseSensitivity`, `QComboBox\InsertPolicy`, `QCompleter\CompletionMode`, `QToolButton\ToolButtonPopupMode`. New sites `qapp-scrollbar`, `qapp-tool-button` (QToolButton through `phpqt_construct_widget`'s `qapp-widget` check). Shipped in tag v0.11.0 (`PHP_QT_VERSION` 0.11.0). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
 * `QWidget::clearFocus`. No new site. Shipped in tag v0.10.5 (`PHP_QT_VERSION` 0.10.5; there are no v0.10.3 or v0.10.4 tags). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
 
 ### 2026-10-22
