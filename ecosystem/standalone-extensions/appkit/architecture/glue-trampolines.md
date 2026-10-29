@@ -16,7 +16,7 @@ Rule: glue forwards the native arguments it receives to PHP and returns PHP's re
 | `ObjCDrawView::initWithFrameDraw` | `drawRect:` |
 | `ObjCOpenGLView::initWithFramePixelFormatDraw` | `drawRect:` |
 | `ObjCStageWindow` `on` / `off` | `canBecomeKeyWindow`, `canBecomeMainWindow` |
-| `ObjCFocusView` `on` / `off` | `acceptsFirstResponder` |
+| `ObjCFocusView` `on` / `off` | `acceptsFirstResponder`; `keyDown:`, `keyUp:`, `flagsChanged:` with the event; `insertText:replacementRange:` with the text; `doCommandBySelector:` with the selector name; `cut:`, `copy:`, `paste:`, `selectAll:`, `undo:`, `redo:` with the sender, answered by `respondsToSelector:` only while handled |
 | `ObjCKeyWindow` `on` / `off` | `keyDown:` with the event |
 | `NSEvent::addLocalMonitorForEventsMatchingMaskHandler` | handler block `^NSEvent *(NSEvent *)` |
 | `NSNotificationCenter::addObserverForNameObjectQueueUsingBlock` | block `^(NSNotification *)` |
@@ -50,7 +50,11 @@ NSWindow subclass `PHPStageWindow`. `on('canBecomeKeyWindow' | 'canBecomeMainWin
 
 ## ObjCFocusView
 
-NSView subclass `PHPFocusView`. `on('acceptsFirstResponder', fn (): bool)` sets the handler the override asks; `off()` clears it. Without a handler, or when it did not run, the override answers `super`'s (NO). AppKit asks on a click and on a Tab along the key-view loop; `makeFirstResponder:` does not ask. Made through the inherited `initWithFrame()`.
+NSView subclass `PHPFocusView`, conforming to `NSTextInputClient`. `on('acceptsFirstResponder', fn (): bool)` sets the handler the override asks; `off()` clears it. Without a handler, or when it did not run, the override answers `super`'s (NO). AppKit asks on a click and on a Tab along the key-view loop; `makeFirstResponder:` does not ask. Made through the inherited `initWithFrame()`.
+
+Five more overrides forward to PHP the same way, each calling `super` with the same arguments when PHP answers false, has no handler, or did not run: `keyDown:`, `keyUp:`, `flagsChanged:` (`fn (NSEvent): bool`), `insertText:replacementRange:` (`fn (string): bool`, an attributed string as its string), `doCommandBySelector:` (`fn (string): bool`, the selector's name). The plain `insertText:` of the key binding manager forwards to `insertText:replacementRange:`. The protocol's other required methods are answered in the glue: the marked text of a dead key is held in an ivar (`setMarkedText:`, `unmarkText`, `hasMarkedText`, `markedRange`); `selectedRange` is not found; the substring and character index are empty; `firstRectForCharacterRange:` is the view's bounds on screen, so an input method's candidate window has a place. The view's input context activates on the run-loop pass after it became first responder; before that, `interpretKeyEvents:` inserts nothing.
+
+The standard edit actions `cut:`, `copy:`, `paste:`, `selectAll:`, `undo:`, `redo:` (`fn (?NSObject $sender): bool`, the sender boxed, nil as null) forward the same way; false, no handler, or not run passes the action to `nextResponder` (`tryToPerform:with:`). `respondsToSelector:` answers YES for one of them only while a handler is set under its name, so a menu item sending it is enabled (autoenable) only then.
 
 ## ObjCKeyWindow
 
