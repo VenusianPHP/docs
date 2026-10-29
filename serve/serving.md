@@ -21,7 +21,7 @@ Each option overrides the matching `config/serve.php` value:
 | --- | --- | --- |
 | `--host=` | `host` | The address to listen on. |
 | `--port=` | `port` | The port to listen on. |
-| `--max-in-flight=` | `max_in_flight` | How many requests one worker handles at once. Above 1 needs Linux. |
+| `--max-in-flight=` | `max_in_flight` | How many requests one worker handles at once. |
 | `--workers=` | `workers` | Worker processes sharing the port. Above 1 needs Linux. |
 | `--driver=` | | How workers run: `process`, `thread`, or `auto` (the default). See [Workers](#workers). |
 | `--https` | `https` | Serve as behind a proxy that terminates TLS. |
@@ -35,7 +35,7 @@ All of the server's settings live in `config/serve.php`:
 | --- | --- | --- |
 | `host` | `127.0.0.1` (`SERVE_HOST`) | The address to listen on. |
 | `port` | `8020` (`SERVE_PORT`) | The port to listen on. |
-| `max_in_flight` | `1` (`SERVE_MAX_IN_FLIGHT`) | Requests one worker handles at once. Values above 1 are refused on anything but Linux. |
+| `max_in_flight` | `10` (`SERVE_MAX_IN_FLIGHT`) | Requests one worker handles at once, each in its own loop task, so a long-lived stream or a request waiting on another doesn't hold up the rest. Set it to 1 to answer one request at a time. |
 | `workers` | `1` (`SERVE_WORKERS`) | Worker processes sharing the port, balanced by the kernel. Values above 1 are refused on anything but Linux. |
 | `https` | `false` (`SERVE_HTTPS`) | Mark every request as HTTPS, for a proxy that terminates TLS in front of the server. |
 | `health` | `/up` | A path answered `200 OK` without booting a request through the application. `null` turns it off. |

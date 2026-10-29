@@ -18,7 +18,7 @@ The cache configuration file also contains a variety of other options that you m
 
 #### Database
 
-When using the `database` cache driver, you will need a database table to contain the cache data, and a second table for the store's atomic locks. You may use the `make:cache-table` Computer command to create a [database migration](/docs/{{version}}/framework/database/migrations) for both:
+When using the `database` cache driver, you will need a database table to contain the cache data, and a second table for the store's atomic locks. A new application already has a [database migration](/docs/{{version}}/framework/database/migrations) for both, `database/migrations/0001_01_01_000001_create_cache_table.php`, so running `php computer migrate` is enough. If yours does not, the `make:cache-table` Computer command creates it:
 
 ```shell
 php computer make:cache-table

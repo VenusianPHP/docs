@@ -55,6 +55,23 @@ final class Dashboard extends Sketch
 
 `ServerOptions` takes the same settings as [config/serve.php](/docs/{{version}}/serve/serving#configuration), as named arguments.
 
+<a id="from-a-package"></a>
+## From a Package
+
+A package that serves over HTTP but does not require all of `venusian/serve` resolves the `Mariner\Contracts\Server\HttpServer` contract from `venusian-mariner/contracts` instead. The container makes the same server for it, and its `options` take plain config keys, laid over `config/serve.php`, so the package never names a `Mariner\Core` class:
+
+```php
+use Mariner\Contracts\Server\HttpServer;
+
+$server = app(HttpServer::class, ['options' => ['port' => 0, 'host' => '127.0.0.1']])
+    ->attach(app('event-loop'));
+
+$server->port();                     // the port the system picked for 0
+$server->onRequest(fn ($served) => logger()->info("{$served->method} {$served->path} {$served->status}"));
+```
+
+The contract declares `listen()`, `port()`, `attach($loop)`, `onRequest($observer)`, `stop()` and `drain($timeout)`, the same calls as the class, and `attach()` listens for you. Keys you leave out come from `config/serve.php`.
+
 <a id="stopping-the-server"></a>
 ## Stopping the Server
 

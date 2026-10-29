@@ -1,11 +1,11 @@
 # Overview
 
-Venusian Surface (`venusian/surface`, 0.10.x) is the Venusian Display Panel Framework: native windows and toolkit primitives, staged windows, pixel framebuffers, drawing engines, fonts, images, embedded display panels and human input for Venusian apps.
+Venusian Surface (`venusian/surface`, 0.11.x) is the Venusian Display Panel Framework: native windows and toolkit primitives, staged windows, pixel framebuffers, drawing engines, fonts, images, embedded display panels and human input for Venusian apps.
 
 ## Requirements
 
-- PHP 8.4, 8.5 or 8.6.
-- `venusian-voyager/*` 0.10.1+ (console, filesystem, io-pools, nuts-and-bolts) and `gpio/contracts` 0.10.
+- PHP 8.4.27+ or 8.5.12+.
+- `venusian-voyager/*` 0.11 (console, filesystem, io-pools, nuts-and-bolts) and `gpio/contracts` 0.11.
 - Optional extensions per module: ext-fb, ext-rasterize, ext-imgdec (the `extended` drivers), ext-gd (native PNG/JPEG), ext-kqueue or ext-epoll (joining the loop). See [components](/docs/{{version}}/surface/guide/components).
 
 ## Install

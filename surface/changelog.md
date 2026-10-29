@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-28
+
+* **Version**: 0.11.0 with the Venusian 0.11 ecosystem. Root and component manifests require `venusian-voyager/*` and `gpio/contracts` `^0.11.0` and PHP `~8.4.27||^8.5.12`; `dev-main` is `0.11.x-dev`. No API change.
+
 ### 2026-10-23
 
 * `TKPrimitive::focus()` refuses a primitive under a hidden container ("not shown") and one disabled itself or through a container ("cannot take focus"), without asking the native: a toolkit would focus a widget the user cannot see or use. Released in v0.10.5. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives)
