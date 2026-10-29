@@ -14,10 +14,13 @@ All readonly, all `Voyager\Contracts\Signals\NamedSignal` (`name()` for Signals 
 | `WindowKeyPressed` | window, `Key` key, character, `Modifiers` modifiers, repeat | `window.key.<window>` | a key press no focused native, menu accelerator, default/cancel button or Tab move took; key is physical, character the layout's text (`''` for none) |
 | `MenuActivated` | window, item | `menu.activated.<window>.<item>` | plain item chosen |
 | `MenuToggled` | window, item, on | `menu.toggled.<window>.<item>` | toggle chosen by the user; `on` = new state |
+| `MenuRadioChosen` | window, group, item | `menu.radio.<window>.<group>` | the user chose another item of a radio group, bar or context menu |
 | `QuitRequested` | ?window | `quit.requested` | Quit item chosen |
 | `WindowResized` | window, width, height | `window.resized.<window>` | content area resized; via `postLatest`, one per pump, last size |
-| `Services\AlertAnswered` | id, button | `dialog.alert.<id>` | alert answered: button index; Esc and the alert's close give its cancel index; `-1` when the parent closed first |
+| `Services\AlertAnswered` | id, button, suppressed | `dialog.alert.<id>` | alert answered: button index; Esc and the alert's close give its cancel index; `-1` when the parent closed first; `suppressed`: the "Don't ask again" box was ticked (false without one, or when the parent closed first) |
 | `Services\FilesChosen` | id, paths | `dialog.files.<id>` | file panel answered: absolute paths; `[]` when cancelled, dismissed or the parent closed first |
+| `Services\ClipboardText` | id, text | `clipboard.text.<id>` | `Clipboard::requestText()` answered: the text, `null` when the clipboard holds none |
+| `Services\ClipboardChanged` | — | `clipboard.changed` | the clipboard's content changed, by another app or by `setText()`; latest-wins |
 
 * Default bar items (macOS, no window) post `window` = `''`; Quit posts `window` = `null`.
 * `setToggle()` from code posts nothing.
