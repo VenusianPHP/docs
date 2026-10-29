@@ -183,6 +183,20 @@ If your own long-running loop processes units of work, you may call `forgetScope
 app()->forgetScopedInstances();
 ```
 
+A scope belongs to a fiber. Each fiber resolves its own scoped instances, and code outside any fiber shares one more scope of its own, so two tasks running on the [event loop](/docs/{{version}}/framework/architecture-concepts/event-loop) never see each other's instances. A task started with the loop's `async` method shares the scope of the code that started it, so both resolve the same instances. A fiber's scoped instances are released along with the fiber. `forgetScopedInstances` resets only the current fiber's scope, or the outer one when called outside a fiber; other fibers keep theirs.
+
+To give a fiber you start yourself the current scope, call `shareScopeWith` before starting it. Calling it on a fiber that has already started throws a `LogicException`:
+
+```php
+$fiber = new Fiber(function () {
+    // Resolves the same scoped instances as the code that created the fiber...
+});
+
+app()->shareScopeWith($fiber);
+
+$fiber->start();
+```
+
 #### Scoped Attribute
 
 Alternatively, you may mark a class with the `#[Scoped]` attribute to indicate to the container that it should be resolved one time per lifecycle:
