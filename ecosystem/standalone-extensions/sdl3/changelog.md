@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-28
+
+* **Version**: 0.11.0 in `PHP_SDL3_VERSION` (`php_sdl3.h`), `AGENTS.md`, README and the index; `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. Built and loaded on Homebrew PHP 8.4 NTS and ZTS (81 passed, 2 skipped each), the Pi on 8.4 ZTS (78 passed, 5 skipped) and an x86_64 8.4 NTS box (77 passed, 5 skipped; `HooksTest`'s GL context fails where that box's X session has no GL). The previous tag is v0.7.0; `pie install php-io-extensions/sdl3` now resolves v0.11.0.
+
 ### 2026-10-09
 
 * `extra.venusian.system` in composer.json: the apt packages `venusian build` installs to compile the extension, the run-time packages a `.deb` carrying it depends on or recommends beyond what `dpkg-shlibdeps` sees, and the Homebrew packages for a dev install.
