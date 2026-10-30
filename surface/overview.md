@@ -4,7 +4,7 @@ Venusian Surface (`venusian/surface`, 0.11.x) is the Venusian Display Panel Fram
 
 ## Requirements
 
-- PHP 8.4.27 or newer on 8.4, or 8.5.12 or newer (`~8.4.27||^8.5.12`).
+- PHP 8.4.27+ or 8.5.12+.
 - `venusian-voyager/*` 0.11 (console, filesystem, io-pools, nuts-and-bolts) and `gpio/contracts` 0.11.
 - Optional extensions per module: ext-fb, ext-rasterize, ext-imgdec (the `extended` drivers), ext-gd (native PNG/JPEG), ext-kqueue or ext-epoll (joining the loop). See [components](/docs/{{version}}/surface/guide/components).
 
