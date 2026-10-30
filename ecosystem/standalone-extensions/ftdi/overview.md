@@ -170,7 +170,7 @@ $ php --ri ftdi
 ftdi
 
 ftdi support => enabled
-Version => 0.10.x
+Version => 0.11.x
 libftdi1 => 1.5
 ```
 
