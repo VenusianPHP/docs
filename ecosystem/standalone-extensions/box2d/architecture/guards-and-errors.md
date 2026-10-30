@@ -14,11 +14,10 @@ Checks run before every Box2D call, how Box2D assertions become exceptions, and 
 
 ## Stepping world
 
-During W's `b2World_Step`, callbacks may call anything not bound to W, other worlds, and on W only the fields Box2D does not write in a step (IsValid family, shape body/world/type/sensor/user data/filter/density/friction/restitution/material, body type/user data/name/world, world user data). Else `Error("world is stepping")`.[^spec]
+During W's `b2World_Step`, callbacks may call anything not bound to W, other worlds, and on W only the fields Box2D does not write in a step (IsValid family, shape body/world/type/sensor/user data/filter/density/friction/restitution/material, body type/user data/name/world, world user data). Else `Error("world is stepping")`.[^guards]
 
 ## Callback errors
 
 No callback runs while an exception is pending. Exception in a callback → that callable gives Box2D's default for the rest of the step; rethrown after the call. Bad return type → `TypeError`.
 
 [^guards]: id, def, count, stepping and owner checks
-[^spec]: design spec, Ids and validation, Errors, Stepping guard
