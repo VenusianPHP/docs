@@ -61,11 +61,12 @@ The `config` directory, as the name implies, contains all of your application's 
 
 ### The Database Directory
 
-The `database` directory contains an empty `database.sqlite` file, the default SQLite database, and a `seeders` directory holding `DatabaseSeeder` in the `Database\Seeders` namespace. If the SQLite file is missing when the application is created, Composer creates it. Git ignores SQLite files in this directory. See [seeding](/docs/{{version}}/framework/database/seeding).
+The `database` directory contains an empty `database.sqlite` file, the default SQLite database, a `migrations` directory holding the cache table migration (`0001_01_01_000001_create_cache_table.php`), and a `seeders` directory holding `DatabaseSeeder` in the `Database\Seeders` namespace. If the SQLite file is missing when the application is created, Composer creates it. Git ignores SQLite files in this directory. See [seeding](/docs/{{version}}/framework/database/seeding).
 
-Two more directories appear here on demand:
+`make:migration`, and the `make:cache-table`, `make:queue-table`, `make:queue-failed-table` and `make:queue-batches-table` commands, write to `database/migrations`. See [migrations](/docs/{{version}}/framework/database/migrations).
 
-- `database/migrations` is created by `make:migration`, and by the `make:cache-table`, `make:queue-table`, `make:queue-failed-table` and `make:queue-batches-table` commands. See [migrations](/docs/{{version}}/framework/database/migrations).
+One more directory appears here on demand:
+
 - `database/factories` is created by `make:factory`. Factories use the `Database\Factories` namespace, which a new application's `composer.json` does not autoload yet; see [generating factories](/docs/{{version}}/framework/instrument-orm/instrument-factories#generating-factories).
 
 ### The Storage Directory
