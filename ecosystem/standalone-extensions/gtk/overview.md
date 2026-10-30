@@ -3,7 +3,7 @@
 ![CI](https://github.com/php-io-extensions/gtk/actions/workflows/ci.yml)
 
 [![CI](https://img.shields.io/github/actions/workflow/status/php-io-extensions/gtk/ci.yml?style=flat-square&label=CI)](https://github.com/php-io-extensions/gtk/actions/workflows/ci.yml)
-[![GTK API](https://img.shields.io/badge/GTK_API-13.8%25_%28526%2F3798%29-blue?style=flat-square)](https://github.com/php-io-extensions/gtk/blob/v0.10.5/SUPPORT.md)
+[![GTK API](https://img.shields.io/badge/GTK_API-15.0%25_%28569%2F3798%29-blue?style=flat-square)](https://github.com/php-io-extensions/gtk/blob/v0.11.0/SUPPORT.md)
 
 1:1 PHP bindings of GTK 4 and the GLib main loop GTK runs on, written directly
 in C against the Zend API. C functions keep their names (`g_timeout_add`,
@@ -37,10 +37,11 @@ and close windows, and build menu bars from menu models and actions:
 | `GtkCssProvider`, `GdkDisplay`, `GdkSurface` | `new`, `load_from_string`; `get_default`, `sync`, `get_clipboard`; `get_width`, `get_height` (signal `layout`); functions `gtk_style_context_add/remove_provider_for_display` |
 | `GtkLabel` | `new`, `get/set_text`, `get/set_wrap`, `set_ellipsize`, `get/set_xalign`, `set_justify`, `set_markup`, `get/set_use_markup`, `get_current_uri` |
 | `GtkButton`, `GtkToggleButton`, `GtkCheckButton`, `GtkSwitch` | `new_with_label`, `get/set_label`; `new_with_label`, `get/set_active`; `new_with_label`, `get/set_active`, `get/set_label`; `new`, `get/set_active` |
-| `GtkLinkButton` | `new`, `new_with_label`, `get/set_uri`, `get/set_visited` |
+| `GtkLinkButton`, `GtkImage` | `new`, `new_with_label`, `get/set_uri`, `get/set_visited`; `new_from_icon_name`, `get_icon_name` |
 | `GCancellable`, `GAsyncResult`, `GtkUriLauncher` | `new`, `cancel`, `is_cancelled`; —; `new`, `get/set_uri`, `launch`, `launch_finish` |
-| `GtkAlertDialog`, `GtkFileDialog`, `GtkFileLauncher` (GTK 4.10) | made with `g_object_new_with_properties` (the printf constructor is not bound), `set_message`, `set_detail`, `set_buttons`, `set_default_button`, `set_cancel_button`, `set_modal`, `choose`, `choose_finish`; `new`, `set_title`, `set_initial_folder`, `set_initial_name`, `set_modal`, `open`, `open_multiple`, `select_folder`, `save` and their `_finish` (a dismissed or cancelled dialog throws `GError`); `new`, `launch`, `launch_finish` |
-| `GFile`, `GListStore`, `GdkClipboard` | `new_for_path`, `get_path` (GLocalFile, GDaemonFile and GDummyFile box as `GFile`); a `GListModel`; `set_text` |
+| `GtkAlertDialog`, `GtkFileDialog`, `GtkFileLauncher` (GTK 4.10) | made with `g_object_new_with_properties` (the printf constructor is not bound), `set_message`, `set_detail`, `set_buttons`, `set_default_button`, `set_cancel_button`, `set_modal`, `choose`, `choose_finish`; `new`, `set_title`, `set_initial_folder`, `set_initial_name`, `set_modal`, `open`, `open_multiple`, `select_folder`, `save` and their `_finish` (a dismissed or cancelled dialog throws `GError`), `get/set_filters` (a `GListModel` of `GtkFileFilter`); `new`, `launch`, `launch_finish` |
+| `GtkFileFilter` | `new`, `get/set_name`, `add_pattern` |
+| `GFile`, `GListStore`, `GdkClipboard`, `GdkContentFormats` | `new_for_path`, `get_path` (GLocalFile, GDaemonFile and GDummyFile box as `GFile`); a `GListModel`, `new` (a GType name; an unregistered one is GLib's critical and null), `append`; `set_text`, `read_text_async`, `read_text_finish`, `get_formats`; `contain_mime_type` (made by `get_formats` only) |
 | `GtkEntry`, `GtkEntryBuffer` | `new`, `get_buffer`, `get/set_placeholder_text`, `get/set_visibility`; `get/set_text` |
 | `GtkTextView`, `GtkTextBuffer` | `new`, `get_buffer`, `get/set_editable`, `set_wrap_mode`, `get/set_monospace`, `get/set_cursor_visible`, `get_line_yrange`; `set_text`, `get_text` (between two iters), `begin/end_user_action`, `get_tag_table`, `get_iter_at_line`, `get_iter_at_line_offset`, `get_start/end_iter`, `apply/remove_tag`, `get_selection_bounds`, `select_range`, `get_insert`, `get_iter_at_mark`, `get_line_count` |
 | `GtkTextIter`, `GtkTextMark`, `GtkTextTag`, `GtkTextTagTable`, `GtkAdjustment` | iter (a copy that keeps its buffer alive; stale once the text changes: `GtkException`) `get_line`, `get_line_offset`, `get_offset`, `has_tag`, `get_tags`; —; `new`; `add`, `remove`, `lookup`; `get/set_value`, `get_lower`, `get_upper`, `get_page_size` (signal `value-changed`) |
@@ -65,15 +66,17 @@ and close windows, and build menu bars from menu models and actions:
 | `GtkSignalListItemFactory`, `GtkListItem`, `GtkSingleSelection` | `new` (signals `setup`, `bind`, `unbind`, `teardown`); `get_position`, `get_item`, `get/set_child`; `new`, `get/set_selected`, `get_selected_item`, `set_autoselect`, `set_can_unselect`, `get_model` |
 | `GtkMediaStream`, `GtkMediaFile`, `GtkVideo` | `play`, `pause`, `get/set_playing`, `get_ended`, `get_error`, `seek`, `is_seekable`, `get_timestamp`, `get_duration`, `get/set_muted`, `get/set_loop`, `has_video`; `new`, `new_for_filename`, `set_filename`, `clear`; `new`, `get/set_media_stream`, `get/set_autoplay`, `set_loop` |
 | `GtkPopoverMenuBar` | `new_from_model`, `get/set_menu_model` |
-| `GtkPopover`, `GtkPopoverMenu` | `set/get_pointing_to` (a `GdkRectangle`; get writes it by reference and returns GTK's gboolean), `set/get_has_arrow`, `popup`, `popdown`, signal `closed`; menu `new_from_model`, `get_menu_model`; attached with its own `setParent` / `unparent` (`gtk_widget_set_parent`, bound for popovers only) |
-| `GMenuModel`, `GMenu`, `GMenuItem` | `get_n_items`, `is_mutable`; `new`, `append`, `append_item`, `append_section`, `append_submenu`, `prepend`, `insert`, `remove`, `remove_all`, `freeze`; `new`, `set_label`, `set_detailed_action`, `set_action_and_target_value`, `set/get_attribute_value`, `set_submenu`, `set_section` |
+| `GtkMenuButton`, `GtkScrollbar`, `GtkListView` | `new`, `get/set_menu_model`, `get/set_popover`, `get/set_child`, `get/set_has_frame`, `popup`, `popdown`; `new(GtkOrientation, GtkAdjustment)`, `get_adjustment`; `new(model, factory)` (both transfer full), `get/set_single_click_activate`, signal `activate` |
+| Button children, adjustments, notebook insert, surface scale | `GtkButton` `get/set_child`, `get/set_has_frame`; `GtkAdjustment` `new`, `configure`; `GtkNotebook` `insert_page`; `GdkSurface` `get_scale` |
+| `GtkPopover`, `GtkPopoverMenu` | `new`, `set/get_child`, `set/get_autohide`, `set/get_position` (`GtkPositionType`), `set/get_pointing_to` (a `GdkRectangle`; get writes it by reference and returns GTK's gboolean), `set/get_has_arrow`, `popup`, `popdown`, signal `closed`; menu `new_from_model`, `get_menu_model`; attached with its own `setParent` / `unparent` (`gtk_widget_set_parent`, bound for popovers only) |
+| `GMenuModel`, `GMenu`, `GMenuItem` | `get_n_items`, `get_item_attribute_value` (an index outside the items, which GMenu reads unchecked, → `ValueError`; a value not of the expected type → null), `is_mutable`; `new`, `append`, `append_item`, `append_section`, `append_submenu`, `prepend`, `insert`, `insert_item`, `remove`, `remove_all`, `freeze`; `new`, `set_label`, `set_detailed_action`, `set_action_and_target_value`, `set/get_attribute_value`, `set_submenu`, `set_section` |
 | `GSimpleAction`, `GSimpleActionGroup` | `new`, `new_stateful`, `set_enabled`, `set_state`, `g_action_get_name/enabled/state`, `g_action_activate`, `g_action_change_state`; `new`, `g_action_map_add/remove/lookup_action`, `g_action_group_has/list/activate_action` |
 | `GVariant` | `new_boolean/string/int32/double`, `get_boolean/string/int32/double`, `get_type_string`, `is_of_type`, `print` |
 | `GMainContext` | `default`, `get_thread_default`, `iteration`, `pending`, `wakeup`, `acquire`, `release`, `is_owner` |
 
 Enums: `GApplicationFlags`, `GIOCondition`, `GtkOrientation`, `GtkAlign`,
 `PangoEllipsizeMode`, `GtkJustification`, `GtkWrapMode`, `GtkContentFit`,
-`GtkPolicyType`. Constants: `G_SOURCE_CONTINUE`, `G_SOURCE_REMOVE`,
+`GtkPolicyType`, `GtkPositionType`. Constants: `G_SOURCE_CONTINUE`, `G_SOURCE_REMOVE`,
 `GTK_STYLE_PROVIDER_PRIORITY_APPLICATION`, `GTK_INVALID_LIST_POSITION`. Errors:
 `GError` (a GError, with its `domain`; also what `GtkMediaStream::getError()`
 returns), `GtkException` (a call refused because making it crashes; see below). The stubs in
@@ -100,7 +103,7 @@ Video needs GTK's media backend module: `libgtk-4-media-gstreamer` on Debian
 
 ## Coverage
 
-[SUPPORT.md](https://github.com/php-io-extensions/gtk/blob/v0.10.5/SUPPORT.md) lists every constructor, method and function of GTK 4, GDK and GSK that
+[SUPPORT.md](https://github.com/php-io-extensions/gtk/blob/v0.11.0/SUPPORT.md) lists every constructor, method and function of GTK 4, GDK and GSK that
 the installed GIR files declare and do not mark deprecated, each marked bound or not; the API badge
 is computed from it. Regenerate both after a binding change, and check them:
 
