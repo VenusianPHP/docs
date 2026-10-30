@@ -4,7 +4,12 @@ What changed in this package, newest first.
 
 ### 2026-10-28
 
-* **Version**: 0.11.0 with the Venusian 0.11 ecosystem. Root and component manifests require `venusian-voyager/*` and `gpio/contracts` `^0.11.0` and PHP `~8.4.27||^8.5.12`; `dev-main` is `0.11.x-dev`. No API change.
+* **Version**: 0.11.0 with the Venusian 0.11 ecosystem: `venusian-surface/*`, `venusian-voyager/*` and `gpio/contracts` at `^0.11.0`, PHP `~8.4.27||^8.5.12`; `dev-main` is `0.11.x-dev`; ext-fb, ext-rasterize and ext-imgdec suggested at `^0.10.0|^0.11.0`. The jovian toolkit drivers and the panel drivers stay suggested at `^0.10.0`. [overview](/docs/{{version}}/surface/overview), [components](/docs/{{version}}/surface/guide/components)
+* Services, Surface layer: `AlertStyle`, `DialogCapability` (`AlertTitle`, `ShowHidden`) and `Dialogs::supports()`; `Alert` style, suppression and title; `OpenRequest` / `SaveRequest` filters and showHidden; `AlertAnswered::$suppressed`; `Clipboard::requestText()` / `hasText()`, `ToolkitClipboard`, `ClipboardText`, `ClipboardChanged`. Released in v0.11.0. [windows](/docs/{{version}}/surface/architecture/windows), [mail](/docs/{{version}}/surface/api/window-mail)
+* Canvas keys, Surface layer: `EditCommand` and the mail of a focused, focusable canvas: `KeyPressed`, `KeyReleased`, `TextCommitted`, `EditCommanded`. Released in v0.11.0. [view mail](/docs/{{version}}/surface/api/view-mail)
+* Menus, Surface layer: radio items (`radio`, `on`), `MenuRadioChosen`, `setRadio()` / `radio()` / `setItemLabel()` / `itemLabel()`; context menus take toggles and radios and keep the user's choices; `TKPrimitive::popupMenu()`; `TKTabView::addPage(…, ?index)`. Released in v0.11.0. [menu profiles](/docs/{{version}}/surface/api/menu-profiles), [mail](/docs/{{version}}/surface/api/window-mail), [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives)
+* Canvas scrolling, Surface layer: `TKScrollBar`, `ScrollChanged`, hover mail (`CanvasMoved`, `CanvasEntered`, `CanvasLeft`), `ScrollPhase` on `CanvasWheeled`; `Framebuffer::scroll()`, `RenderingEngine::canScroll()` / `scroll()`. Released in v0.11.0. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives), [view mail](/docs/{{version}}/surface/api/view-mail), [drawing](/docs/{{version}}/surface/architecture/drawing), [framebuffers](/docs/{{version}}/surface/architecture/framebuffers)
+* Path bar and toolbar, Surface layer: `TKComboBox`, `TKMenuButton`, button images (`HasButtonImage`, `ImagePosition`) on push and toggle buttons. Released in v0.11.0. [primitives](/docs/{{version}}/surface/architecture/toolkit-primitives)
 
 ### 2026-10-23
 
