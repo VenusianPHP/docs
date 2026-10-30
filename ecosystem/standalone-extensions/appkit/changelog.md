@@ -2,6 +2,27 @@
 
 What changed in this package, newest first.
 
+### 2026-10-28
+
+* **Version**: 0.11.0 in `PHP_APPKIT_VERSION` (`php_appkit.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. SurfaceTest expects `NSPopUpButton`'s parent `NSButton`, as the 2026-10-23 surface change declared. Built and loaded on Homebrew PHP 8.4 NTS and ZTS: 347 passed, 10 skipped on each.
+
+### 2026-10-27
+
+* `NSAlert` alertStyle (`NSAlertStyle`), showsSuppressionButton and suppressionButton (+set); `NSSavePanel` allowedContentTypes and showsHiddenFiles (+set), each with its own main-thread site; `UTType` typeWithFilenameExtension: and identifier (UniformTypeIdentifiers framework, any thread); `NSPasteboard` availableTypeFromArray: and changeCount. Array setters skip entries of the wrong type. 669 / 7210. Shipped in tag v0.11.0 (`PHP_APPKIT_VERSION` 0.11.0).
+
+### 2026-10-26
+
+* `NSResponder::interpretKeyEvents` (its own main-thread site); glue `ObjCFocusView` forwards `keyDown:`, `keyUp:`, `flagsChanged:`, `insertText:replacementRange:` and `doCommandBySelector:` to PHP handlers (false = NSView's own) and conforms to `NSTextInputClient`, holding a dead key's marked text itself. 658 / 7210. Shipped in tag v0.11.0 (`PHP_APPKIT_VERSION` 0.11.0). [glue](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/glue-trampolines)
+* Glue `ObjCFocusView` forwards the standard edit actions `cut:`, `copy:`, `paste:`, `selectAll:`, `undo:`, `redo:` with their sender (false = next responder), answering `respondsToSelector:` for each only while a handler is set. Shipped in tag v0.11.0 (`PHP_APPKIT_VERSION` 0.11.0). [glue](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/glue-trampolines)
+
+### 2026-10-24
+
+* `NSScroller` `rectForPart:` (scroller coordinates) and `testPart:` (window coordinates, as an event's `locationInWindow`): a scroller that tracks its own knob drag, so the app's loop runs during it. Shipped in tag v0.11.0 (`PHP_APPKIT_VERSION` 0.11.0).
+
+### 2026-10-23
+
+* `NSComboBox` (object values as strings), `NSScroller` (style, knob proportion, hit part, width per style, the preferred-style notification), `NSTrackingArea`, `NSButton` image, image position (`NSCellImagePosition`) and bordered, `NSMenuItem` image, `NSControl` refusesFirstResponder, `NSView` convertRect:toView: and tracking areas, `NSEvent` phase / momentumPhase / trackingArea (`NSEventPhase`), `NSWindow` child windows (`NSWindowOrderingMode`) and convertRectToScreen:, `NSTabView` insertTabViewItem:atIndex:. `NSPopUpButton` extends `NSButton`, as the header declares. Each new UI method has its own main-thread site; NSEvent and NSTrackingArea readers have none. 655 / 7210. Shipped in tag v0.11.0 (`PHP_APPKIT_VERSION` 0.11.0). [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+
 ### 2026-10-22
 
 * Key-view loop: `NSView` nextKeyView (+set); `NSWindow` initialFirstResponder (+set), selectNextKeyView:, selectPreviousKeyView:, setAutorecalculatesKeyViewLoop:; `NSResponder` acceptsFirstResponder; glue `ObjCFocusView` (acceptsFirstResponder handler) and `ObjCKeyWindow` (keyDown: handler; false = NSWindow's own). Each with its own main-thread site. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface), [glue](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/glue-trampolines)
