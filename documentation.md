@@ -83,6 +83,22 @@
     - [Maintenance Mode](/docs/{{version}}/serve/maintenance-mode)
     - [Async Web APIs](/docs/{{version}}/serve/async)
     - [Serving From a Sketch](/docs/{{version}}/serve/sketches)
+- ## MCP
+    - [Overview](/docs/{{version}}/superconductor/overview)
+    - [Installation](/docs/{{version}}/superconductor/installation)
+    - Servers
+        - [Servers](/docs/{{version}}/superconductor/servers)
+        - [Tools](/docs/{{version}}/superconductor/tools)
+        - [Prompts](/docs/{{version}}/superconductor/prompts)
+        - [Resources](/docs/{{version}}/superconductor/resources)
+        - [Tasks](/docs/{{version}}/superconductor/tasks)
+    - [Clients](/docs/{{version}}/superconductor/clients)
+    - Transports
+        - [stdio](/docs/{{version}}/superconductor/stdio)
+        - [HTTP](/docs/{{version}}/superconductor/web)
+    - Digging Deeper
+        - [Protocol Versions](/docs/{{version}}/superconductor/protocol-versions)
+        - [Routing](/docs/{{version}}/superconductor/routing)
 - ## [GPIO](https://scrapyard-io.projectsaturnstudios.com)
 - ## Ecosystem
     - Standalone Extensions
