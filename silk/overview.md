@@ -35,18 +35,25 @@ Every Raven widget type:
 
 Widgets are made through factory methods on containers — `$column->button('save', 'Save')` — and where a widget has a Surface `TK*` twin it keeps the twin's creation methods, setter names and mail, so moving a window from [toolkit primitives](/docs/{{version}}/surface/architecture/toolkit-primitives) to Silk is mechanical.
 
-## Config
+## Pages
 
-| Key | Holds |
+| Page | Holds |
 |---|---|
-| `look` | the look every tree starts with (`raven-dark`) |
-| `accent` | `auto`, `system`, `theme` or `custom`; `accent_color` when custom |
-| `scale` | UI scale, 0.25..4, multiplied by the window scale |
-| `reduced_motion` | snap every spring to its target |
-| `font.family` / `font.mono` | fontconfig families for the UI and monospace text |
-
-There is no engine key: Surface's `drawing.default` picks the engine, and `SILK_ENGINE` overrides it for one run. Twelve themes ship built in — `raven-dark` through macOS, GNOME and glass — and `app('silk.looks')` switches the active one live.
+| Creating widgets: factories, slots, setters, mail | [widgets](/docs/{{version}}/silk/guide/widgets) |
+| A tree in a window: the two hosts, the loop | [hosting](/docs/{{version}}/silk/guide/hosting) |
+| The object model: measure, arrange, paint, handle | [the tree](/docs/{{version}}/silk/architecture/tree) |
+| CanvasHost, StagedHost, FrameLoop, FramePump | [hosts and the frame loop](/docs/{{version}}/silk/architecture/hosts) |
+| SilkEvent, routing, focus, drag and drop | [input](/docs/{{version}}/silk/architecture/input) |
+| Popups, tooltips, dialogs and toasts | [overlays](/docs/{{version}}/silk/architecture/overlays) |
+| Springs, transitions, theme blending | [motion](/docs/{{version}}/silk/architecture/motion) |
+| The 12 themes, tokens, accent, glass | [looks](/docs/{{version}}/silk/architecture/looks) |
+| Logical units to engine calls, culling, glass | [painter](/docs/{{version}}/silk/architecture/painter) |
+| The BlockEditor's model, rules and interaction | [blocks](/docs/{{version}}/silk/architecture/blocks) |
+| What Silk may ask of Surface, and never does | [the Surface contract](/docs/{{version}}/silk/architecture/surface-contract) |
+| The mail the widgets post | [mail](/docs/{{version}}/silk/api/mail) |
+| `config/silk.php` | [config](/docs/{{version}}/silk/api/config) |
+| The gallery, the bench, golden frames | [gallery and bench](/docs/{{version}}/silk/runbooks/gallery-and-bench) |
 
 ## Usage
 
-Silk owns a whole staged window (`StagedHost`), or lives inside a canvas beside the native widgets of a toolkit window (`CanvasHost`): the same tree on either host, and an idle tree costs nothing. Every animated value is a damped spring solved in closed form, so hover, popups and scrolling move the same at any frame rate. The [gallery](https://github.com/VenusianPHP/silk/blob/main/examples/gallery.php) — every widget, working, on every built-in theme — is in the Silk repository; start with [composing an app](/docs/{{version}}/surface/runbooks/composing-an-app) for the window underneath.
+Silk owns a whole staged window, or lives inside a canvas beside the native widgets of a toolkit window — the same tree on either host, and an idle tree costs nothing. Start with [widgets](/docs/{{version}}/silk/guide/widgets) and [hosting](/docs/{{version}}/silk/guide/hosting), or with [composing an app](/docs/{{version}}/surface/runbooks/composing-an-app) for the window underneath; the [gallery](/docs/{{version}}/silk/runbooks/gallery-and-bench) shows every widget, working, on every built-in theme.

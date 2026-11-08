@@ -79,6 +79,24 @@
 - ## Widgets
     - [Overview](/docs/{{version}}/silk/overview)
     - [Changelog](/docs/{{version}}/silk/changelog)
+    - Guide
+        - [Widgets](/docs/{{version}}/silk/guide/widgets)
+        - [A tree in a window](/docs/{{version}}/silk/guide/hosting)
+    - Architecture
+        - [The tree](/docs/{{version}}/silk/architecture/tree)
+        - [Hosts and the frame loop](/docs/{{version}}/silk/architecture/hosts)
+        - [Input](/docs/{{version}}/silk/architecture/input)
+        - [Overlays](/docs/{{version}}/silk/architecture/overlays)
+        - [Motion](/docs/{{version}}/silk/architecture/motion)
+        - [Looks](/docs/{{version}}/silk/architecture/looks)
+        - [Painter](/docs/{{version}}/silk/architecture/painter)
+        - [Blocks](/docs/{{version}}/silk/architecture/blocks)
+        - [The Surface contract](/docs/{{version}}/silk/architecture/surface-contract)
+    - API
+        - [Mail](/docs/{{version}}/silk/api/mail)
+        - [Config](/docs/{{version}}/silk/api/config)
+    - Runbooks
+        - [Gallery and bench](/docs/{{version}}/silk/runbooks/gallery-and-bench)
 - ## Web Server
     - [Installation](/docs/{{version}}/serve/installation)
     - [Serving Your Application](/docs/{{version}}/serve/serving)
