@@ -76,6 +76,9 @@
         - [Composing an app](/docs/{{version}}/surface/runbooks/composing-an-app)
         - [Testing](/docs/{{version}}/surface/runbooks/testing)
         - [Releasing](/docs/{{version}}/surface/runbooks/releasing)
+- ## Widgets
+    - [Overview](/docs/{{version}}/silk/overview)
+    - [Changelog](/docs/{{version}}/silk/changelog)
 - ## Web Server
     - [Installation](/docs/{{version}}/serve/installation)
     - [Serving Your Application](/docs/{{version}}/serve/serving)

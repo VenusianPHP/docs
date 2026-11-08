@@ -2,6 +2,11 @@
 
 What changed in this package, newest first.
 
+### 2026-11-08
+
+* Host data moves through `vkCmdUpdateBuffer` and the Vulkan 1.4 host image copies (`vkCopyMemoryToImage`, `vkCopyImageToMemory`, `vkTransitionImageLayout`, `VkPhysicalDeviceHostImageCopyFeatures`); `VK_API_VERSION_1_4`.
+* `vkGetInstanceProcAddr($instance, $pName): int` returns a function's address; with `null` and its own name it is the loader's address, which ext-posi's `dlsym()` compares to tell whether two libraries share one loader.
+
 ### 2026-10-09
 
 * `extra.venusian.system` in composer.json: the apt packages `venusian build` installs to compile the extension, the run-time packages a `.deb` carrying it depends on or recommends beyond what `dpkg-shlibdeps` sees, and the Homebrew packages for a dev install.
@@ -12,9 +17,9 @@ Staged-window presentation: incremental present regions, present id and `vkWaitF
 
 ### 2026-10-06
 
-`VkMemoryDedicatedAllocateInfo`; `vk_loader_path()` (dladdr of `vkGetInstanceProcAddr`); the X11 surface extension names (`VK_KHR_xcb_surface`, `VK_KHR_xlib_surface`). Suite: Homebrew php@8.4 NTS and ZTS 26 passed, 2 skipped; Pi 27 passed, 1 skipped.
+`VkMemoryDedicatedAllocateInfo`; the X11 surface extension names (`VK_KHR_xcb_surface`, `VK_KHR_xlib_surface`). Suite: Homebrew php@8.4 NTS and ZTS 26 passed, 2 skipped; Pi 27 passed, 1 skipped.
 
-`vk_close_fd()` closes a descriptor `vkGetMemoryFdKHR` handed out (`EBADF` is a `ValueError`). The generator writes everything the committed stub holds: `VK_API_VERSION_1_1`, the Wayland surface and properties2 names, `vk_close_fd`. Suite: Homebrew php@8.4 NTS and ZTS 24 passed, 2 skipped; Pi 25 passed, 1 skipped.
+The generator writes everything the committed stub holds: `VK_API_VERSION_1_1`, the Wayland surface and properties2 names. A descriptor `vkGetMemoryFdKHR` handed out is closed with `posix_close()` of ext-posi. Suite: Homebrew php@8.4 NTS and ZTS 24 passed, 2 skipped; Pi 25 passed, 1 skipped.
 
 ### 2026-10-05
 

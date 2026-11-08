@@ -66,18 +66,21 @@ Bindings are 1:1. There are no defaults and no composites. The only translations
 - `vkCmdPushConstants` takes a string. A string shorter than `size` is a
   `ValueError`.
 - Results are the `VkResult` int, as in C.
-- `vkMapMemory` writes the mapped address to `$ppData` (`int`). PHP reads and
-  writes that address with `vk_read_mapped(int $address, int $size): string` and
-  `vk_write_mapped(int $address, string $bytes): void`. Address 0 is refused.
-  Any other address is trusted. `vkFlushMappedMemoryRanges` and
-  `vkInvalidateMappedMemoryRanges` are what make non-coherent memory correct.
-- `vkGetMemoryFdKHR` hands out a file descriptor the caller owns.
-  `vk_close_fd(int $fd): void` closes it; a descriptor that is not open (closed
-  already) is a `ValueError`.
-- `vk_loader_path(): ?string` names the file the Vulkan loader this extension
-  calls was loaded from (`dladdr` of `vkGetInstanceProcAddr`), so another
-  library that loads a loader itself (Qt's `QVulkanInstance`) can be pointed at
-  the same one.
+- `vkMapMemory` writes the mapped address to `$ppData` (`int`). Host data moves
+  through `vkCmdUpdateBuffer` (a string, at most 65,536 bytes a call) and the
+  host image copies: `vkCopyMemoryToImage` takes strings, and
+  `vkCopyImageToMemory` fills the `$pHostPointer` string of each region (give
+  it a string of the size to read). `vkTransitionImageLayout` moves an image to
+  the layout a host copy needs. They need Vulkan 1.4, the `hostImageCopy`
+  feature (chain `VkPhysicalDeviceHostImageCopyFeatures` into
+  `VkDeviceCreateInfo`), and images made with `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`.
+- `vkGetMemoryFdKHR` hands out a file descriptor the caller closes
+  (`posix_close()` of ext-posi).
+- `vkGetInstanceProcAddr($instance, $pName)` returns the function's address as
+  an `int` (`PFN_vkVoidFunction`; `0` is `NULL`). With `null` and
+  `'vkGetInstanceProcAddr'` it names the loader this process loaded: another
+  library's `dlsym()` of the same name (ext-posi) gives the same address only
+  in the same loader.
 - `VkMemoryDedicatedAllocateInfo` chains on `VkMemoryAllocateInfo`: an
   exported image allocated dedicated works on drivers that require it.
 
@@ -194,9 +197,9 @@ $imageInfo->usage = VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DS
 vkCreateImage($device, $imageInfo, null, $image);
 ```
 
-Map the destination buffer with `vkMapMemory`, then `vk_read_mapped` on the
-address it wrote. Call `vkFlushMappedMemoryRanges` after a write and
-`vkInvalidateMappedMemoryRanges` before a read when the memory is not coherent.
+Make the image with `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`, move it to the
+`VK_IMAGE_LAYOUT_GENERAL` layout with `vkTransitionImageLayout`, then read it
+with `vkCopyImageToMemory` into a string of the size to read.
 
 ## Testing
 
