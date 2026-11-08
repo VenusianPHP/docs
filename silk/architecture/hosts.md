@@ -7,9 +7,9 @@ CanvasHost and StagedHost bind a tree to an engine and a window; `FrameLoop` run
 `FrameLoop::frame(Host)`, in order:[^loop]
 
 1. Drain the host's queued [SilkEvents](/docs/{{version}}/silk/architecture/input) and dispatch each through the host's Router.
-2. Step the [springs](/docs/{{version}}/silk/architecture/motion): `FrameClock` turns the real gap since the last frame (bounded to 0.001..0.25 s) into equal steps of at most 1/30 s, and `Tree::advance()` takes each; a tree with no live spring forgets the clock.
+2. Step the [springs](/docs/{{version}}/silk/architecture/motion): `FrameClock` turns the real gap since the last frame (bounded to 0.001..0.25 s) into equal steps of at most 1/30 s, and `Tree::advance()` takes each.
 3. Lay the [tree](/docs/{{version}}/silk/architecture/tree) out to the host's viewport (up to 4 measure/arrange passes while something re-dirties).
-4. If nothing needs paint and nothing wants paint (a moving spring), return: no layout work beyond the check, no paint, no present.
+4. If nothing needs paint and nothing wants paint (`Tree::wantsPaint()`: a full repaint or leftover damage), return: no layout work beyond the check, no paint, no present, and the clock is forgotten.
 5. Otherwise, inside `engine->frame()`, `Tree::paintAll(new EnginePainter(...))`: the [painter](/docs/{{version}}/silk/architecture/painter) records only the dirty region, and the engine's own damage diffing limits the pixels touched. Then `host->present()`.
 
 ## The hosts

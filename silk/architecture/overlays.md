@@ -11,7 +11,7 @@ Menus, combo lists, pickers, tooltips, dialogs and toasts are drawn by the host'
 | Kind | How it draws |
 |---|---|
 | `Popup` | a column drawn in the layer; grows out of its anchor point on a BOUNCY [spring](/docs/{{version}}/silk/architecture/motion): scale 0.72 + 0.28 × shown, opacity min(1, shown × 1.8); once closed it keeps painting without input until shown reaches 0. `Placement` says where it sits against its anchor: Below, Above, Right, Left, AtPoint |
-| `Tooltip` | passive (never hit or focused): text + 16 wide, 4-radius box in the Tooltip role with a shadow, at the pointer +12, +20, flipped above when there is no room; BOUNCY in, opacity min(1, shown × 2) |
+| `Tooltip` | passive (never hit or focused): text + 16 wide, 4-radius box in the Tooltip role with a shadow, at the pointer +12, +20, flipped above when there is no room; BOUNCY in on a springy look, Smooth on a platform look; opacity min(1, shown × 2) springy, × 1 platform |
 | `Dialog` | a modal popup centred over a veil (black 0.42 × shown), card radius 10, shadow y+6 blur 28, scale 0.9 + 0.1 × shown, rising from 60 units; the veil takes every event under it. `MessageBox` is a dialog with a message |
 | `Toast` / `ToastQueue` | rise 14 units as they show (SNAPPY) and wait in sequence or stack; a hidden toast lets the pointer through |
 

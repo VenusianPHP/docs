@@ -6,7 +6,7 @@
 
 One app with a tab for each family of widgets — Controls, Text, Lists and scrolling, Data, Overlays, Pickers, Layout, Pictures, Glass, Docking, Nodes, Blocks, Editor, Timeline — and a Theme dropdown that switches between the built-in [looks](/docs/{{version}}/silk/architecture/looks) while it runs. The Glass tab holds BackgroundBlur panes over a striped, busy backdrop with a blur-radius slider.
 
-Run it as an app: copy `examples/gallery.php` into an app's sketches and `php rocket <name>`. Launching a window is a local matter: it needs the app's session on the event loop, like any [hosted](/docs/{{version}}/silk/guide/hosting) tree.
+Run it as an app: copy `examples/gallery.php` into an app as `app/Runner/Sketches/SilkGallery.php` and run `php rocket silk-gallery`. Launching a window is a local matter: it needs the app's session on the event loop, like any [hosted](/docs/{{version}}/silk/guide/hosting) tree.
 
 ## bench-gallery
 
@@ -31,7 +31,7 @@ php scripts/golden-frames.php record [--keep] [filter]
 php scripts/golden-frames.php check [filter]
 ```
 
-Golden frames hold Velvet's pixels byte for byte (sha256 of 134 frames in `tests/Fixtures/golden-frames.json`): Surface's GpuParity scenes, anti-aliased and hard, and the real gallery, every tab settled, in `raven-dark`, `raven-light` and `raven-glass-dark` at scales 1 and 2 (on Velvet with ext-rasterize and ext-fb). The gallery's clock reads are pinned so the frames are deterministic. It is for changes that must not move a pixel; a change that moves pixels on purpose re-records the affected frames. `GOLDEN_SURFACE` points at another Surface checkout for a baseline; `GOLDEN_RAW` is where a failing frame's raw RGBA8 goes.
+Golden frames hold Velvet's pixels byte for byte (sha256 of 140 frames in `tests/Fixtures/golden-frames.json`): Surface's GpuParity scenes, anti-aliased and hard, and the real gallery, every tab settled, in `raven-dark`, `raven-light` and `raven-glass-dark` at scales 1 and 2 (on Velvet with ext-rasterize and ext-fb). The gallery's clock reads are pinned so the frames are deterministic. It is for changes that must not move a pixel; a change that moves pixels on purpose re-records the affected frames. `GOLDEN_SURFACE` points at another Surface checkout for a baseline; `GOLDEN_RAW` is where a failing frame's raw RGBA8 goes.
 
 ## Tests
 

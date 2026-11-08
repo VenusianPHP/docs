@@ -31,7 +31,7 @@ $root->progressBar('load', 0.4);
 | `textInput(name, value, placeholder, secret)` | TextInput | |
 | `spinBox(name, value, minimum, maximum, step)` | SpinBox | |
 | `grid(name, spacing, padding)` | Grid | as `TKGrid` |
-| `uniformGrid(name, spacing, columns)` | UniformGrid | 0 columns: square |
+| `uniformGrid(name, spacing, columns)` | UniformGrid | columns > 0: children flow; 0: each child takes the cell `at()` gave it |
 | `stack(name)` | Stack | children on top of each other |
 | `sizeBox(name, aspectRatio)` | SizeBox | 0: take the space offered |
 | `switcher(name, index)` | Switcher | shows the one child |

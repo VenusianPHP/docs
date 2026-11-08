@@ -47,7 +47,7 @@ public function loop(array $mail = []): SketchLoopResult
 }
 ```
 
-`shutdown()` is the mirror: `app('silk')->detach($this->host)`, close the windows, leave and disconnect the session.
+`shutdown()` is the mirror: `app('silk')->detach($this->host)` and close the windows — the canvas sketch also leaves and disconnects the session.
 
 ## A canvas in a toolkit window
 
@@ -60,7 +60,7 @@ $canvas->fill()->minSize(600, 220);
 
 $root = new Column('bar', 6, 10);
 $root->row('controls', 8)->button('zoom-in', 'Zoom in');
-$root->progressBar('zoom', 0.25);
+$root->progressBar('zoom', $this->fraction());   // the zoom as a linear share of 1/8x..8x, as in examples/canvas-demo.php
 
 $tree = new Tree($root, app('silk.looks')->current(), app('event-loop'), 'main');
 app('silk.looks')->watch($tree);

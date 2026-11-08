@@ -2,6 +2,8 @@
 
 `config/silk.php`, published under the `silk-config` tag. Themes and looks are registered and switched through the container, never through files.
 
+## Keys
+
 | Key | Holds |
 |---|---|
 | `look` | the look every [tree](/docs/{{version}}/silk/architecture/tree) starts with (`raven-dark`) |
