@@ -10,11 +10,11 @@ Metal's concrete classes are private (`AGXG13GDevice` and the like), so boxing d
 
 The identity table is module global `boxes`: native address → `zend_object*`, not refcounted. The same native object in one thread is the same PHP object. The table is created in GINIT and destroyed in GSHUTDOWN, so each ZTS thread has its own table and does not share PHP objects with another thread.
 
-`fromPointer(0)` throws `MetalException`. Otherwise the called class's `metal_map_native` entry is checked with `conformsToProtocol:` for a protocol type and `isKindOfClass:` for a real class. A mismatch throws. Any other address is trusted to hold an object.
+`fromPointer()` boxes the object at the address as the called class. The address is trusted to hold that class's object; nothing is checked. `0` is nil, which boxes as `null`.
 
 A sub-object getter (`colorAttachments()`, `objectAtIndexedSubscript()`) uses `metal_box`, which retains. The PHP object stays valid after the parent is freed.
 
-Value classes (`MTLOrigin`, `MTLSize`, `MTLRegion`, `MTLClearColor`, `MTLViewport`, `MTLScissorRect`, `CGSize`) are plain PHP objects with public properties. They are not handles.
+Value classes (`MTLOrigin`, `MTLSize`, `MTLRegion`, `MTLClearColor`, `MTLViewport`, `MTLScissorRect`) are plain PHP objects with public properties. They are not handles.
 
 Wrappers are not constructible, not cloneable (`clone_obj = NULL`), and not serializable.
 
