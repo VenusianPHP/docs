@@ -4,9 +4,9 @@ One PHP object per GLFW pointer, released when GLFW frees it; PHP callables stor
 
 ## Handles
 
-`GLFW_G(boxes)`: native address → zend_object, live handles only, not refcounted. `glfw_box` answers the existing object or makes one; `fromPointer` boxes a trusted address (0 refused).[^runtime]
+`GLFW_G(boxes)`: native address → zend_object, live handles only, not refcounted. `glfw_box` answers the existing object or makes one; `fromPointer` boxes a trusted address (0 → null).[^runtime]
 
-Release (pointer cleared, entry dropped; later use → `ValueError` "GLFWwindow has been destroyed" / "GLFWmonitor has been disconnected"):[^glfw3]
+Release (pointer cleared, entry dropped; `pointer()` → 0; as a required argument → `ValueError` "GLFWwindow has been destroyed" / "GLFWmonitor has been disconnected", site `glfw-released-handle` in `glfw_handle_ptr`, since GLFW checks only with assert() and dereferences; where GLFW takes NULL — `glfw_optional_ptr` — the NULL passes through):[^glfw3]
 
 * `glfwDestroyWindow` — that window, after its callbacks are dropped.
 * `glfwTerminate` — every window and monitor.
@@ -16,10 +16,10 @@ Dropping the last PHP reference frees the PHP object only; the native window liv
 
 ## Callbacks
 
-* Window: `GLFW_G(window_callbacks)` GLFWwindow* → nine zval slots; a C trampoline per callback type looks the slot up and calls it with `(GLFWwindow, …args)`. Setting null clears the slot and the GLFW callback.[^glfw3]
+* Window: `GLFW_G(window_callbacks)` GLFWwindow* → fifteen zval slots (nine window, six input); a C trampoline per callback type looks the slot up and calls it with `(GLFWwindow, …args)`. Setting null clears the slot and the GLFW callback. Every set-callback function returns the previous callable (moved out of the slot) or null, as GLFW returns the previous function.[^glfw3]
 * Error, monitor: one zval each in globals.
 * A callback does not run while an exception is pending; an exception thrown inside one surfaces from the GLFW call that dispatched it (Cocoa resizes synchronously: from `glfwSetWindowSize`; elsewhere from the event pump).
-* RSHUTDOWN: GLFW told to stop calling (error, monitor, every window's nine), then callables freed.[^runtime]
+* RSHUTDOWN: GLFW told to stop calling (error, monitor, every window's fifteen), then callables freed.[^runtime]
 
 [^runtime]: Handle table and callback storage
 [^glfw3]: Trampolines and release points
