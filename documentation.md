@@ -97,6 +97,7 @@
         - [Config](/docs/{{version}}/silk/api/config)
     - Runbooks
         - [Gallery and bench](/docs/{{version}}/silk/runbooks/gallery-and-bench)
+        - [CI](/docs/{{version}}/silk/runbooks/ci)
 - ## Web Server
     - [Installation](/docs/{{version}}/serve/installation)
     - [Serving Your Application](/docs/{{version}}/serve/serving)
