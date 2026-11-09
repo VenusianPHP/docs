@@ -2,7 +2,7 @@
 
 The vulkan rendering engine for Venusian Surface.
 
-The `vulkan` rendering engine for Venusian Surface. Draws Surface's draw lists on any Vulkan 1.1+ GPU: V3DV on the Raspberry Pi 5, MoltenVK on the Mac. Presents into a `VkSurfaceKHR` a canvas lends.
+The `vulkan` rendering engine for Venusian Surface. Draws Surface's draw lists on a Vulkan 1.4 GPU with host image copies: MoltenVK on the Mac. Presents into a `VkSurfaceKHR` a canvas lends.
 
 ## Where it sits
 
@@ -14,10 +14,10 @@ The engine's framebuffer is a `VulkanFramebuffer`, a Surface `GLFramebuffer`.
 
 ## Requirements
 
-- A Vulkan 1.1+ GPU (the CPU device is skipped) with a graphics queue and `VK_KHR_swapchain`. Anti-aliased edges need 4 samples for colour and stencil; a device with fewer refuses them by name.
+- A Vulkan 1.4 GPU with the `hostImageCopy` feature (the CPU device is skipped; a device without the feature is refused by name) with a graphics queue and `VK_KHR_swapchain`. Anti-aliased edges need 4 samples for colour and stencil; a device with fewer refuses them by name.
 - macOS: Homebrew `vulkan-loader`, `vulkan-headers`, `molten-vk`. Presenting into a canvas's `CAMetalLayer` also needs ext-metal.
 - Raspberry Pi: Mesa V3DV. Run inside the user's session (`WAYLAND_DISPLAY`, `XDG_RUNTIME_DIR`) so the loader finds the display.
-- PHP 8.4, ext-vulkan ^0.10 (with `VK_API_VERSION_1_1`, the properties2 / Wayland / xcb / Xlib surface names, `VkMemoryBarrier`, `VkMemoryDedicatedAllocateInfo` and `vk_close_fd`), `venusian-surface/drawing` ^0.10.
+- PHP `~8.4.27||^8.5.12` (8.4.27 or newer, 8.5.12 or newer), ext-posi ^0.11 (it closes dmabuf descriptors), ext-vulkan ^0.11 (with `VK_API_VERSION_1_1`, the properties2 / Wayland / xcb / Xlib surface names, `VkMemoryBarrier`, `VkMemoryDedicatedAllocateInfo` and `vk_close_fd`), `venusian-surface/drawing` ^0.11.
 - No window code: the engine opens no window. A window's surface arrives from a toolkit canvas as a `LentSurface`.
 
 ## Install
@@ -83,6 +83,12 @@ Measured 2026-10-08: MoltenVK (Mac) and V3DV (Pi 5) render all four pairs and ta
 | ELLIPSE, RING | coverage of the outer (and inner) ellipse in the fragment shader, folded into alpha as Velvet folds it |
 | UPLOAD + IMAGE | a framebuffer as an image, fetched texel by texel at the inverse placement of the pixel centre, nearest or Velvet's 256ths bilinear |
 | RECTS | rectangles blended at the colour's alpha |
+| ROUNDRECT, ROUNDRING | a rounded box, or its border inside the box, as one quad a pixel past it; coverage per sample inside the rounded box (and outside the box inset by the border) |
+| SHADOW | a blurred rounded box: one quad blur + 1 past it, coverage `1 − smoothstep(−blur, blur, d)` at each pixel centre |
+| ATLAS + MASK + GLYPHS | TrueType text: each glyph's coverage written once into an 8-bit atlas texture kept across frames, then quads sampling it, blended as Velvet blends spans |
+| COVER_GRADIENT | a linear or radial gradient: the path's stencil, then a cover that looks the pixel's position up in the 256-entry ramp, uploaded as a 256 × 1 source |
+| TARGET, BACKDROP, FILTER, LAYER_SOURCE | layers: a target of the layer's own, a copy of what lies under it, Surface's `FilterPlan` passes over the box, and the layer target as an image's source |
+| GLASS_BACKDROP + GLASS | glass panes: the region under a group of panes read once and taken down and up a dual-filter pyramid (kept across frames while nothing under it changes), then one draw a pane |
 
 Edges: four samples resolved inside the render pass (anti-aliased) or one (hard).
 
@@ -92,7 +98,7 @@ Fixed-function source-over: colour `SRC_ALPHA, ONE_MINUS_SRC_ALPHA`, alpha `ONE,
 
 ## Shaders
 
-`resources/shaders/venusian.vert` and `venusian.frag`, GLSL 450, compiled with `glslangValidator -V -g` and committed as `.spv`. The fragment body is venusian-sdl3's, unchanged; only the declarations differ: the sampler is set 0, binding 0, and the paint block is a push-constant block. Push constants: `vec4 size` for the vertex stage at offset 0, `Paint` (96 bytes) for the fragment stage at offset 16. The vertex shader maps pixel y = 0 to clip −1: Vulkan's clip y runs down and image row 0 is the top, so nothing is flipped anywhere.
+`resources/shaders/venusian.vert` and `venusian.frag`, GLSL 450, compiled with `glslangValidator -V -g` and committed as `.spv`. The fragment body is venusian-sdl3's, unchanged; only the declarations differ: the sampler is set 0, binding 0, and the paint block is a push-constant block. Push constants: `vec4 size` for the vertex stage at offset 0, `Paint` (112 bytes) for the fragment stage at offset 16, 128 in all (what Vulkan guarantees). The vertex shader maps pixel y = 0 to clip −1: Vulkan's clip y runs down and image row 0 is the top, so nothing is flipped anywhere.
 
 ## Reference
 
@@ -106,7 +112,6 @@ Fixed-function source-over: colour `SRC_ALPHA, ONE_MINUS_SRC_ALPHA`, alpha `ONE,
 | `handles()` | `['instance' => <VkInstance address>]`: a canvas makes its `VkSurfaceKHR` against it |
 | `instance()`, `physical()`, `device()`, `queue()`, `family()` | the Vulkan objects and the graphics queue family |
 | `stencilFormat()` | `D24_UNORM_S8_UINT` or `D32_SFLOAT_S8_UINT`, the first the device renders |
-| `coherent()` | whether the last staging buffer's memory type is `HOST_COHERENT` |
 | `extensions()` | the device extensions enabled |
 | `maxSamples()` | 4 when colour and stencil both take 4 samples, else 1 |
 | `maxImageDimension2D()` | the largest image side |
@@ -118,7 +123,7 @@ Fixed-function source-over: colour `SRC_ALPHA, ONE_MINUS_SRC_ALPHA`, alpha `ONE,
 | `exportBytes()` | for tests: the export image's pixels through a mapping of its memory |
 | `swapchainExtent()` | `[width, height]` of the swapchain |
 | `release()` | waits the device idle and destroys everything |
-| `read($image, $region)`, `write($image, $rgba8, $region)` | readback and upload through staging buffers (`VulkanFramebuffer` calls them) |
+| `read($image, $region)`, `write($image, $rgba8, $region)` | readback and upload by host image copies (`VulkanFramebuffer` calls them) |
 | `forget($framebuffer)` | destroys a framebuffer's image when the PHP object goes |
 | `finish()` | waits the frame in flight and frees what it used |
 
@@ -134,7 +139,7 @@ Fixed-function source-over: colour `SRC_ALPHA, ONE_MINUS_SRC_ALPHA`, alpha `ONE,
 
 - The target image lives in `VK_IMAGE_LAYOUT_GENERAL` its whole life: drawn or resolved into, copied out of, uploaded into, sampled, blitted from, with no layout change after the first.
 - A frame is submitted with a fence and not waited. The next frame, readback, upload or release waits it, then frees that frame's vertex buffer, source images and descriptor pool.
-- A readback is a copy into a host-visible buffer, invalidated, read. An upload is a flushed staging buffer copied in. Flush and invalidate always run, at `nonCoherentAtomSize`, coherent memory or not.
+- A readback is `vkCopyImageToMemory`, an upload `vkCopyMemoryToImage`: the host moves the bytes, no mapped memory. The frame's vertices go in with `vkCmdUpdateBuffer`.
 - With anti-aliased edges, an upload leaves the 4× samples behind; the next frame first draws the target back into them (one restore pass, which does not resolve).
 - The 4× colour image keeps its contents between frames: a partial frame draws over the last one.
 - The engine's own framebuffer used as an image source shows the frame before the current one: it is copied before the frame starts, and the copy is sampled.
