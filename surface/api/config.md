@@ -29,7 +29,8 @@ Driver keys, read with code defaults by each driver (absent from the published f
 
 | Key | Default | Values |
 |---|---|---|
-| `default` | `env('FRAMEBUFFERS_DRIVER', 'auto')` | `auto` (extended when ext-fb 0.10 is loaded, native when not), `native` (bytes in PHP, always available), `extended` (bytes in C, needs ext-fb 0.10) |
+| `default` | `env('FRAMEBUFFERS_DRIVER', 'auto')` | `auto` (extended when ext-fb 0.11.1 is loaded, native when not), `native` (bytes in PHP, always available), `extended` (bytes in C, needs ext-fb 0.11.1) |
+| `canvas_format` | `env('FRAMEBUFFERS_CANVAS_FORMAT')` | the format of a canvas's framebuffer and of the pixels its toolkit is handed: `null` (the toolkit's native canvas format), `rgba8` or `bgra8` to force one |
 
 `rasterize`:[^rasterize]
 
@@ -49,6 +50,7 @@ Driver keys, read with code defaults by each driver (absent from the published f
 | Key | Default | Values |
 |---|---|---|
 | `default` | `velvet` | the engine `renderer()` builds when none is named: `velvet` (software, built in), or one an engine package registers |
+| `velvet.direct_fill` | `env('VELVET_DIRECT_FILL', 'auto')` | `auto` (with both drivers extended, shapes are painted straight into the framebuffer, ext-rasterize into ext-fb with no span strings between them), `off` (every shape's spans go through `paintSpans()`); the pixels are the same either way |
 
 `embedded-displays`:[^embedded-displays]
 

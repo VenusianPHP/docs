@@ -2,6 +2,28 @@
 
 What changed in this package, newest first.
 
+### 2026-11-08
+
+* **Version**: v0.11.2. The toolkit drivers (`jovian/venusian-appkit`, `-gtk`, `-qt`) are suggested at `^0.11.0` by the bridge and windows components; the framebuffers component suggests ext-fb `^0.11.1` (the `extended` driver now needs it); the fonts component suggests ext-freetype, ext-harfbuzz and ext-fontconfig. [components](/docs/{{version}}/surface/guide/components)
+* Glass on the GPU: a device that is `Surface\Drawing\Gpu\DrawsGlass` gets `Op::GLASS_BACKDROP` and one `Op::GLASS` draw a pane; any other device is given each pane as a backdrop layer. GPU reuse: vertex buffers and pooled source textures across frames on the four engines. Released in v0.11.1. [drawing](/docs/{{version}}/surface/architecture/drawing#glass)
+
+### 2026-11-07
+
+* Paths, gradients, filters, layers and glass on the rendering engine: `Path` (lines, quadratic and cubic curves, measure) with `fill()` and `stroke()` (`StrokeStyle`: caps, joins, miter limit, dashes); `LinearGradient` / `RadialGradient`; `Framebuffer::filter(FilterChain)` (blur, colour matrix, flood, composite, blend, noise, displacement); `layer()` with opacity, rounded corners, its own filter and a backdrop filter; `glass()` panes over a dual-filter (Kawase) pyramid, `paintGlass()` in ext-fb or `NativeGlass`. Released in v0.11.1. [drawing](/docs/{{version}}/surface/architecture/drawing#paths-and-curves), [framebuffers](/docs/{{version}}/surface/architecture/framebuffers)
+* Shapes are drawn in batches: `Rasterizer::fillBatch()` and `Scanner::batch()`, one scan call for each run of shape commands under one clip. A bad shape now throws before any shape of its run is painted. With both drivers extended, Velvet's runs are scanned and painted in C through ext-fb's span sink (`drawing.velvet.direct_fill`, `auto` or `off`). Shapes are scanned over their own extent, not their clip. Pixels unchanged. Released in v0.11.1. [rasterize](/docs/{{version}}/surface/architecture/rasterize), [config](/docs/{{version}}/surface/api/config)
+* Text is painted from cached masks: `Framebuffer::paintMasks()` on every kind (ext-fb's `FbBuffer::paintMasks()` in one call); Velvet keeps each glyph's mask once (8 MiB, least recently used out first); GPU engines keep a `GlyphAtlas`. Released in v0.11.1. [drawing](/docs/{{version}}/surface/architecture/drawing#velvetge), [framebuffers](/docs/{{version}}/surface/architecture/framebuffers)
+* Staged input: `StagedWindow::watchInput()` / `watchesInput()` and the `Mail\Staged\*` mail (`staged.pressed.<window>`, `staged.key-pressed.<window>`, …). `framebuffers.canvas_format` picks a canvas framebuffer's format (`null`, `rgba8`, `bgra8`). Released in v0.11.1. [windows](/docs/{{version}}/surface/architecture/windows#stagedwindow), [config](/docs/{{version}}/surface/api/config)
+* System accent: `ToolkitWindowDriver::systemAccent()` (`SystemAccent::color()`). Released in v0.11.1. [windows](/docs/{{version}}/surface/architecture/windows#toolkitwindowdriver)
+
+### 2026-11-05
+
+* `roundRect()` and `shadow()` are drawing verbs (commands `roundrect`, `roundring`, `shadow`), with Rasterize's `fillRoundRect`, `strokeRoundRect` and `shadow`. Released in v0.11.1. [drawing](/docs/{{version}}/surface/architecture/drawing#verbs), [rasterize](/docs/{{version}}/surface/architecture/rasterize)
+* Fonts has bitmap and TrueType types: `Font`, `FontType`, `TrueTypeFont`, `FontDriver`, `ShapedRun`, `ShapedGlyph`, `GlyphMask`; `ExtendedFontDriver` (needs ext-freetype, ext-harfbuzz and ext-fontconfig); `FontRegistry::face(): Font` and `truetype()`; `text()` / `textBounds()` take a `Font`; the `glyphs` command. Released in v0.11.1. [fonts](/docs/{{version}}/surface/architecture/fonts), [drawing](/docs/{{version}}/surface/architecture/drawing#text)
+
+### 2026-11-04
+
+* Windows styling: `FontSpec` italic; `FontMetrics` and `ToolkitWindowDriver::fontMetrics()`; `TextRangeStyle` bold, italic, underline and strikeout flags (a run needs a colour or a flag); `TKTextArea::setTabWidth()` / `tabWidth()` (8 until set); `setAlignment()` on `TKButton`, `TKTextInput` and `TKTextArea`. Released in v0.11.1. [styling](/docs/{{version}}/surface/api/styling)
+
 ### 2026-10-28
 
 * **Version**: 0.11.0 with the Venusian 0.11 ecosystem. Root and component manifests require `venusian-voyager/*` and `gpio/contracts` `^0.11.0` and PHP `~8.4.27||^8.5.12`; `dev-main` is `0.11.x-dev`. No API change.
