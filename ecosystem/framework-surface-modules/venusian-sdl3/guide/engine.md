@@ -23,7 +23,7 @@ Sdl3Device - SDL_GPU device, persistent target, one pass per DrawList, five pipe
 
 ## Pass
 
-Colour: load, store (1 sample) or resolve-and-store into `resolved` (4). Stencil: clear, don't care. A copy pass first uploads the list's vertices plus one whole-target quad (CLEAR, restore) and every image source; then one render pass. Each pass sets the viewport, binds the vertex buffer, pushes `Frame`, binds `blank`.
+Colour: load, store (1 sample) or resolve-and-store into `resolved` (4). Stencil: clear, don't care. A copy pass first uploads the list's vertices plus one whole-target quad (CLEAR, restore; one vertex buffer and one transfer buffer kept across frames, grown by powers of two from 256 KiB, written with cycle on) and every image source (textures pooled by format and size, staging buffers kept by size class, also written with cycle on); then one render pass. Each pass sets the viewport, binds the vertex buffer, pushes `Frame`, binds `blank`.
 
 ## Pipelines
 

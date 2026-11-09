@@ -14,17 +14,15 @@ The engine's framebuffer is an `Sdl3Framebuffer`, a Surface `GLFramebuffer`.
 
 ## Requirements
 
-- macOS or Linux with SDL 3.2+ and ext-sdl3 ^0.10. PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), `venusian-surface/drawing` ^0.10.
+- macOS or Linux with SDL 3.2+, ext-sdl3 ^0.11 and ext-fb ^0.11.1. PHP `~8.4.27||^8.5.12` (8.4.27 or newer, 8.5.12 or newer), `venusian-surface/drawing` ^0.11.
 - SDL video: the provider's creator brings SDL's video subsystem up (`SDL_InitSubSystem`, reference-counted) before the device; it never quits it, since the process may hold SDL windows of its own. On macOS with ext-appkit it first makes sure the application exists and has a delegate (an empty trampoline when it has none): otherwise SDL makes its own application, with a Dock icon and menus, and makes itself the delegate. Since SDL's delegate is not there to do it, the session makes the process a regular app and brings it to the front while connected (and a focusable staged window brings it to the front when shown): a process started from a terminal otherwise shows windows that take clicks but never keys. An `Sdl3Device` built by hand needs video up first; without it the refusal is a `DrawingException` saying so.
 - On the Pi, the Wayland session (`WAYLAND_DISPLAY`, `XDG_RUNTIME_DIR`). No headless run there.
 
 ## Install
 
 ```
-composer require jovian/venusian-sdl3:0.10.x-dev
+composer require jovian/venusian-sdl3
 ```
-
-There is no tagged release on Packagist yet, only the `0.10.x-dev` branch, so a plain `composer require` fails under the default `stable` minimum stability.
 
 Provider discovered through `extra.venusian.providers`. It registers `sdl3` on `app('drawing')`, and, with Surface's bridge bound, the `sdl3` stager on `app('toolkit-bridge')`. With HumanInput bound too, it registers the `sdl3` input engine on `app('human-input')`.
 
@@ -119,6 +117,12 @@ HDR where window has the composition: rgba16float extended-linear sRGB / P3 thro
 | ELLIPSE, RING | coverage of the outer (and inner) ellipse in the fragment shader, folded into alpha as Velvet folds it |
 | UPLOAD + IMAGE | a framebuffer as a texture, fetched texel by texel at the inverse placement of the pixel centre, nearest or Velvet's 256ths bilinear |
 | RECTS | rectangles blended at the colour's alpha |
+| ROUNDRECT, ROUNDRING | a rounded box, or its border inside the box, as one quad a pixel past it; coverage per sample inside the rounded box (and outside the box inset by the border) |
+| SHADOW | a blurred rounded box: one quad blur + 1 past it, coverage `1 − smoothstep(−blur, blur, d)` at each pixel centre |
+| ATLAS + MASK + GLYPHS | TrueType text: each glyph's coverage written once into an 8-bit atlas texture kept across frames, then quads sampling it, blended as Velvet blends spans |
+| COVER_GRADIENT | a linear or radial gradient: the path's stencil, then a cover that looks the pixel's position up in the 256-entry ramp, uploaded as a 256 × 1 source |
+| TARGET, BACKDROP, FILTER, LAYER_SOURCE | layers: a target of the layer's own, a copy of what lies under it, Surface's `FilterPlan` passes over the box, and the layer target as an image's source |
+| GLASS_BACKDROP + GLASS | glass panes: the region under a group of panes read once and taken down and up a dual-filter pyramid (kept across frames while nothing under it changes), then one draw a pane |
 
 Edges: four samples resolved (anti-aliased) or one (hard).
 
