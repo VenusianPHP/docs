@@ -2,6 +2,29 @@
 
 What changed in this package, newest first.
 
+### 2026-11-07
+
+* System accent: a cached GTK accent service reads GNOME's `accent-color` setting and maps the known names to libadwaita's colours; null when the schema or key is missing, `WindowException` for a name it does not know. Released in v0.11.0.
+
+### 2026-11-05
+
+* Native text: `GTKFonts` turns a `FontSpec` into the Pango description the widget's CSS gives it (family or Monospace, italic, weight, px size) and measures it; the driver's `fontMetrics()` reads through one never-shown `GtkLabel`'s Pango context. Text areas: one tag per flag for bold, italic, underline and strikethrough runs, a one-stop `PangoTabArray` at columns × the font's character width (`setTabWidth()`), and justification; inputs align with `xalign`; a button's child aligns start, centre or end. Released in v0.11.0. [primitives](/docs/{version}/ecosystem/framework-surface-modules/venusian-gtk/guide/primitives)
+
+### 2026-10-28
+
+* **v0.11.0** with the Venusian 0.11 ecosystem: requires PHP `~8.4.27||^8.5.12`, ext-gtk ^0.11 and `venusian-surface/*` and `venusian-voyager/*` ^0.11; `dev-main` is `0.11.x-dev`. Known: on the Pi (Wayland) a shown window's `setDefaultSize()` does not grow a split past its first width. [overview](/docs/{version}/ecosystem/framework-surface-modules/venusian-gtk/overview)
+
+### 2026-10-27
+
+* Services: `GTKComposedAlert` for an alert with a style, a suppression box or a title (a transient modal `GtkWindow`; Return, Esc and close answer with the check state); `supports()` gives `AlertTitle`, not `ShowHidden`; file dialog filters as `GtkFileFilter`s in a `GListStore`; `GTKClipboard` reads text asynchronously, answers `hasText()` from the formats and posts `ClipboardChanged` from the `changed` signal. Needs ext-gtk's `GtkFileFilter`, `GListStore`, file dialog filters, clipboard text reads and `GdkContentFormats`. Released in v0.11.0. [windows and menus](/docs/{version}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus)
+* Canvas keys: `GTKCanvasKeys` replaces the canvas's Tab controller. A focused canvas takes every key and posts `KeyPressed`, `EditCommanded` and `KeyReleased`; keys with no command go to a `GtkIMMulticontext`, whose commit posts `TextCommitted`. A focusable canvas is one Tab stop. `GTKCanvas::tabKeys()` became `keys()`. Released in v0.11.0. [overview](/docs/{version}/ecosystem/framework-surface-modules/venusian-gtk/overview)
+
+### 2026-10-26
+
+* New primitives: `GTKComboBox` (an entry and an options popover, completions in `GTKCompletionList`), `GTKMenuButton` and `GTKScrollBar` (`ScrollChanged`, latest wins). Push and toggle buttons show a Framebuffer image (`GTKButtonImage`) and can drop their frame; `GTKTabView` inserts pages at an index. Released in v0.11.0. [primitives](/docs/{version}/ecosystem/framework-surface-modules/venusian-gtk/guide/primitives)
+* Canvas: hover mail (`CanvasEntered`, `CanvasMoved`, `CanvasLeft`), kinetic wheel phases and `GTKCanvasCoast` (decaying momentum wheels ticked by the session pump); the fractional scale is read from the surface and `WindowScaleChanged` posts when it changes. Released in v0.11.0.
+* Menus: radio items (`MenuRadioChosen`), relabelling, and toggle and radio state kept in bars and context menus; a primitive can open its context menu from code. On macOS every bar names `app` actions so the app bar shows toggle and radio marks, and a relabel rebuilds the shown app bar. `WindowFocused` posts only after the window was inactive at a pump's end. Released in v0.11.0. [windows and menus](/docs/{version}/ecosystem/framework-surface-modules/venusian-gtk/guide/windows-and-menus)
+
 ### 2026-10-23
 
 * v0.10.5 tracks Surface v0.10.5. Requires ext-gtk ^0.10.5 and Surface contracts and windows ^0.10.5. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-gtk/overview)

@@ -5,8 +5,8 @@ GTK 4 toolkit driver for the Venusian Surface bridge.
 ## Requirements
 
 - macOS or Linux with GTK 4 (through ext-gtk).
-- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-gtk ^0.10.5.
-- `venusian-surface/contracts` and `venusian-surface/windows` ^0.10.5, `venusian-surface/bridge` and `venusian-surface/human-input` ^0.10.1, `venusian-voyager/nuts-and-bolts` ^0.10.1.
+- PHP `~8.4.27||^8.5.12`, ext-gtk ^0.11.
+- `venusian-surface/contracts`, `venusian-surface/windows`, `venusian-surface/bridge` and `venusian-surface/human-input` ^0.11, `venusian-voyager/nuts-and-bolts` ^0.11.
 
 ## Install
 
@@ -14,7 +14,7 @@ GTK 4 toolkit driver for the Venusian Surface bridge.
 composer require jovian/venusian-gtk
 ```
 
-The latest tag is v0.10.5.
+The latest tag is v0.11.0.
 
 The provider (`VenusianGTKServiceProvider`) is discovered through `extra.venusian.providers`.
 
@@ -124,7 +124,7 @@ $tree->expand('src')->selectNode('src/a.php');
 
 `$input->focus()` gives the input keyboard focus through `gtk_widget_grab_focus` and posts nothing; `hasFocus()` and `$window->focused()` read it back. A text area, table or tree focuses its inner view. `$window->setInitialFocus($input)` focuses it on each `present()`, which posts no focus mail either (GTK's own first focus included). Code that hides or disables the focused widget posts nothing; a hide passes focus to the next widget, as Tab would move it. The user's moves, by click, Tab or GTK, post `FocusLost` then `FocusGained`, from the window's `notify::focus-widget`.
 
-A canvas takes no focus until `$canvas->setFocusable()`; then a press on it takes focus, and Tab moves on. `setFocusable(true, takesTab: true)` keeps Tab and Shift-Tab on it (an editor pane).
+A canvas takes no focus until `$canvas->setFocusable()`; then a press on it takes focus, and Tab moves on. `setFocusable(true, takesTab: true)` keeps Tab and Shift-Tab on it (an editor pane). A focusable canvas is one Tab stop (its shown child, not the box), and while focused it takes every key: `GTKCanvasKeys` posts `KeyPressed`, `EditCommanded` (Ctrl chords on Linux, Cmd and Option on macOS) and `KeyReleased`, and an input method's commit posts `TextCommitted`. `GTKCanvas::tabKeys()` is now `keys()`.
 
 A key that nothing took (the focused widget, the window's shortcuts, the default and cancel buttons) reaches a bubble-phase key controller on the window and posts `WindowKeyPressed` with the physical key, the layout's text (`''` for a function key) and the modifiers. Tab and Shift-Tab go on, so GTK moves focus. GTK gives no repeat flag: `repeat` is false.
 
