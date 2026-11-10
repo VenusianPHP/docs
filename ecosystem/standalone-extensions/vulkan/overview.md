@@ -71,13 +71,15 @@ translations:
   the layout a host copy needs. They need Vulkan 1.4, the `hostImageCopy`
   feature (chain `VkPhysicalDeviceHostImageCopyFeatures` into
   `VkDeviceCreateInfo`), and images made with `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`.
-  `vkGetMemoryFdKHR` hands out a descriptor the caller closes (`posix_close()` of
+- `vkGetMemoryFdKHR` hands out a descriptor the caller closes (`posix_close()` of
   ext-posi).
 - `vkGetInstanceProcAddr($instance, $pName)` returns the function's address as
   an `int` (`PFN_vkVoidFunction`; `0` is `NULL`). With `null` and
   `'vkGetInstanceProcAddr'` it names the loader this process loaded: another
   library's `dlsym()` of the same name (ext-posi) gives the same address only
   in the same loader.
+- `VkMemoryDedicatedAllocateInfo` chains on `VkMemoryAllocateInfo`: an
+  exported image allocated dedicated works on drivers that require it.
 
 ## Refusals
 
