@@ -14,6 +14,6 @@ The Vulkan functions and structs this extension binds, by group.
 | Metal surface | `src/vk_metal.c` | `vkCreateMetalSurfaceEXT`, macOS only, loaded with `vkGetInstanceProcAddr` |
 | dmabuf | `src/vk_external.c` | `vkGetMemoryFdKHR`, `vkGetImageDrmFormatModifierPropertiesEXT` via `vkGetDeviceProcAddr`; `vkGetImageSubresourceLayout` |
 
-`vk_read_mapped` and `vk_write_mapped` live in `src/vulkan.c`. They are not Vulkan API entry points.
+Every function is a Vulkan entry point; there are no helper functions. Host data moves through `vkCmdUpdateBuffer` and the Vulkan 1.4 host image copies `vkCopyMemoryToImage`, `vkCopyImageToMemory` and `vkTransitionImageLayout` (commands group).
 
 A device proc that the loader does not export answers `VK_ERROR_EXTENSION_NOT_PRESENT`.

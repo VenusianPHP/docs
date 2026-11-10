@@ -7,11 +7,11 @@
 
 ## Introduction
 
-This repository holds the documentation for Venusian, the core framework, Surface (displays and graphics), Serve (the web server), Superconductor MCP (the Model Context Protocol) and the ecosystem of extensions and packages around them, and for ScrapyardIO, the GPIO framework for Venusian with its PHP IO extensions, microscrap modules and chip drivers. Venusian's documentation lives at [venusian.projectsaturnstudios.com/docs](https://venusian.projectsaturnstudios.com/docs), ScrapyardIO's at [scrapyard-io.projectsaturnstudios.com/docs](https://scrapyard-io.projectsaturnstudios.com/docs).
+This repository holds the documentation for Venusian, the core framework, Surface (displays and graphics), Silk (the widget toolkit), Serve (the web server), Superconductor MCP (the Model Context Protocol) and the ecosystem of extensions and packages around them, and for ScrapyardIO, the GPIO framework for Venusian with its PHP IO extensions, microscrap modules and chip drivers. Venusian's documentation lives at [venusian.projectsaturnstudios.com/docs](https://venusian.projectsaturnstudios.com/docs), ScrapyardIO's at [scrapyard-io.projectsaturnstudios.com/docs](https://scrapyard-io.projectsaturnstudios.com/docs).
 
 ## Layout
 
-Each release line has its own branch: `0.11.x` documents Venusian 0.11. Pages are plain Markdown, one file per page, under `framework/`, `surface/`, `serve/`, `superconductor/`, `scrapyard-io/` and `ecosystem/`. Each site has its own sidebar: [`documentation.md`](documentation.md) for Venusian and [`scrapyard-io.md`](scrapyard-io.md) for ScrapyardIO. A sidebar's `##` entries are its top-level sections, and its links set the reading order. Every page belongs to exactly one sidebar.
+Each release line has its own branch: `0.11.x` documents Venusian 0.11. Pages are plain Markdown, one file per page, under `framework/`, `surface/`, `silk/`, `serve/`, `superconductor/`, `scrapyard-io/` and `ecosystem/`. Each site has its own sidebar: [`documentation.md`](documentation.md) for Venusian and [`scrapyard-io.md`](scrapyard-io.md) for ScrapyardIO. A sidebar's `##` entries are its top-level sections, and its links set the reading order. Every page belongs to exactly one sidebar.
 
 Links between pages of the same site use the `{{version}}` placeholder, which the site replaces with the branch being read; a page on the other site is linked by its absolute URL, such as `https://scrapyard-io.projectsaturnstudios.com/docs/scrapyard-io/getting-started/installation`:
 
