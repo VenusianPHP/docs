@@ -154,7 +154,7 @@ Your `.env` file should not be committed to your application's source control, s
 
 Now that you have created your Venusian application, you probably want to store some data in a database. By default, your application's `.env` file sets `DB_CONNECTION=sqlite`, and the `sqlite` connection in `config/database.php` uses the `database/database.sqlite` file that was created with your application.
 
-A new application has no migrations. Create one with `make:migration`, which writes it to `database/migrations`, then run your application's [database migrations](/docs/{{version}}/framework/database/migrations):
+A new application ships one migration, `database/migrations/0001_01_01_000001_create_cache_table.php`, which creates the `cache` and `cache_locks` tables the `database` [cache](/docs/{{version}}/framework/digging-deeper/cache) store reads; the default store stays `file`. Create your own with `make:migration`, which writes it to `database/migrations`, then run your application's [database migrations](/docs/{{version}}/framework/database/migrations):
 
 ```shell
 php computer make:migration create_readings_table
