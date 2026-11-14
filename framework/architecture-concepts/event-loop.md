@@ -147,7 +147,24 @@ An exception thrown by an `onStop` hook is discarded, so one failing hook never 
 
 While `run()` is turning, the loop listens for `SIGINT` (Ctrl+C) and `SIGTERM`. The first one stops the loop as `stop()` would, with the status a shell reports for a process killed by that signal: `130` for `SIGINT`, `143` for `SIGTERM`. Your `onStop` hooks then run, so worker pools shut their workers down instead of leaving them orphaned.
 
-After the first signal, the default handlers are restored, so a second Ctrl+C kills the process immediately if shutting down is stuck. The next `run()` listens again.
+After the first signal, the loop stops listening to it, so a second one goes to whatever handled that signal before the loop started. By default that is PHP's own handler, so a second Ctrl+C kills the process immediately if shutting down is stuck. When `run()` returns, the loop gives back the handler it found, so a sketch or a supervisor that installed its own keeps it after a loop has run. The next `run()` listens again.
+
+Something that has work in flight, such as a server answering its open requests, may take the first signal itself with `onStopSignal`. The handlers are asked in the order they were registered, with the signal number. One that returns `true` takes the signal: the loop keeps running, and that handler calls `stop()` once it is done. When none takes it, the loop stops as described above. The second signal is never offered to these handlers:
+
+```php
+$loop->onStopSignal(function (int $signal) use ($loop): bool {
+    // Stop accepting new work, then stop the loop once what is in flight has finished...
+    $loop->defer(fn () => $loop->stop());
+
+    return true;
+});
+```
+
+A loop that doesn't own its process's signals, such as one running in a thread or one nested in a runner that handles them itself, may call `ignoreStopSignals`. It then never listens for `SIGINT` or `SIGTERM`, and leaves them, and whatever handles them, to the process:
+
+```php
+$loop->ignoreStopSignals();
+```
 
 Listening for stop signals requires the `pcntl` extension. Without it, the loop does not listen, and a signal ends the process the way PHP's default handler does, without running your `onStop` hooks. The signal watcher never keeps the loop running on its own: a loop with nothing else to do still returns from `run()` right away.
 
