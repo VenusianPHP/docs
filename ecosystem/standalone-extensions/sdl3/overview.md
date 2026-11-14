@@ -39,10 +39,10 @@ The macOS installer ad-hoc signs the `.so` and writes `30-sdl3.ini`. Pass other 
 
 Bindings are the C API with four translations:
 
-- A pointer and a count, in a struct or a parameter list, are one PHP list. The count is the length of the list. An empty list passes NULL and a count of 0.
+- A pointer and a count in a struct are one PHP list; the count is its length. In a parameter list the C count stays its own parameter after the list (`SDL_BindGPUVertexBuffers($pass, 0, $bindings, count($bindings))`); a count past the list is a `ValueError`.
 - `const Uint8 *code` and `size_t code_size` are one `string`.
 - An out-parameter is a by-reference parameter (`?int &$w`).
-- A `void *` is an `int` address. `0` is refused. Any other address is trusted, and the stub says so.
+- A `void *` is an `int` address, trusted, and `0` is NULL. SDL refuses a NULL it cannot take itself.
 - A struct the caller passes for SDL to fill (`SDL_Rect *rect`, `SDL_DisplayMode *closest`) is an object SDL writes into. A `const SDL_DisplayMode *` SDL returns is a copied `SDL_DisplayMode`, or `null`. A list SDL allocates (`SDL_GetDisplays`, `SDL_GetFullscreenDisplayModes`) is a PHP list, or `null` on failure; the count is its length.
 
 A C `bool` stays `bool`. Failure is `SDL_GetError()`, as in C. Enum and flag fields are `int`. `props` fields are `int`.
@@ -51,9 +51,9 @@ Constants are PHP constants under their C names. The values come from the SDL he
 
 ## Handles
 
-Handle classes are `final`, with a private constructor, and are not cloneable or serializable. Each has `pointer(): int` and `static fromPointer(int $pointer): static`. `fromPointer(0)` throws `ValueError`. The same native pointer in one thread is the same PHP object.
+Handle classes are `final`, with a private constructor, and are not cloneable or serializable. Each has `pointer(): int` and `static fromPointer(int $pointer): ?static`. `fromPointer(0)` is `null`. The same native pointer in one thread is the same PHP object.
 
-`SDL_Destroy*`, `SDL_Release*`, `SDL_CloseIO`, `SDL_EndGPUCopyPass`, `SDL_EndGPURenderPass`, and submitting or cancelling a command buffer mark that handle released. A swapchain texture is released when the command buffer that acquired it is submitted or cancelled. A window surface from `SDL_GetWindowSurface()` is released by `SDL_DestroyWindowSurface()` or when the window is destroyed. Passing a released handle to any binding throws `ValueError` naming the class (`SDL_Window has been destroyed`). The native object is not freed when the PHP object is. A later SDL object at the same address is a new PHP object.
+`SDL_Destroy*`, `SDL_Release*`, `SDL_CloseIO`, `SDL_EndGPUCopyPass`, `SDL_EndGPURenderPass`, and submitting or cancelling a command buffer mark that handle released. A swapchain texture is released when the command buffer that acquired it is submitted or cancelled. A window surface from `SDL_GetWindowSurface()` is released by `SDL_DestroyWindowSurface()` or when the window is destroyed. A released handle's `pointer()` is `0`, and it reaches SDL as NULL, which SDL refuses itself (`SDL_GetError()` is `Invalid window`). Where NULL is a valid argument, SDL takes it as such: a released parent window is no parent. `SDL_Surface`'s field getters read the struct themselves, so a released surface throws `ValueError` there (`SDL_Surface has been destroyed`). The native object is not freed when the PHP object is. A later SDL object at the same address is a new PHP object.
 
 ## Bytes
 
@@ -65,17 +65,28 @@ SDL_WriteIO($io, $bytes, strlen($bytes));
 SDL_CloseIO($io);
 ```
 
-`SDL_ReadIO($io, $size)` returns the bytes read, shorter at the end of the stream. `SDL_WriteIO` throws `ValueError` when `$size` is larger than the string. `SDL_CreateSurfaceFrom()` with a string keeps that string alive until `SDL_DestroySurface()`, because SDL does not copy the pixels.
+`SDL_ReadIO($io, $ptr, $size)` reads into the address `$ptr` (an ext-fb buffer's `pointer()`, say) and returns the count read, shorter at the end of the stream. `SDL_WriteIO` throws `ValueError` when `$size` is larger than the string. `SDL_CreateSurfaceFrom()` with a string keeps that string alive until `SDL_DestroySurface()`, because SDL does not copy the pixels.
 
 ## Hit tests
 
-`SDL_SetWindowHitTest($window, $callback, $callback_data)` takes a PHP callable. SDL calls it as `$callback(SDL_Window $win, SDL_Point $area, mixed $data): int` on the thread pumping events, and uses the `SDL_HITTEST_*` it returns. A callback that throws, or returns something other than an `int`, answers `SDL_HITTEST_NORMAL`; the exception reaches the PHP call that pumped the events. A `null` callback removes it. The callable and `$callback_data` are held until the hit test is replaced or removed, the window is destroyed, `SDL_Quit()` runs, or the request ends.
+`SDL_SetWindowHitTest($window, $callback)` takes a PHP callable; a closure carries its own data, as `callback_data` would. SDL calls it as `$callback(SDL_Window $win, SDL_Point $area): int` on the thread pumping events, and uses the `SDL_HITTEST_*` it returns. A callback that throws, or returns something other than an `int`, answers `SDL_HITTEST_NORMAL`; the exception reaches the PHP call that pumped the events. A `null` callback removes it. The callable is held until the hit test is replaced or removed, the window is destroyed, `SDL_Quit()` runs, or the request ends.
 
 Cocoa honours `SDL_HITTEST_DRAGGABLE` and sends `SDL_EVENT_WINDOW_HIT_TEST` when it does. An inactive Mac window spends its first click on activation unless the `SDL_MOUSE_FOCUS_CLICKTHROUGH` hint is `1`.
 
 ## Threads
 
 Video and the GPU device stay on the thread that called `SDL_Init`. The binding does not add a check. On macOS, Cocoa rejects a video call from another thread. The identity table is per thread, so a handle boxed on one thread is not the PHP object on another.
+
+## Coverage
+
+[SUPPORT.md](https://github.com/php-io-extensions/sdl3/blob/v0.11.1/SUPPORT.md) lists every function SDL 3.2.0, the floor this extension builds against,
+declares in its public headers (all of SDL, not only video and the GPU), each marked bound or not;
+the SDL API badge in the repository README (216 of 1233 at v0.11.1) is computed from it. Regenerate both after a binding change, and check them:
+
+```bash
+php84 scripts/support.php           # writes SUPPORT.md and the badge
+php84 scripts/support.php --check   # exits 1 when either is stale
+```
 
 ## Example
 
@@ -102,7 +113,7 @@ $color->store_op = SDL_GPU_STOREOP_STORE;
 [$color->clear_color->r, $color->clear_color->g, $color->clear_color->b, $color->clear_color->a] = [0.0, 1.0, 0.0, 1.0];
 
 $commands = SDL_AcquireGPUCommandBuffer($device);
-SDL_EndGPURenderPass(SDL_BeginGPURenderPass($commands, [$color], null));
+SDL_EndGPURenderPass(SDL_BeginGPURenderPass($commands, [$color], 1, null));
 
 $down = new SDL_GPUTransferBufferCreateInfo();
 $down->usage = SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD;
@@ -117,10 +128,11 @@ $to->transfer_buffer = $transfer;
 SDL_DownloadFromGPUTexture($copy, $region, $to);
 SDL_EndGPUCopyPass($copy);
 $fence = SDL_SubmitGPUCommandBufferAndAcquireFence($commands);
-SDL_WaitForGPUFences($device, true, [$fence]);
+SDL_WaitForGPUFences($device, true, [$fence], 1);
 
 $io = SDL_IOFromConstMem(SDL_MapGPUTransferBuffer($device, $transfer, false), 16);
-$bytes = SDL_ReadIO($io, 16); // four pixels of "\x00\xff\x00\xff"
+$pixels = new FbBuffer(new FbFormat(FB_LAYOUT_RGBA8888, channelOrder: FB_CHANNELS_RGBA), 4, 1); // ext-fb
+SDL_ReadIO($io, $pixels->pointer(), 16); // $pixels->bytes(): four pixels of "\x00\xff\x00\xff"
 SDL_CloseIO($io);
 SDL_UnmapGPUTransferBuffer($device, $transfer);
 
