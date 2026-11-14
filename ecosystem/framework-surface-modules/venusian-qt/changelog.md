@@ -2,6 +2,33 @@
 
 What changed in this package, newest first.
 
+### 2026-11-08
+
+* **v0.11.0**: the Vulkan loader check compares Qt's and ext-vulkan's `vkGetInstanceProcAddr` by address through ext-posi's `dlopen()`/`dlsym()` (suggested) instead of by path. [overview](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/overview)
+
+### 2026-11-07
+
+* System accent: the application palette's accent colour through the bridge; null on Qt before 6.6. The Metal drawable size uses `NSSize`. Released in v0.11.0.
+
+### 2026-11-05
+
+* Native text: `FontSpec` mapped to Qt fonts and measured for `fontMetrics()`; alignment, tab widths (`setTabWidth()`) and bold, italic, underline and strikeout runs across primitives. A text area's relayout scroll clamps no longer post as user scrolls. Released in v0.11.0. [primitives](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/guide/primitives)
+
+### 2026-10-28
+
+* Version 0.11.0 with the Venusian 0.11 ecosystem: requires PHP `~8.4.27||^8.5.12`, ext-qt ^0.11 and `venusian-surface/*` and `venusian-voyager/*` ^0.11; `dev-main` is `0.11.x-dev`. Known: on Linux the PRIMARY selection can disturb the combo box tests. [overview](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/overview)
+
+### 2026-10-27
+
+* Dialogs: `QMessageBox` takes its icon from the alert style, an optional suppression check box (answered as `suppressed`) and a window title; file dialogs take name filters and `showHidden`. `supports()` reports what the platform gives (no `AlertTitle` on macOS, where a window-modal box is a sheet); `native($id)` exposes an open request's dialog. Released in v0.11.0. [windows and menus](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus)
+* Clipboard: `QtClipboard` reads text, answers `hasText()` and posts `ClipboardChanged` from `dataChanged()`; on macOS a window's activation compares the clipboard with the last seen, since every read clears Qt's modified flag there. Released in v0.11.0. [windows and menus](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus)
+* Canvas keys: `QtCanvasKeys` replaces the canvas's Tab-only filter. While the canvas holds focus a key press posts `KeyPressed`, then `EditCommanded`, `InsertTab`/`InsertBacktab`, `DeleteBackward` or `TextCommitted`; on macOS physical Ctrl+K and Ctrl+Y post `DeleteToLineEnd` and `Yank`, as AppKit does; `KeyReleased` posts only for a key whose press posted. Released in v0.11.0. [overview](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/overview)
+
+### 2026-10-26
+
+* New primitives: `QtComboBox` (an editable `QComboBox` with a `QCompleter`; Return submits once), `QtScrollBar` (`ScrollChanged`, latest wins) and `QtMenuButton` (a `QToolButton` with an instant popup). Push and toggle buttons show a Framebuffer image (`QtButtonImage`) and can be flat; `QtTabView` inserts tabs at an index. Released in v0.11.0. [primitives](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/guide/primitives)
+* Menus: radio groups (`MenuRadioChosen`), relabelling and toggle state kept in `MenuStates` (the driver's default bar too); context menus take toggles and radios; labels are escaped for Qt mnemonics; a primitive can pop its menu from code. Canvas: mouse tracking, hover mail (`CanvasEntered`, `CanvasMoved`, `CanvasLeft`) and wheel phases. `WindowScaleChanged` on a device pixel ratio change. Released in v0.11.0. [windows and menus](/docs/{version}/ecosystem/framework-surface-modules/venusian-qt/guide/windows-and-menus)
+
 ### 2026-10-23
 
 * v0.10.5 tracks Surface v0.10.5. Requires ext-qt ^0.10.5, Surface contracts and windows ^0.10.5, and now `venusian-surface/human-input` ^0.10.1 (the keymaps for window keys). [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-qt/overview)

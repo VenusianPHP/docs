@@ -5,8 +5,9 @@ Qt 6 toolkit driver for the Venusian Surface bridge.
 ## Requirements
 
 - macOS or Linux with Qt 6 (through ext-qt).
-- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-qt ^0.10.5.
-- `venusian-surface/contracts` and `venusian-surface/windows` ^0.10.5, `venusian-surface/bridge` ^0.10.0, `venusian-surface/human-input` ^0.10.1 (the keymaps for window keys), `venusian-voyager/nuts-and-bolts` ^0.10.1.
+- PHP `~8.4.27||^8.5.12`, ext-qt ^0.11.
+- `venusian-surface/contracts`, `venusian-surface/windows` and `venusian-surface/bridge` ^0.11, `venusian-surface/human-input` ^0.11 (the keymaps for window keys), `venusian-voyager/nuts-and-bolts` ^0.11.
+- ext-posi (suggested): with ext-vulkan, it checks that Qt would load the same Vulkan loader before the canvas lends a Vulkan surface.
 
 ## Install
 
@@ -14,7 +15,7 @@ Qt 6 toolkit driver for the Venusian Surface bridge.
 composer require jovian/venusian-qt
 ```
 
-The latest tag is v0.10.5.
+The latest tag is v0.11.0.
 
 The provider (`VenusianQtServiceProvider`) is discovered through `extra.venusian.providers`.
 
@@ -76,7 +77,7 @@ A profile's edit roles call the focused `QLineEdit`'s or `QPlainTextEdit`'s own 
 
 `$input->focus()` gives the input keyboard focus through `QWidget::setFocus` and posts nothing; `hasFocus()` and `$window->focused()` read it back, also while the window is not active. A native with no focus policy (a label) refuses it. `$window->setInitialFocus($input)` focuses it on each `present()`; Qt's own first focus for a shown window posts nothing either, nor does code that hides or disables the focused widget (Qt passes focus to the next one). The user's moves, by click, Tab or Qt, post `FocusLost` then `FocusGained`.
 
-A canvas takes no focus until `$canvas->setFocusable()` (`Qt::StrongFocus`: click and Tab); `setFocusable(true, takesTab: true)` keeps Tab and Shift-Tab on it.
+A canvas takes no focus until `$canvas->setFocusable()` (`Qt::StrongFocus`: click and Tab); `setFocusable(true, takesTab: true)` keeps Tab and Shift-Tab on it. While focused, `QtCanvasKeys` posts `KeyPressed`, then `EditCommanded` (the first matching `QKeySequence` standard key) or `TextCommitted` for printable text, and `KeyReleased` only for a key whose press posted; input method commits post `TextCommitted`.
 
 A key press the focused widget leaves unaccepted travels up to the window, where it posts `WindowKeyPressed` with the physical key (from `nativeVirtualKey` on macOS, `nativeScanCode` on X11), the text (`''` for a function key), the modifiers and the repeat flag. Tab, menu accelerators and the default and cancel buttons' keys never get there.
 
