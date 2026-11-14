@@ -4,7 +4,7 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/php-io-extensions/glfw/ci.yml?style=flat-square&label=CI)](https://github.com/php-io-extensions/glfw/actions/workflows/ci.yml)
 
-1:1 PHP bindings of GLFW 3.4 for staged windows: initialization and errors, monitors, video modes and gamma, windows with their hints, attributes and callbacks, events and time, OpenGL contexts, Vulkan surfaces, and native handles. Version 0.10.0. Linux and macOS.
+1:1 PHP bindings of GLFW 3.4 for staged windows: initialization and errors, monitors, video modes and gamma, windows with their hints, attributes and callbacks, events and time, OpenGL contexts, Vulkan surfaces, and native handles. Version 0.11.0. Linux and macOS.
 
 Input is not bound: no keyboard, mouse, cursor, joystick or gamepad functions. Function and constant names are the C names. A handle is one PHP object per native pointer. Dropping the last PHP reference does not destroy the native object.
 
