@@ -2,6 +2,7 @@
 
 What changed in this package, newest first.
 
+<<<<<<< Updated upstream
 ### 2026-10-28
 
 * **Version**: 0.11.0 in `PHP_APPKIT_VERSION` (`php_appkit.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. SurfaceTest expects `NSPopUpButton`'s parent `NSButton`, as the 2026-10-23 surface change declared. Built and loaded on Homebrew PHP 8.4 NTS and ZTS: 347 passed, 10 skipped on each.
@@ -22,6 +23,11 @@ What changed in this package, newest first.
 ### 2026-10-23
 
 * `NSComboBox` (object values as strings), `NSScroller` (style, knob proportion, hit part, width per style, the preferred-style notification), `NSTrackingArea`, `NSButton` image, image position (`NSCellImagePosition`) and bordered, `NSMenuItem` image, `NSControl` refusesFirstResponder, `NSView` convertRect:toView: and tracking areas, `NSEvent` phase / momentumPhase / trackingArea (`NSEventPhase`), `NSWindow` child windows (`NSWindowOrderingMode`) and convertRectToScreen:, `NSTabView` insertTabViewItem:atIndex:. `NSPopUpButton` extends `NSButton`, as the header declares. Each new UI method has its own main-thread site; NSEvent and NSTrackingArea readers have none. 655 / 7210. Shipped in tag v0.11.0 (`PHP_APPKIT_VERSION` 0.11.0). [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+=======
+### 2026-11-11
+
+* **0.11.2**: `CMTime`, `AVPlayerItem`, `AVPlayer`, `AVPlayerView`, their enums and `AVPlayerItemDidPlayToEndTimeNotification` moved to [ext-avkit](/docs/{{version}}/ecosystem/standalone-extensions/avkit/overview); AVKit, AVFoundation and CoreMedia are no longer linked. `NSURL` stays. The installer and `PHP_INSTALL_HEADERS` put `php_appkit.h`, `php_appkit_api.h`, `src/runtime.h` and `src/controls.h` under `$(php-config --include-dir)/ext/appkit` for extensions whose classes extend appkit's; `appkit_box_cf_as` boxes a CF object as a given `CFType` subclass.
+>>>>>>> Stashed changes
 
 ### 2026-10-22
 
@@ -90,8 +96,8 @@ What changed in this package, newest first.
 
 ### 2026-10-02
 
-* Toolkit primitives slice: view/layout/colour/font, stack and grid, controls, table, KVO + notification observers, AVKit video. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface) rows, new [layout](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/layout-bindings) and [video](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/video-bindings); delegate `@` returns now box PHP strings and numbers.
-* Review fixes: delegate object returns retained (+1 autoreleased); callouts refuse foreign threads; `ObjCObserver` rolls back a refused key path; notification blocks take the 1:1 queue (`NSOperationQueue`); constructors/factories build the called class; `CMTime` carries flags/epoch; `NSRange`/`CMTime` readers checked; KVO geometry as value classes; getters for every new setter; `NSCell` + table cell/view readers. [callouts](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/callouts), [video](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/video-bindings), [layout](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/layout-bindings), [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface).
+* Toolkit primitives slice: view/layout/colour/font, stack and grid, controls, table, KVO + notification observers, AVKit video. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface) rows, new [layout](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/layout-bindings) and [video, now ext-avkit](/docs/{{version}}/ecosystem/standalone-extensions/avkit/overview); delegate `@` returns now box PHP strings and numbers.
+* Review fixes: delegate object returns retained (+1 autoreleased); callouts refuse foreign threads; `ObjCObserver` rolls back a refused key path; notification blocks take the 1:1 queue (`NSOperationQueue`); constructors/factories build the called class; `CMTime` carries flags/epoch; `NSRange`/`CMTime` readers checked; KVO geometry as value classes; getters for every new setter; `NSCell` + table cell/view readers. [callouts](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/callouts), [video, now ext-avkit](/docs/{{version}}/ecosystem/standalone-extensions/avkit/overview), [layout](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/layout-bindings), [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface).
 * NSView content hugging / compression resistance, NSScrollView contentView, anchor inequalities, NSView visibleRect / scrollPoint:, NSFontManager, layer contents/gravity/masking + kCAGravity*, NSControlTextDidChangeNotification / NSTextDidChangeNotification, NSView menu, NSControl sendAction:to:, NSTimeZone + NSDatePicker timeZone, AVPlayer actionAtItemEnd, NSTextView/NSTableView background colour, NSTextView layout manager / text container measuring (AppKit driver containers need them). [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface).
 
 ### 2026-10-01

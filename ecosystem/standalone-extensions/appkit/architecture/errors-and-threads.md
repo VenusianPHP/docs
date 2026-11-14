@@ -23,7 +23,7 @@ Only where the native call would cause memory unsafety, uncatchable process deat
 | `monitor-remove-once` | `NSEvent::removeMonitor` twice on one monitor | SIGSEGV | ValueError |
 | `pixel-format-value` | `NSOpenGLPixelFormat::initWithAttributes` ending on a value-taking attribute with no value | SIGSEGV | ValueError |
 
-Foundation, text, graphics, media, GameController, CMTime, CALayer, OpenGL context/pixel format and the non-view grid/table helpers (NSGridCell/Row/Column, NSTableColumn, NSCell, NSIndexSet) carry no gate: they run on the calling thread. CF run-loop calls carry none: CFRunLoop is thread-safe, `getCurrent()` on another thread is that thread's loop. Callouts' own thread check (a native callback on a foreign thread never enters PHP) is in [callouts](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/callouts).
+Foundation, text, graphics, GameController, CALayer, OpenGL context/pixel format and the non-view grid/table helpers (NSGridCell/Row/Column, NSTableColumn, NSCell, NSIndexSet) carry no gate: they run on the calling thread. CF run-loop calls carry none: CFRunLoop is thread-safe, `getCurrent()` on another thread is that thread's loop. Callouts' own thread check (a native callback on a foreign thread never enters PHP) is in [callouts](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/callouts).
 
 Marshal checks (a PHP value with no native form: wrong type, out-of-range int) are argument errors before the call, not refusals; `calayer-contents-value` (`setContents` given an object that is neither NSObject nor CFType) is one.
 

@@ -135,11 +135,21 @@
                 - [Callouts](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/callouts)
                 - [Glue trampolines](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/glue-trampolines)
                 - [Layout bindings](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/layout-bindings)
-                - [Video bindings](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/video-bindings)
                 - [Errors and threads](/docs/{{version}}/ecosystem/standalone-extensions/appkit/architecture/errors-and-threads)
             - Runbooks
                 - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/appkit/runbooks/build-install-test)
                 - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/appkit/runbooks/adding-a-binding)
+        - php-io-extensions/avkit
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/avkit/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/avkit/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/avkit/api/bindings)
+            - Architecture
+                - [On appkit](/docs/{{version}}/ecosystem/standalone-extensions/avkit/architecture/on-appkit)
+                - [Decode path](/docs/{{version}}/ecosystem/standalone-extensions/avkit/architecture/decode-path)
+                - [Errors](/docs/{{version}}/ecosystem/standalone-extensions/avkit/architecture/errors)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/avkit/runbooks/build-install-test)
         - php-io-extensions/box2d
             - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/box2d/overview)
             - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/box2d/changelog)
@@ -311,6 +321,28 @@
                 - [Callbacks and threads](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/architecture/callbacks-and-threads)
             - Runbooks
                 - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/runbooks/build-install-test)
+        - php-io-extensions/soloud
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/soloud/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/soloud/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/soloud/api/bindings)
+            - Architecture
+                - [Callbacks](/docs/{{version}}/ecosystem/standalone-extensions/soloud/architecture/callbacks)
+                - [Errors](/docs/{{version}}/ecosystem/standalone-extensions/soloud/architecture/errors)
+                - [Lifetime](/docs/{{version}}/ecosystem/standalone-extensions/soloud/architecture/lifetime)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/soloud/runbooks/build-install-test)
+        - php-io-extensions/vlc
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/vlc/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/vlc/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/vlc/api/bindings)
+            - Architecture
+                - [Callbacks](/docs/{{version}}/ecosystem/standalone-extensions/vlc/architecture/callbacks)
+                - [Errors](/docs/{{version}}/ecosystem/standalone-extensions/vlc/architecture/errors)
+                - [Lifetime](/docs/{{version}}/ecosystem/standalone-extensions/vlc/architecture/lifetime)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/vlc/runbooks/build-install-test)
         - php-io-extensions/vulkan
             - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/overview)
             - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/changelog)
