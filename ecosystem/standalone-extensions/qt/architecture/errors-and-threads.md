@@ -14,6 +14,7 @@ Each reads `if (!PHPQT_PROBE_OFF("<id>") && (<check>))`, marks its throw line `/
 |---|---|---|
 | `qapp-widget`, `qapp-text-widget`, `qapp-slider`, `qapp-table`, `qapp-tree-widget`, `qapp-splitter`, `qapp-gl-painter`, `qapp-menubar`, `qapp-menu` | widget constructors before a `QApplication` | qFatal abort |
 | `qguiapp-window`, `qguiapp-pixmap`, `qguiapp-pixmap-from-image` | `QWindow`, `QPixmap`, `QPixmap::fromImage` before a `QGuiApplication` | qFatal abort |
+| `qapp-font-metrics`, `qapp-font-info` | `QFontMetricsF`, `QFontInfo` before a `QGuiApplication` (Qt qFatals in QFontDatabase) | qFatal abort |
 | `qguiapp-vulkan-create` | `QVulkanInstance::create()` before a `QGuiApplication` | SIGSEGV |
 | `main-thread-macos` | an application, widget or `QWindow` constructor off the process main thread, macOS only | AppKit's uncaught NSException |
 | `second-application-macos` | a second application, macOS only (Linux hangs in the constructor, none of the three outcomes) | SIGSEGV at teardown |
