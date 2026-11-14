@@ -16,16 +16,14 @@ The engine's framebuffer is an `OpenGLFramebuffer`, a Surface `GLFramebuffer`.
 
 - macOS: OpenGL 4.1 core through CGL. Apple deprecates it; SDK 15.4 still ships it.
 - Linux: EGL 1.5 with `EGL_MESA_platform_surfaceless` and OpenGL ES 3.1. Anti-aliased edges need `GL_MAX_SAMPLES` ≥ 4; a context with fewer refuses them by name.
-- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), `venusian-surface/drawing` ^0.10, ext-opengl ^0.10 with the pixel-store skip constants and, on Linux, `eglGetCurrentDisplay` / `eglGetCurrentSurface`.
+- PHP `~8.4.27||^8.5.12` (8.4.27 or newer, 8.5.12 or newer), `venusian-surface/drawing` ^0.11, ext-fb ^0.11.1, ext-opengl ^0.11 with the pixel-store skip constants and, on Linux, `eglGetCurrentDisplay` / `eglGetCurrentSurface`.
 - No window, no display server: the engine's own context is offscreen. A window's context comes from a toolkit canvas as a `LentSurface`.
 
 ## Install
 
 ```
-composer require jovian/venusian-opengl:0.10.x-dev
+composer require jovian/venusian-opengl
 ```
-
-There is no tagged release on Packagist yet, only the `0.10.x-dev` branch, so a plain `composer require` fails under the default `stable` minimum stability.
 
 Provider discovered through `extra.venusian.providers`. It registers `opengl` on `app('drawing')`.
 
@@ -84,6 +82,12 @@ Offscreen device draws every pair (readback, `hdrSnapshot()`).
 | ELLIPSE, RING | coverage of the outer (and inner) ellipse in the fragment shader, folded into alpha as Velvet folds it |
 | UPLOAD + IMAGE | a framebuffer as a texture, fetched texel by texel at the inverse placement of the pixel centre, nearest or Velvet's 256ths bilinear |
 | RECTS | rectangles blended at the colour's alpha |
+| ROUNDRECT, ROUNDRING | a rounded box, or its border inside the box, as one quad a pixel past it; coverage per sample inside the rounded box (and outside the box inset by the border) |
+| SHADOW | a blurred rounded box: one quad blur + 1 past it, coverage `1 − smoothstep(−blur, blur, d)` at each pixel centre |
+| ATLAS + MASK + GLYPHS | TrueType text: each glyph's coverage written once into an 8-bit atlas texture kept across frames, then quads sampling it, blended as Velvet blends spans |
+| COVER_GRADIENT | a linear or radial gradient: the path's stencil, then a cover that looks the pixel's position up in the 256-entry ramp, uploaded as a 256 × 1 source |
+| TARGET, BACKDROP, FILTER, LAYER_SOURCE | layers: a target of the layer's own, a copy of what lies under it, Surface's `FilterPlan` passes over the box, and the layer target as an image's source |
+| GLASS_BACKDROP + GLASS | glass panes: the region under a group of panes read once and taken down and up a dual-filter pyramid (kept across frames while nothing under it changes), then one draw a pane |
 
 Edges: four samples resolved with `glBlitFramebuffer` (anti-aliased) or one (hard).
 
@@ -119,7 +123,8 @@ Uniforms: `size` (vec2, target pixels), `mode_opacity` (mode, opacity, linear, 0
 - `present()` copies the target into the framebuffer the view has bound for drawing, at the lent surface's size, and leaves it bound with no pixel-pack buffer: a GL canvas calls it inside its render callback. A device with its own context, or a released surface, answers false.
 - A pixel call between frames costs a readback, an upload and, with anti-aliased edges, a restore pass before the next frame.
 - The engine's own framebuffer drawn as an image shows the frame before the current one.
-- Image sources are uploaded every frame they are drawn. Every texture a frame makes (sources, the restore's copy) is deleted when the frame ends.
+- Image sources are uploaded every frame they are drawn. The textures a frame makes (sources, the restore's copy) go back to a pool by size and kind (8 a size, 24 sizes) when the frame ends; a texture a pass already let go of is not pooled.
+- The vertex buffer is one of a ring of three, each with a vertex array of its own, grown by powers of two from 256 KiB and written in place with `glBufferSubData`.
 - Every draw that samples nothing has a 1 × 1 blank texture on unit 0: a draw with none bound is one Apple's GL logs.
 - Pixel store state is set before every read and upload (no pixel buffer bound, alignment 1, row length 0, skip rows and pixels 0): state left by another caller does not stride or offset them.
 - Textures stop at `GL_MAX_TEXTURE_SIZE` (16384 on Apple M1 Pro, 4096 on V3D 7.1): a larger target or image source throws `DrawingException`, the frame cancelled before anything is drawn.
