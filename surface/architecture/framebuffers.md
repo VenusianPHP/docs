@@ -28,7 +28,7 @@ Kind = logic over a `PixelStore` (the pixel glob). Kinds written once, abstract.
 | Flavor | Store | Bytes |
 |---|---|---|
 | `native` | `NativePixelStore`: PHP string + `Packing` | PHP; `pointer()` 0 |
-| `extended` | `ExtendedPixelStore`: one `FbBuffer` | C (ext-fb 0.10); `pointer()` an address |
+| `extended` | `ExtendedPixelStore`: one `FbBuffer` | C (ext-fb 0.11.1); `pointer()` an address |
 
 `Layout::of(spec)` = one rule set for storable specs; both flavors resolve there. `PixelMapper` = colour ↔ word in integers, same arithmetic as ext-fb. Result: identical bytes; fixtures + `ParityTest` enforce.[^fixtures]
 
@@ -63,6 +63,8 @@ Front = last finished frame (readers). Back = frame being drawn. On the ring: dr
 
 Integers throughout; `FbBuffer::paintSpans()` does the same in C. Fixtures 36–43 + spans parity enforce.
 
+`paintMasks(array $masks, int $rgba8, Region $clip)` on every kind and store: masks `[string coverage, int width, int left, int top]` (rows top-down, placed within ±2^30), painted in order, each cut to `$clip` (non-empty, inside the surface); every pixel of coverage above 0 painted as a span of that coverage. Store answers the box of the pixels with coverage (what their spans' box is), so damage matches. `MaskList::check()` holds the native store and paged buffers to `FbBuffer::paintMasks()`'s rules; the native store walks each row by runs of one coverage (`strspn`), ext-fb does the whole list in one call. Paged: clip cut to the page, masks moved page-relative. Ring: the drawable slot. GL: its copy. `HdrImage`: read-only.
+
 ## Images
 
 `paintImage(Framebuffer $source, Affine $placement, int $opacity = 255, Filter = NEAREST, ?Region $clip)` on every kind. Placement maps source pixels onto the surface: scale, turn, move.
@@ -95,3 +97,7 @@ mono 0/1 (1 = white) · grey 0..max (2/4/8 bits, no palette) · packed index = p
 [^contracts]: `Framebuffer` is the 0.8 pixel API, unchanged.
 [^kinds]: Ten concrete classes, each a few lines: `Native*` / `Extended*`.
 [^fixtures]: Every driver runs every fixture through `FixtureRunner`.
+
+Span sink: `Framebuffer::spanSink()` answers the native buffer spans may be painted into directly, `paintedSpans(list<?Region>)` records what was painted there as `paintSpans()` would. Full, dirty, ePaper and ring (its drawable slot) over an extended store answer their `FbBuffer` (`ExtendedPixelStore::buffer()`); native stores, paged, GL and `HdrImage` answer null.
+
+Glass levels: `kawaseDown(source, region)`, `kawaseUp(source)` and `paintGlass(geometry, blur, scale, sharp, originX, originY, look, clip)` on full, dirty, ePaper, ring and GL framebuffers (paged and `HdrImage` refuse); levels are RGBA8 stores of one driver. Extended stores call ext-fb; native ones `NativeGlass`, byte for byte (`tests/Drawing/GlassTest.php`).
