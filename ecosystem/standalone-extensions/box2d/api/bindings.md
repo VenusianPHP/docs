@@ -4,7 +4,7 @@ Every function, class and constant ext-box2d binds, by Box2D header, and the onl
 
 ## Counts
 
-base.h 7, id.h 10, math_functions.h 73, collision.h 72, types.h 17, box2d.h 313, values/macros 13 = 505 functions. 70 struct classes + `b2DynamicTree` handle + `b2AssertionError`. Full list: spec appendix.[^spec] One stub per header.[^stubs]
+base.h 7, id.h 10, math_functions.h 73, collision.h 72, types.h 17, box2d.h 313, values/macros 13 = 505 functions. 70 struct classes + `b2DynamicTree` handle + `b2AssertionError`. One stub per header.[^stubs]
 
 ## Translations (only these)
 
@@ -17,7 +17,6 @@ base.h 7, id.h 10, math_functions.h 73, collision.h 72, types.h 17, box2d.h 313,
 - Static consts → same-name functions returning fresh instances.
 - `b2DynamicTree` opaque; destroyed on free unless `b2DynamicTree_Destroy` ran; use after destroy → `ValueError`.
 
-Callback signatures: spec "Callbacks and their PHP signatures".
+Callback signatures: the stubs.[^stubs]
 
 [^stubs]: base, id, math_functions, collision, types, box2d stubs
-[^spec]: design spec, appendix
