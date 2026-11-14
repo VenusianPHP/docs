@@ -2,6 +2,32 @@
 
 What changed in this package, newest first.
 
+### 2026-11-08
+
+* Staged input: `watchInput()` on a staged window posts mouse and key mail like a canvas's (a session tap for the mouse, a first-responder focus view for keys and committed text). System accent: `systemAccent()` on the driver gives System Settings' accent (`NSColor controlAccentColor`) in sRGB. Window delegates are detached on close, so late notifications never reach a closed window. Released in v0.11.0. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview#staged-windows)
+
+### 2026-11-07
+
+* Canvas format: BGRA8 is the native canvas format (`framebuffers.native_canvas_format`), shown by Core Animation with no per-frame conversion; the `CGImage` bitmap info follows the framebuffer's format. Released in v0.11.0. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview#canvas)
+
+### 2026-11-05
+
+* Native text: font creation, traits and metrics in one place; alignment across controls; text areas keep paragraph settings, tab stops and styled runs. Released in v0.11.0. [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/primitives)
+
+### 2026-10-28
+
+* **v0.11.0** with the Venusian 0.11 ecosystem: requires PHP `~8.4.27||^8.5.12`, ext-appkit ^0.11 and `venusian-surface/*` and `venusian-voyager/*` ^0.11; the homepage points at 0.11.x. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview)
+
+### 2026-10-27
+
+* Dialogs: `AlertStyle` maps to `NSAlertStyle`, a suppression button reports `suppressed` in the answer, and `native($id)`; `supports()` gives only `ShowHidden` (a sheet has no title bar). Open and save panel filters become UTTypes (`*` or `*.*` allows every type; a pattern with no plain extension throws `InvalidArgumentException`) and honour `showHidden`. `AppkitClipboard` extends `ToolkitClipboard`, answers text reads and `hasText()`, and posts `ClipboardChanged` on its own `setText()` and when the pasteboard's `changeCount` moved by the time a window becomes key. Released in v0.11.0. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus#dialogs)
+* Canvas keys: `AppkitCanvasKeys` on each canvas's focus view posts `KeyPressed`, `KeyReleased`, `TextCommitted` and `EditCommanded` while it is first responder. A focused canvas takes every key, so `WindowKeyPressed` posts only when no canvas is focused; Tab and Shift-Tab move along the key-view loop unless the canvas takes Tab. Released in v0.11.0.
+
+### 2026-10-26
+
+* New primitives: `AppkitComboBox` (with `AppkitCompletionList`), `AppkitMenuButton` (pull-down `NSPopUpButton`) and `AppkitScrollBar` (`NSScroller`, live knob drag and wheel). Push and toggle buttons show framebuffer images and can be borderless; tab views insert pages at an index and keep their strip plus their biggest page. Released in v0.11.0. [primitives](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/primitives)
+* Canvas hover (`CanvasEntered`, `CanvasMoved`, `CanvasLeft`) from a tracking area, wheel gesture phases, and `WindowScaleChanged` when the backing scale changes. Menus: radio items, relabelling and shared menu states in bars and context menus; primitives can open their context menu (`applyPopupMenu()`). Released in v0.11.0. [windows and menus](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/guide/windows-and-menus)
+
 ### 2026-10-23
 
 * v0.10.5 tracks Surface v0.10.5. Requires ext-appkit ^0.10.5 and Surface contracts and windows ^0.10.5. [overview](/docs/{{version}}/ecosystem/framework-surface-modules/venusian-appkit/overview)

@@ -5,8 +5,8 @@ AppKit toolkit driver for the Venusian Surface bridge.
 ## Requirements
 
 - macOS (AppKit through ext-appkit).
-- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-appkit ^0.10.5.
-- `venusian-surface/contracts` and `venusian-surface/windows` ^0.10.5, `venusian-surface/bridge` and `venusian-surface/human-input` ^0.10.1, `venusian-voyager/nuts-and-bolts` ^0.10.1.
+- PHP `~8.4.27||^8.5.12`, ext-appkit ^0.11.
+- `venusian-surface/contracts`, `venusian-surface/windows`, `venusian-surface/bridge` and `venusian-surface/human-input` ^0.11, `venusian-voyager/nuts-and-bolts` ^0.11.
 
 ## Install
 
@@ -14,13 +14,13 @@ AppKit toolkit driver for the Venusian Surface bridge.
 composer require jovian/venusian-appkit
 ```
 
-The latest tag is v0.10.5.
+The latest tag is v0.11.0.
 
 The provider (`VenusianAppkitServiceProvider`) is discovered through `extra.venusian.providers`.
 
 ## Canvas
 
-`AppkitCanvas` shows a `TKCanvas`'s framebuffer as the contents of a layer-backed view: the RGBA8 bytes become a `CGImage` (sRGB, the fourth byte skipped, so opaque), stretched over the view's bounds.
+`AppkitCanvas` shows a `TKCanvas`'s framebuffer as the contents of a layer-backed view: the bytes become a `CGImage` (sRGB, the alpha byte skipped, so opaque), stretched over the view's bounds. The package binds BGRA8 as the native canvas format (`framebuffers.native_canvas_format`), which Core Animation shows with no conversion a frame; Surface uses it unless config `framebuffers.canvas_format` names another. An RGBA8 framebuffer still shows, with matching bitmap info.
 
 An ext-fb framebuffer is piped. `present()` hands the framebuffer's memory to `CFData::create` by address, and Core Graphics copies what it needs. No pixel byte passes through PHP. A framebuffer held in PHP (the native driver) takes the same path from a string.
 
@@ -63,6 +63,7 @@ $window->setMode(WindowMode::Exclusive, $window->displayModes()[1]);
 * Capabilities: position, always-on-top, focusable, opacity, icon (the app's Dock icon, one per app), keep-awake (an IOPM display-sleep assertion), attention (Dock bounce until active), exclusive fullscreen, and the frame clock (a `CADisplayLink` on the view posting `WindowFrameDue`, macOS 14 and later). Hit tests wait for HumanInput.
 * Aspect: an exact ratio is AppKit's own; a range is kept by correcting the size after each resize.
 * Lending: the same three surfaces as the canvas (Metal layer, SDL window, GL context), from the shared `LendsAppkitSurfaces` trait.
+* Input: `watchInput()` turns on the staged twin of the canvas input. The mouse (presses, drags and releases owned by the first button, moves, wheels, enters and exits) comes from a session tap and a tracking area on the content view; keys come from a focus view that is the window's first responder, posting `KeyPressed`, `KeyReleased`, committed text and a lone modifier's press and release.
 
 ## Human input
 
