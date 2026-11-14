@@ -18,7 +18,7 @@ MetalDevice - persistent target, one pass per DrawList, six pipelines, programma
 
 ## Pass
 
-Colour: load, store (1 sample) or store-and-resolve into `resolved` (4). Stencil: clear, don't care. One pass per `DrawList`; a flat vertex buffer holds the list's vertices plus one whole-target quad (CLEAR, restore). Uploaded image sources become shared RGBA8 textures for the pass.
+Colour: load, store (1 sample) or store-and-resolve into `resolved` (4). Stencil: clear, don't care. One pass per `DrawList`; a flat vertex buffer holds the list's vertices plus one whole-target quad (CLEAR, restore). The buffer is made for each frame from the string (`newBufferWithBytesLengthOptions`): ext-metal has no way to write into a buffer in place (`MTLBuffer` has `contents()`, an address, and nothing that writes to it), so there is no ring. Uploaded image sources become shared textures kept by size (`uploads`, 8 a size, 24 sizes): a frame takes one whose last frame has completed, or makes one, and gives it back when it commits.
 
 ## Pipelines
 

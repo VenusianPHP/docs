@@ -15,15 +15,13 @@ The engine's framebuffer is a `MetalFramebuffer`, a Surface `GLFramebuffer`.
 ## Requirements
 
 - macOS on Apple silicon. Engine blends by reading the target in its fragment functions; an Intel GPU refuses the pipelines with a `DrawingException` naming it.
-- PHP 8.4, 8.5 or 8.6 (`^8.4|^8.5|^8.6`), ext-metal ^0.10, `venusian-surface/drawing` ^0.10.
+- PHP `~8.4.27||^8.5.12` (8.4.27 or newer, 8.5.12 or newer), ext-metal ^0.11, ext-appkit ^0.11, ext-fb ^0.11.1, `venusian-surface/drawing` ^0.11. ext-appkit is required now (it gives the colour spaces for HDR and Display P3 targets and the event cycle presented times arrive through).
 
 ## Install
 
 ```
-composer require jovian/venusian-metal:0.10.x-dev
+composer require jovian/venusian-metal
 ```
-
-There is no tagged release on Packagist yet, only the `0.10.x-dev` branch, so a plain `composer require` fails under the default `stable` minimum stability.
 
 Provider discovered through `extra.venusian.providers`. It registers `metal` on `app('drawing')`.
 
@@ -57,7 +55,7 @@ On a canvas.
 $engine = app('drawing')->renderer('metal', ['output' => $canvas]);
 ```
 
-Needs a toolkit that lends a Metal layer (venusian-appkit, slice 8b). Until then the refusal reads `This window cannot host 'metal': it lends … It can host: …`.
+Needs a toolkit canvas that lends a Metal layer. A window that lends none refuses: `This window cannot host 'metal': it lends … It can host: …`.
 
 ## Presenting and HDR
 
@@ -81,6 +79,12 @@ Target = linear half floats, SDR white 1.0. Pairs: rgba16float extended-linear s
 | ELLIPSE, RING | per-sample inside tests of the outer (and inner) ellipse |
 | UPLOAD + IMAGE | a framebuffer as a texture; sampled at the inverse placement of the pixel centre, nearest or Velvet's 256ths bilinear |
 | RECTS | rectangles blended at the colour's alpha |
+| ROUNDRECT, ROUNDRING | a rounded box, or its border inside the box, as one quad a pixel past it; coverage per sample inside the rounded box (and outside the box inset by the border) |
+| SHADOW | a blurred rounded box: one quad blur + 1 past it, coverage `1 − smoothstep(−blur, blur, d)` at each pixel centre |
+| ATLAS + MASK + GLYPHS | TrueType text: each glyph's coverage written once into an 8-bit atlas texture kept across frames, then quads sampling it, blended as Velvet blends spans |
+| COVER_GRADIENT | a linear or radial gradient: the path's stencil, then a cover that looks the pixel's position up in the 256-entry ramp, uploaded as a 256 × 1 source |
+| TARGET, BACKDROP, FILTER, LAYER_SOURCE | layers: a target of the layer's own, a copy of what lies under it, Surface's `FilterPlan` passes over the box, and the layer target as an image's source |
+| GLASS_BACKDROP + GLASS | glass panes: the region under a group of panes read once and taken down and up a dual-filter pyramid (kept across frames while nothing under it changes), then one draw a pane |
 
 Edges: four samples resolved (anti-aliased) or one (hard). Blending: Velvet's integer source-over per sample, so interior pixels match Velvet byte for byte (the parity suite's rule).
 
@@ -93,11 +97,12 @@ Edges: four samples resolved (anti-aliased) or one (hard). Blending: Velvet's in
 ## Behaviour
 
 - Readback waits for the frame.
+- The vertex buffer is made for each frame: ext-metal's `MTLBuffer` has no way to be written in place, so there is no ring. Uploaded image sources and gradient ramps use shared textures pooled by size (8 a size, 24 sizes), taken by a frame and given back once its command buffer completes.
 - A pixel call between frames costs a readback and an upload and, with anti-aliased edges, a restore pass.
 - `present()` skips the copy while the previous one is in flight, answering false.
 - The engine's own framebuffer as an image source shows the frame before the current one.
 - A re-made target is a new `MetalFramebuffer`; the old one keeps its own texture.
-- A layer with no view hands out drawables; the copy is proven there, the window cells are slice 8b.
+- A layer with no view hands out drawables; the copy is proven there.
 
 ## Measured
 
