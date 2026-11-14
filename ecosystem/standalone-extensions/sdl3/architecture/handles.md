@@ -8,7 +8,9 @@ A handle is `sdl3_handle { void *ptr; zval keep; zend_object std; }`. `ptr` is t
 
 `sdl3_box` returns the PHP object already stored for that address and class, or a new one. The identity table is module global `boxes`: native address → `zend_object*`, not refcounted. GINIT creates it and GSHUTDOWN destroys it, so each ZTS thread has its own table.[^runtime]
 
-`sdl3_release` clears `ptr`, removes the identity entry, releases any handle stored in `keep`, and drops `keep`. The next SDL object at that address boxes as a new PHP object. `sdl3_handle_ptr` throws `ValueError` (`SDL_Window has been destroyed`) when `ptr` is NULL. `fromPointer(0)` throws `ValueError`. Any other address is trusted.
+`sdl3_release` clears `ptr`, removes the identity entry, releases any handle stored in `keep`, and drops `keep`. The next SDL object at that address boxes as a new PHP object. A released handle's `ptr` is NULL and reaches SDL as NULL: SDL refuses it itself ("Invalid window", "Invalid GPU device", "Parameter 'command_buffer' is invalid"), or takes it where NULL is valid (a released parent window is no parent, a released GL context makes none current). `sdl3_handle_ptr` throws only `TypeError`, for an object of the wrong class. `fromPointer(0)` is `null`. Any other address is trusted.
+
+`SDL_Surface`'s field getters (`w()`, `pixels()`, …) read the struct themselves, not through SDL, so a released surface is the one kept refusal on a handle: `ValueError` "SDL_Surface has been destroyed" (site `sdl3-surface-released`, probe `tests/Probes/SurfaceReleasedTest.php`).
 
 ## What release covers
 
@@ -20,7 +22,7 @@ A handle is `sdl3_handle { void *ptr; zval keep; zend_object std; }`. `ptr` is t
 | `SDL_CloseIO` | the stream | |
 | `SDL_GL_DestroyContext` | the context | |
 | `SDL_Metal_DestroyView` | the view | |
-| `SDL_DestroyGPUDevice` | the device only. Children stay live and then refuse, because their release functions take the device | |
+| `SDL_DestroyGPUDevice` | the device only. Children stay live; their release functions then pass a NULL device, which SDL refuses | |
 | `SDL_ReleaseGPUTexture`, `SDL_ReleaseGPUSampler`, `SDL_ReleaseGPUBuffer`, `SDL_ReleaseGPUTransferBuffer`, `SDL_ReleaseGPUShader`, `SDL_ReleaseGPUGraphicsPipeline`, `SDL_ReleaseGPUFence` | that object | |
 | `SDL_EndGPUCopyPass`, `SDL_EndGPURenderPass` | the pass | |
 | `SDL_SubmitGPUCommandBuffer`, `SDL_SubmitGPUCommandBufferAndAcquireFence`, `SDL_CancelGPUCommandBuffer` | the command buffer, and any swapchain texture it acquired | the texture list |
@@ -29,6 +31,6 @@ A handle is `sdl3_handle { void *ptr; zval keep; zend_object std; }`. `ptr` is t
 
 ## Hit tests
 
-Module global `hit_tests` maps a window address to the entry SDL holds as `callback_data`: the callable's `zend_fcall_info_cache`, the `$callback_data` zval, and a reference count. The trampoline-safe `zend_fcc_dup`/`zend_fcc_dtor` pair owns the callable. A call takes a reference for its duration, so a callback that replaces or removes its own hit test frees the entry after it returns. `SDL_DestroyWindow` drops the window's entry. `SDL_Quit` and RSHUTDOWN clear SDL's callback on every window in the table and empty it, so SDL never calls into request memory that is gone.
+Module global `hit_tests` maps a window address to the entry SDL holds as `callback_data`: the callable's `zend_fcall_info_cache` and a reference count; a closure carries its own data. The trampoline-safe `zend_fcc_dup`/`zend_fcc_dtor` pair owns the callable. A call takes a reference for its duration, so a callback that replaces or removes its own hit test frees the entry after it returns. `SDL_DestroyWindow` drops the window's entry. `SDL_Quit` and RSHUTDOWN clear SDL's callback on every window in the table and empty it, so SDL never calls into request memory that is gone.
 
 [^runtime]: `src/runtime.h`

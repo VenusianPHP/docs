@@ -4,8 +4,20 @@ What changed in this package, newest first.
 
 ### 2026-11-08
 
-* Host data moves through `vkCmdUpdateBuffer` and the Vulkan 1.4 host image copies (`vkCopyMemoryToImage`, `vkCopyImageToMemory`, `vkTransitionImageLayout`, `VkPhysicalDeviceHostImageCopyFeatures`); `VK_API_VERSION_1_4`.
-* `vkGetInstanceProcAddr($instance, $pName): int` returns a function's address; with `null` and its own name it is the loader's address, which ext-posi's `dlsym()` compares to tell whether two libraries share one loader.
+* **vkGetInstanceProcAddr**: bound 1:1, `vkGetInstanceProcAddr(?VkInstance $instance, string $pName): int` (the address as an int, `0` is `NULL`; a released instance is refused like any dispatchable handle). `vkGetInstanceProcAddr(null, 'vkGetInstanceProcAddr')` is the loader's address, which ext-glfw's `glfwInitVulkanLoader()` takes and which another library's `dlsym()` (ext-posi) compares to tell whether two sides use one loader.
+* **Host copies, no FFI**: `vkCmdUpdateBuffer`, `vkCopyMemoryToImage`, `vkCopyImageToMemory`, `vkTransitionImageLayout` and the structs `VkMemoryToImageCopy`, `VkImageToMemoryCopy`, `VkCopyMemoryToImageInfo`, `VkCopyImageToMemoryInfo`, `VkHostImageLayoutTransitionInfo`, `VkPhysicalDeviceHostImageCopyFeatures` (a `pNext` node, written back by `vkGetPhysicalDeviceFeatures2`); constant `VK_API_VERSION_1_4`. `pHostPointer` is a PHP string (a read fills the caller's string of the size to read). No test uses FFI. MoltenVK, ZTS: 32 passed, 3 skipped (the Linux tests). Tagged v0.11.1.
+
+### 2026-11-06
+
+* **1:1 sweep**: counts are explicit arguments and struct members, enumerate calls take `?int &count` and `?array &list` as C's two calls, `pAllocator` and `pipelineCache` are int addresses (0 is `NULL`), `VkBool32` is bool, SPIR-V is `codeSize` + `pCode`, destroys take `null`, `fromPointer(0)` is `null`. `VkCopyDescriptorSet` and `VkBufferMemoryBarrier` are bound. `vkSetHdrMetadataEXT` is void.
+* **Removed**: `vk_read_mapped`, `vk_write_mapped`, `vk_close_fd`, `vk_loader_path`, `VK_NULL_HANDLE` and the Wayland/XCB/Xlib names. They are not Vulkan.
+* **Refusals**: four sites in `bindings.json`, each with a probe in `tests/Probes`: `vulkan-list-count`, `vulkan-bytes-length`, `vulkan-null-dispatchable`, `vulkan-no-proc` ([bindings](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/api/bindings)). Probes need `--enable-vulkan-probes`.
+* **Tests**: Homebrew PHP 8.4 NTS and ZTS, 44 passed, 3 skipped each.
+
+### 2026-10-28
+
+* **Version**: 0.11.0 in `PHP_VULKAN_VERSION` (`php_vulkan.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change.
+* **Coverage**: `scripts/support.php` writes `SUPPORT.md` and the README's API badge from vk.xml at Vulkan-Headers v1.4.309 (the floor). `--check` exits 1 when the list or badge is stale. 97 / 605 (16.0%).
 
 ### 2026-10-09
 

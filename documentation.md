@@ -209,6 +209,16 @@
                 - [Constants](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/api/constants)
             - Runbooks
                 - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/kqueue/runbooks/build-install-test)
+        - php-io-extensions/libsoundio
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/libsoundio/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/libsoundio/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/libsoundio/api/bindings)
+            - Architecture
+                - [Handles and callbacks](/docs/{{version}}/ecosystem/standalone-extensions/libsoundio/architecture/handles-and-callbacks)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/libsoundio/runbooks/build-install-test)
+                - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/libsoundio/runbooks/adding-a-binding)
         - php-io-extensions/metal
             - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/metal/overview)
             - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/metal/changelog)
@@ -220,6 +230,17 @@
             - Runbooks
                 - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/metal/runbooks/build-install-test)
                 - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/metal/runbooks/adding-a-binding)
+        - php-io-extensions/miniaudio
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/miniaudio/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/miniaudio/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/miniaudio/api/bindings)
+            - Architecture
+                - [Callbacks](/docs/{{version}}/ecosystem/standalone-extensions/miniaudio/architecture/callbacks)
+                - [Generator](/docs/{{version}}/ecosystem/standalone-extensions/miniaudio/architecture/generator)
+                - [Handles and ownership](/docs/{{version}}/ecosystem/standalone-extensions/miniaudio/architecture/handles-and-ownership)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/miniaudio/runbooks/build-install-test)
         - php-io-extensions/opengl
             - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/opengl/overview)
             - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/opengl/changelog)
@@ -279,6 +300,16 @@
             - Runbooks
                 - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/runbooks/build-install-test)
                 - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/runbooks/adding-a-binding)
+        - php-io-extensions/sokol-audio
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/api/bindings)
+            - Architecture
+                - [Guards and errors](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/architecture/guards-and-errors)
+                - [Callbacks and threads](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/architecture/callbacks-and-threads)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/sokol-audio/runbooks/build-install-test)
         - php-io-extensions/vulkan
             - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/overview)
             - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/vulkan/changelog)

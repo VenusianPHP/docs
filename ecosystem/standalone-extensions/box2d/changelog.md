@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-28
+
+* **Version**: 0.11.0 in `PHP_BOX2D_VERSION` (`php_box2d.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. Built and loaded on Homebrew PHP 8.4 NTS and ZTS, the Pi on 8.4 ZTS and an x86_64 8.4 NTS box: 99 passed on each.
+
 ### 2026-10-12
 
 * **Version**: 0.10.5 in `PHP_BOX2D_VERSION`, `AGENTS.md`, `VersionTest` and this bundle. No API change. First tag; the number lines up with the sibling extensions.

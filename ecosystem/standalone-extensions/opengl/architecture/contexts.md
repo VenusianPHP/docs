@@ -17,9 +17,9 @@ An OpenGL context cannot exist without a platform context API, so CGL and EGL ar
 | `GLsync` | `glDeleteSync` |
 | `EGLDisplay`, `EGLConfig` | never; EGL owns them |
 
-Dropping the last PHP reference removes the identity-table entry and does not destroy the native object. `fromPointer(0)` throws `ValueError`. Any other address is trusted.
+Dropping the last PHP reference removes the identity-table entry and does not destroy the native object. `pointer()` is 0 once released and `fromPointer(0)` is `null`. Any other address is trusted.
 
-`CGLReleaseContext` and `eglDestroyContext` clear the context when it is the current one, then release it. A later `gl*` call throws instead of using a dangling current context.[^plan]
+`CGLReleaseContext` and `eglDestroyContext` clear the context when it is the current one, then release it. A later `gl*` call throws instead of using a dangling current context.[^contexts]
 
 ## The guard
 
@@ -27,7 +27,7 @@ Dropping the last PHP reference removes the identity-table entry and does not de
 OPENGL_REQUIRE_CONTEXT()
 ```
 
-opens every `gl*` function. It calls `CGLGetCurrentContext()` or `eglGetCurrentContext()`. When that is null it throws `Error` "`name(): no current OpenGL context`" and returns. CGL and EGL functions themselves do not require a current context.
+opens every `gl*` function. On macOS it calls `CGLGetCurrentContext()`; when that is null it throws `Error` "`name(): no current OpenGL context`" and returns (site `opengl-no-context`: Apple's GL dereferences the current context). On Linux it is empty: libglvnd answers a call with no context with nothing. CGL and EGL functions themselves do not require a current context.
 
-[^plan]: Slice 3 plan
+[^contexts]: cgl.c and egl.c
 [^measured]: src/egl.c

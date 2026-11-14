@@ -24,7 +24,7 @@ Constants: `GL_VERTEX_SHADER`, `GL_FRAGMENT_SHADER`, `GL_COMPILE_STATUS`, `GL_LI
 
 `glGenVertexArrays`, `glBindVertexArray`, `glDeleteVertexArrays`, `glGenBuffers`, `glBindBuffer`, `glBufferData`, `glBufferSubData`, `glDeleteBuffers`, `glEnableVertexAttribArray`, `glDisableVertexAttribArray`, `glVertexAttribPointer`, `glMapBufferRange`, `glUnmapBuffer`, `glFenceSync`, `glClientWaitSync`, `glDeleteSync`.
 
-Handle: `GLsync`. `glGen*` with `n < 0` is a `ValueError`.
+Handle: `GLsync`. `glGen*($n, &$names)` writes the list of names; `n < 0` is GL's `GL_INVALID_VALUE` and an empty list. `glDelete*($n, $names)` and `glDrawBuffers($n, $bufs)` take the count GL reads.
 
 Constants: `GL_ARRAY_BUFFER`, `GL_ELEMENT_ARRAY_BUFFER`, `GL_PIXEL_PACK_BUFFER`, `GL_PIXEL_UNPACK_BUFFER`, `GL_STATIC_DRAW`, `GL_DYNAMIC_DRAW`, `GL_STREAM_DRAW`, `GL_STREAM_READ`, `GL_FLOAT`, `GL_UNSIGNED_BYTE`, `GL_UNSIGNED_SHORT`, `GL_UNSIGNED_INT`, `GL_MAP_READ_BIT`, `GL_MAP_WRITE_BIT`, `GL_MAP_INVALIDATE_RANGE_BIT`, `GL_MAP_INVALIDATE_BUFFER_BIT`, `GL_SYNC_GPU_COMMANDS_COMPLETE`, `GL_SYNC_FLUSH_COMMANDS_BIT`, `GL_ALREADY_SIGNALED`, `GL_CONDITION_SATISFIED`, `GL_TIMEOUT_EXPIRED`, `GL_WAIT_FAILED`, `GL_BUFFER_SIZE`.
 
@@ -52,8 +52,8 @@ Constants: `kCGLPFAOpenGLProfile`, `kCGLOGLPVersion_3_2_Core`, `kCGLOGLPVersion_
 
 Handles: `EGLDisplay`, `EGLConfig`, `EGLContext`, `EGLSurface`.
 
-`eglGetDisplay`, `eglGetPlatformDisplay`, `eglInitialize`, `eglTerminate`, `eglBindAPI`, `eglChooseConfig`, `eglCreateContext`, `eglDestroyContext`, `eglCreatePbufferSurface`, `eglDestroySurface`, `eglMakeCurrent`, `eglGetCurrentContext`, `eglGetCurrentDisplay`, `eglGetCurrentSurface`, `eglSwapBuffers`, `eglGetError`, `eglQueryString`; `eglSwapInterval`, `eglQuerySurface` (by reference), `eglSwapBuffersWithDamageKHR` (rects flat, four ints each, bottom-left origin; false with nothing swapped when the display's extension string does not list `EGL_KHR_swap_buffers_with_damage`). Constants `EGL_SWAP_BEHAVIOR`, `EGL_BUFFER_PRESERVED`, `EGL_BUFFER_DESTROYED`, `EGL_RENDER_BUFFER`, `EGL_BACK_BUFFER`, `EGL_SINGLE_BUFFER`.
+`eglGetDisplay`, `eglGetPlatformDisplay`, `eglInitialize`, `eglTerminate`, `eglBindAPI`, `eglChooseConfig`, `eglCreateContext`, `eglDestroyContext`, `eglCreatePbufferSurface`, `eglDestroySurface`, `eglMakeCurrent`, `eglGetCurrentContext`, `eglGetCurrentDisplay`, `eglGetCurrentSurface`, `eglSwapBuffers`, `eglGetError`, `eglQueryString`; `eglSwapInterval`, `eglQuerySurface` (by reference), `eglSwapBuffersWithDamageKHR($dpy, $surface, $rects, $n_rects)` (rects a list of ints, four a rect, bottom-left origin; through `eglGetProcAddress`). Constants `EGL_SWAP_BEHAVIOR`, `EGL_BUFFER_PRESERVED`, `EGL_BUFFER_DESTROYED`, `EGL_RENDER_BUFFER`, `EGL_BACK_BUFFER`, `EGL_SINGLE_BUFFER`.
 
-Constants: `EGL_PLATFORM_SURFACELESS_MESA`, `EGL_DEFAULT_DISPLAY` (literal 0), `EGL_NONE`, `EGL_SUCCESS`, `EGL_OPENGL_ES_API`, `EGL_RENDERABLE_TYPE`, `EGL_OPENGL_ES3_BIT`, `EGL_SURFACE_TYPE`, `EGL_PBUFFER_BIT`, `EGL_RED_SIZE`, `EGL_GREEN_SIZE`, `EGL_BLUE_SIZE`, `EGL_ALPHA_SIZE`, `EGL_DEPTH_SIZE`, `EGL_STENCIL_SIZE`, `EGL_WIDTH`, `EGL_HEIGHT`, `EGL_DRAW`, `EGL_READ`, `EGL_CONTEXT_MAJOR_VERSION`, `EGL_CONTEXT_MINOR_VERSION`, `EGL_VENDOR`, `EGL_VERSION`, `EGL_EXTENSIONS`, `EGL_CLIENT_APIS`.
+Constants: `EGL_PLATFORM_SURFACELESS_MESA`, `EGL_NONE`, `EGL_SUCCESS`, `EGL_OPENGL_ES_API`, `EGL_RENDERABLE_TYPE`, `EGL_OPENGL_ES3_BIT`, `EGL_SURFACE_TYPE`, `EGL_PBUFFER_BIT`, `EGL_RED_SIZE`, `EGL_GREEN_SIZE`, `EGL_BLUE_SIZE`, `EGL_ALPHA_SIZE`, `EGL_DEPTH_SIZE`, `EGL_STENCIL_SIZE`, `EGL_WIDTH`, `EGL_HEIGHT`, `EGL_DRAW`, `EGL_READ`, `EGL_CONTEXT_MAJOR_VERSION`, `EGL_CONTEXT_MINOR_VERSION`, `EGL_VENDOR`, `EGL_VERSION`, `EGL_EXTENSIONS`, `EGL_CLIENT_APIS`.
 
 [^stub]: stubs/gl.stub.php

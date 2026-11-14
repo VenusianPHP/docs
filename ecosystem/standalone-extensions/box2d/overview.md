@@ -127,7 +127,7 @@ $ php --ri box2d
 box2d
 
 box2d support => enabled
-Version => 0.10.x
+Version => 0.11.x
 Box2D version => 3.1.1
 Box2D commit => 8c661469c9507d3ad6fbd2fea3f1aa71669c2fe3
 ```

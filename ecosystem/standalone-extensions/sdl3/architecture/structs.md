@@ -10,16 +10,19 @@ Four translations, and no others:
 
 | C | PHP |
 |---|---|
-| pointer + count | one `array`; the count is `count($list)`; empty is NULL and 0 |
+| pointer + count, in a struct | one `array`; the count is `count($list)`; empty is NULL and 0 |
+| pointer + count, as parameters | an `array` and the count as its own parameter; a count past the list is a `ValueError` (site `sdl3-list-count`, `sdl3_list_count`) |
 | `const Uint8 *code` + `size_t code_size` | one `string` |
 | out-parameter | by-reference parameter |
-| `void *` | `int` address, `0` refused |
+| `void *` | `int` address, trusted; `0` is NULL |
+
+A struct's constructor takes no arguments: the struct starts at zero, as C's `= {0}`, with its nested structs built. `bindings.json` lists those constructors under `glue`.
 
 `bool` stays `bool`. Enums, flags, and `props` are `int`.
 
 ## Filling a C struct
 
-`bool sdl3_<Struct>_from(zend_object *obj, <Struct> *out, sdl3_scratch *scratch)` zeroes `out`, then reads properties. A list element of the wrong class throws `TypeError` naming the property. A released handle throws `ValueError` naming the handle class. Either happens before the SDL call, and the helper returns false.[^types]
+`bool sdl3_<Struct>_from(zend_object *obj, <Struct> *out, sdl3_scratch *scratch)` zeroes `out`, then reads properties. A list element of the wrong class throws `TypeError` naming the property, before the SDL call, and the helper returns false. A released handle in a field is NULL in the C struct.[^types]
 
 The C arrays a list needs are allocated in `scratch` and freed by the caller after the SDL call returns. The string behind `code` or `entrypoint` is the property's `zend_string`, which stays alive for that call because the PHP object does.
 

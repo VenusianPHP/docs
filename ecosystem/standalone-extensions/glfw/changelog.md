@@ -2,6 +2,10 @@
 
 What changed in this package, newest first.
 
+### 2026-10-28
+
+* **Version**: 0.11.0 in `PHP_GLFW_VERSION` (`php_glfw.h`), `AGENTS.md`, README and the index; `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. First tag since v0.10.0.
+
 ### 2026-10-09
 
 * `extra.venusian.system` in composer.json: the apt packages `venusian build` installs to compile the extension, the run-time packages a `.deb` carrying it depends on or recommends beyond what `dpkg-shlibdeps` sees, and the Homebrew packages for a dev install.
