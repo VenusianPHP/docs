@@ -205,13 +205,13 @@ Nothing else is required, but these extensions unlock parts of the framework. Th
 | `pcntl` | Stops the event loop cleanly on `SIGINT` and `SIGTERM`, traps command signals, and enforces queue worker timeouts. |
 | `posix` | Lets a timed-out queue worker kill itself. |
 | `curl` | Both [async HTTP drivers](/docs/{{version}}/framework/digging-deeper/http-client#async-drivers). |
-| `pcurl` | The `pcurl` async HTTP driver, whose sockets wait on the event loop instead of holding it. |
+| `multicurl` | The `multicurl` async HTTP driver, whose sockets wait on the event loop instead of holding it. |
 | `parallel` | The `thread-workers` pool. Needs a thread-safe (ZTS) PHP build. |
 | `redis` | The phpredis [Redis](/docs/{{version}}/framework/database/redis) connector. |
 | `fileinfo` | Detecting the MIME type of local files. |
 | `intl` | Formatting numbers. |
 
-`epoll`, `kqueue` and `pcurl` are first-party extensions. Install them through PIE, for the PHP binary that will run your application, with the `install:ext` command; see [Installing Extensions](/docs/{{version}}/framework/digging-deeper/computer#installing-extensions):
+`epoll`, `kqueue` and `multicurl` are first-party extensions. Install them through PIE, for the PHP binary that will run your application, with the `install:ext` command; see [Installing Extensions](/docs/{{version}}/framework/digging-deeper/computer#installing-extensions):
 
 ```shell
 php computer install:ext epoll
