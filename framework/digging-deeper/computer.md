@@ -128,12 +128,12 @@ php computer make:node ReadSensor --async
 
 ### Installing Extensions
 
-The `install:ext` command installs the first-party PHP extensions, `epoll`, `kqueue`, and `pcurl`, through PIE. Run without an argument, it lists the extensions and lets you pick; extensions built for another operating system, or already loaded, are shown but cannot be selected. You may also name the extension to install:
+The `install:ext` command installs the first-party PHP extensions, `epoll`, `kqueue`, and `multicurl`, through PIE. Run without an argument, it lists the extensions and lets you pick; extensions built for another operating system, or already loaded, are shown but cannot be selected. You may also name the extension to install:
 
 ```shell
 php computer install:ext
 
-php computer install:ext pcurl
+php computer install:ext multicurl
 ```
 
 PIE always builds for the PHP binary that runs the command. If PIE is not installed, the command offers to download it to `~/.local/bin/pie`.

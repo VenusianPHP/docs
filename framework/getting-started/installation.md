@@ -12,7 +12,7 @@ The same application can drive a desktop window, run on a Raspberry Pi, or talk 
 
 #### Real Async I/O
 
-The [event loop](/docs/{{version}}/framework/architecture-concepts/event-loop) waits on file descriptors with the best backend your PHP has: `epoll` on Linux and `kqueue` on macOS when those extensions are loaded, and `stream_select` otherwise. The [HTTP client](/docs/{{version}}/framework/digging-deeper/http-client) can send asynchronous requests on the same loop, and with the `pcurl` extension it waits on curl's own sockets instead of polling them.
+The [event loop](/docs/{{version}}/framework/architecture-concepts/event-loop) waits on file descriptors with the best backend your PHP has: `epoll` on Linux and `kqueue` on macOS when those extensions are loaded, and `stream_select` otherwise. The [HTTP client](/docs/{{version}}/framework/digging-deeper/http-client) can send asynchronous requests on the same loop, and with the `multicurl` extension it waits on curl's own sockets instead of polling them.
 
 #### Programs That Keep Running
 
@@ -94,12 +94,12 @@ An extension that belongs to another operating system, or that your PHP already 
 
 If PIE is missing, the installer asks before downloading it to `~/.local/bin/pie`, and has PIE verify its own release attestation. PIE asks for your password itself when PHP's extension directory is not writable. A failed build is reported in the closing summary and does not undo the application: the framework runs without these extensions. A non-interactive run skips the step.
 
-You may install the extensions later from inside your application with the `install:ext` Computer command, which offers the same three:
+You may install the extensions later from inside your application with the `install:ext` Computer command, which offers `epoll`, `kqueue` and `multicurl`:
 
 ```shell
 php computer install:ext
 
-php computer install:ext pcurl
+php computer install:ext multicurl
 ```
 
 The installer's own `install:ext` command offers every first-party extension, including `epoll`, `kqueue` and `pcurl`, the `appkit`, `gtk` and `qt` toolkit bindings, `fb`, `rasterize` and `imgdec`. Without a terminal, name the extension and pass `--no-interaction`:

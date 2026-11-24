@@ -668,22 +668,22 @@ The loop driver that carries asynchronous requests is configured under `async` i
 'async' => [
     'default' => env('HTTP_ASYNC_DRIVER', 'auto'),
     'drivers' => [
-        'curl'  => ['driver' => 'curl',  'max_handles' => 50, 'multi_options' => []],
-        'pcurl' => ['driver' => 'pcurl', 'max_handles' => 50],
+        'curl'      => ['driver' => 'curl',      'max_handles' => 50, 'multi_options' => []],
+        'multicurl' => ['driver' => 'multicurl', 'max_handles' => 50],
     ],
 ],
 ```
 
-The `curl` driver uses ext-curl's multi interface. ext-curl never hands out curl's sockets, so while transfers are in flight the driver holds the loop's sleep inside `curl_multi_select`, and other wake sources are checked after it returns. The `pcurl` driver needs the pcurl extension (`ext-pcurl`): curl's own sockets and timer join the loop's wait, so every other wake source on the loop is answered on time while a slow response is still in flight. The default `auto` driver picks `pcurl` when the extension is loaded and `curl` otherwise. Both drivers need ext-curl.
+The `curl` driver uses ext-curl's multi interface. ext-curl never hands out curl's sockets, so while transfers are in flight the driver holds the loop's sleep inside `curl_multi_select`, and other wake sources are checked after it returns. The `multicurl` driver needs the multicurl extension (`ext-multicurl`): curl's own sockets and timer join the loop's wait, so every other wake source on the loop is answered on time while a slow response is still in flight. The default `auto` driver picks `multicurl` when the extension is loaded and `curl` otherwise. Both drivers need ext-curl.
 
 The manager behind these drivers is bound in the container as `http.async`:
 
 ```php
-$driver = app('http.async')->driver(); // LoopPcurlHandler or LoopCurlHandler
+$driver = app('http.async')->driver(); // LoopMulticurlHandler or LoopCurlHandler
 ```
 
 > [!WARNING]
-> Selecting the `pcurl` driver without the pcurl extension loaded throws a `Voyager\Http\Client\HttpClientException`.
+> Selecting the `multicurl` driver without the multicurl extension loaded throws a `Voyager\Http\Client\HttpClientException`.
 
 ## Macros
 
