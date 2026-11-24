@@ -14,7 +14,7 @@ Only where the native call would cause memory unsafety, uncatchable process deat
 
 | Site | Call | Without it | Refused with |
 |---|---|---|---|
-| `main-thread-appkit-ui` | `APPKIT_REQUIRE_MAIN_THREAD()` on NSApplication (all but `postEvent:atStart:`), NSWindow, NSView and subclasses, NSControl, NSMenu/NSMenuItem, NSScreen, NSResponder, NSEvent monitors, NSLayoutAnchor, CADisplayLink, the glue view constructors | AppKit raises, then SIGTRAP | `AppKitException("X::y() must be called on the main thread")` |
+| `main-thread-appkit-ui`, `main-thread-wkwebview-*` | `APPKIT_REQUIRE_MAIN_THREAD()` on NSApplication (all but `postEvent:atStart:`), NSWindow, NSView and subclasses, NSControl, NSMenu/NSMenuItem, NSScreen, NSResponder, NSEvent monitors, NSLayoutAnchor, CADisplayLink, the glue view constructors, and `WKWebView` (`main-thread-wkwebview-*` sites) | AppKit raises, then SIGTRAP | `AppKitException("X::y() must be called on the main thread")` |
 | `cfdata-null-address` | `CFData::create(null, 0, length > 0)` | SIGTRAP | ValueError |
 | `cfdata-string-length` | `CFData::create` with `length` past the string | Core Foundation reads past it: SIGSEGV (libgmalloc) | ValueError |
 | `cgimage-decode-length` | `CGImage::create` decode list shorter than 2 × components | Core Graphics reads past it: SIGSEGV (libgmalloc) | ValueError |
