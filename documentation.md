@@ -263,21 +263,19 @@
             - Runbooks
                 - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/opengl/runbooks/build-install-test)
                 - [Adding a binding](/docs/{{version}}/ecosystem/standalone-extensions/opengl/runbooks/adding-a-binding)
-        - php-io-extensions/pcurl
-            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/overview)
-            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/changelog)
+        - php-io-extensions/multicurl
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/changelog)
             - API
-                - [Pcurl\Multi](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/api/pcurlmulti)
+                - [Multicurl\Multi](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/api/multi)
             - Architecture
-                - [C ABI](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/architecture/c-abi)
-            - Build & packaging
-                - [Zephir + PIE install](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/build-packaging/zephir-pie-install)
+                - [Module](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/architecture/module)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/runbooks/build-install-test)
             - Traps
-                - [Needs ext-curl first](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/needs-ext-curl-first)
-                - [Same libcurl as ext-curl](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/same-libcurl-as-ext-curl)
-                - [Callback cycles](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/callback-cycles)
-                - [Stubs regenerates ext](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/stubs-regenerates-ext)
-                - [Do not rebuild in place](/docs/{{version}}/ecosystem/standalone-extensions/pcurl/traps/do-not-rebuild-in-place)
+                - [Needs ext-curl first](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/traps/needs-ext-curl-first)
+                - [Same libcurl as ext-curl](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/traps/same-libcurl-as-ext-curl)
+                - [Callback cycles](/docs/{{version}}/ecosystem/standalone-extensions/multicurl/traps/callback-cycles)
         - php-io-extensions/qt
             - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/qt/overview)
             - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/qt/changelog)
