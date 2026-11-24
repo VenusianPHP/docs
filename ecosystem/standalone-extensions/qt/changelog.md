@@ -2,6 +2,38 @@
 
 What changed in this package, newest first.
 
+### 2026-11-23
+
+* **Version**: 0.11.2 in `PHP_QT_VERSION` (`php_qt.h`) and the version test (set 2026-11-10). It carries what is logged since 0.11.1: Qt WebEngine (`QWebEngineView`), the item views, `QPainter` and `QPaintDelegate`, `QPixmap::copy`, the `QEventFilter` release fix, `QWidget::focusWidget`, `insertAction` and `removeAction`. The README API badge is still 671 / 11435 (5.9%), unchanged from v0.11.1 (`SUPPORT.md` is still dated 2026-11-07). Linux CI cells run in `usftechacg/php-qt:<8.4|8.5>-<nts|zts>` (built from `.github/ci/Dockerfile`, Qt WebEngine included) so they install nothing; macOS setup is unchanged. Shipped in tag v0.11.2 (`e966133`). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+* CI: the Linux cells used to install Qt from apt on the runner. That depended on the runner's cloud: an AWS-hosted runner's Ubuntu mirror served the 133 MB at ~20 kB/s, an Azure one in 2 s. Qt WebEngine has been in `config.m4` since 2026-11-10; Homebrew's `qt` carries it.
+
+### 2026-11-22
+
+* `QWidget::insertAction(?QAction $before, QAction $action)` and `QWidget::removeAction(QAction $action)`, no refusal beyond the deleted-wrapper check every object argument has (a `ValueError` naming the argument). A null or foreign `$before` appends, as Qt documents; the widget does not own the action and `removeAction` does not delete it. [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+
+### 2026-11-21
+
+* `QWidget::focusWidget(): ?QWidget`, no refusal. On a window it is the widget that gets focus when the window is activated, also while another window is active (`hasFocus()` is false then). [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+
+### 2026-11-12
+
+* Fix: `QEventFilter` released the watched object's wrapper after the callback depth had dropped, so a callable that gave up PHP's last other reference to an owned, parentless watched object had it deleted while Qt was still sending it the event (SIGSEGV in `QCoreApplicationPrivate::sendThroughObjectEventFilters`, seen closing a `QMainWindow` from its own close-event filter). The depth now covers the release. [signals](/docs/{{version}}/ecosystem/standalone-extensions/qt/architecture/signals)
+
+### 2026-11-10
+
+* `QWebEngineView` (Qt WebEngine linked): constructor (site `qapp-web-engine-view`), `load`, `setHtml` (with a base URL), `title`, `url`, `stop`, `back`, `forward`, `reload`. Signals `loadStarted()`, `loadFinished(bool)`, `titleChanged(QString)`, `urlChanged(QUrl)`. `config.m4` requires `Qt6WebEngineCore` and `Qt6WebEngineWidgets` >= 6.4. [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface), [build](/docs/{{version}}/ecosystem/standalone-extensions/qt/runbooks/build-install-test)
+* `QPixmap::copy(?QRect)` (null copies the whole pixmap), no refusal.
+* `QAbstractButton` autoExclusive / setAutoExclusive. `QAbstractItemView` verticalScrollBar / horizontalScrollBar (QAbstractScrollArea's, bound here as QAbstractScrollArea is not).
+* `QModelIndex` (row, column, isValid, data), also handed to PHP by signals such as `clicked(QModelIndex)`. `QAbstractItemModel` rowCount, columnCount, index, data, setData; `QStandardItemModel` (ctor, setRowCount, setColumnCount, insertRows, removeRows, clear). `QAbstractItemView` model, setModel, itemDelegate, setItemDelegate, iconSize, setIconSize, indexAt. `QMainWindow::addToolBar(QToolBar *)`.
+* `QListView` (view mode, flow, wrapping, resize mode, movement, grid size, spacing, uniform item sizes; enums `QListView\ViewMode`, `Flow`, `ResizeMode`, `Movement`) and `QToolBar` (addWidget, addSeparator, movable, floatable, icon size, tool button style). Both constructors go through `phpqt_construct_widget`'s qapp-widget check (sites `qapp-list-view`, `qapp-tool-bar`).
+* `QPainter` (save, restore, setRenderHint, setOpacity, setPen(QColor), setBrush, setFont, fillRect, drawRect, drawRoundedRect with `Qt\SizeMode`, drawPixmap(QRect, QPixmap), drawText(QRect, int, QString, QRect *br)) and `QStyleOptionViewItem` (rect, state: the `QStyleOption` data members). Both are lent for one delegate call only, then read as gone.
+* Glue `QPaintDelegate`: a `QStyledItemDelegate` subclass whose paint, sizeHint and editorEvent call the PHP callables; a null callable leaves the call to `QStyledItemDelegate`. `QAbstractItemDelegate` (private ctor), `QStyledItemDelegate` (ctor).
+* Probes `qapp-font-metrics` and `qapp-font-info`: Qt 6.11 builds `QFontMetricsF` and `QFontInfo` before an application and qFatals (SIGABRT) on the first read, not in the constructor. The probes now read `ascent()` and `fixedPitch()`; both sites stay.
+
+### 2026-11-09
+
+* `QAbstractAnimation` (start with `QAbstractAnimation\DeletionPolicy`, stop, duration), `QVariantAnimation` (start/end value as QVariant, duration), `QPropertyAnimation` (ctor), `QGraphicsEffect` / `QGraphicsOpacityEffect` (ctor, opacity), and `QWidget::setGraphicsEffect` / `graphicsEffect`. No refusal beyond the argument conversion the QVariant marshalling already does. [surface](/docs/{{version}}/ecosystem/standalone-extensions/qt/guide/binding-surface)
+
 ### 2026-10-28
 
 * **Version**: 0.11.0 in `PHP_QT_VERSION` (`php_qt.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. SurfaceTest drops `QScrollBar` from the private-constructor rows: it has had a public constructor since 2026-10-23. Built and loaded on Homebrew PHP 8.4 NTS and ZTS (208 passed, 26 skipped each) and the Pi on 8.4 ZTS (206 passed, 28 skipped).

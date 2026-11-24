@@ -3,7 +3,7 @@
 ![CI](https://github.com/php-io-extensions/qt/actions/workflows/ci.yml)
 
 [![CI](https://img.shields.io/github/actions/workflow/status/php-io-extensions/qt/ci.yml?style=flat-square&label=CI)](https://github.com/php-io-extensions/qt/actions/workflows/ci.yml)
-[![Qt API](https://img.shields.io/badge/Qt_API-5.7%25_%28647%2F11435%29-blue?style=flat-square)](https://github.com/php-io-extensions/qt/blob/v0.11.0/SUPPORT.md)
+[![Qt API](https://img.shields.io/badge/Qt_API-5.9%25_%28671%2F11435%29-blue?style=flat-square)](https://github.com/php-io-extensions/qt/blob/v0.11.2/SUPPORT.md)
 
 1:1 PHP bindings of Qt 6, written directly in C++ against the Zend API. Each
 PHP class is its C++ counterpart (`QApplication`, `QTimer`, `QSocketNotifier`,
@@ -16,28 +16,32 @@ no composites: behaviour is composed by the caller. What Qt does passes through
 refuses a call only where a probe showed it crashes, and `tests/Probes` shows
 each one (`./configure --enable-qt --enable-qt-probes`).
 
-Linux first, macOS too. Qt 6.4+ with the Multimedia and MultimediaWidgets
-modules, PHP 8.4+, NTS and ZTS.
+Linux first, macOS too. Qt 6.4+ with the Multimedia, MultimediaWidgets and
+WebEngine modules, PHP 8.4+, NTS and ZTS.
 
 ## What is bound
 
 The calls that create the application, pump Qt's event dispatcher, sleep with a
-budget, wake a sleep, open and close windows, build menu bars, lay widgets out,
-style them, drive the common controls and play video:
+budget, wake a sleep, open and close windows, build menu bars and toolbars, lay
+widgets out, style them, drive the common controls, animate properties and
+graphics effects, show item models and views, play video, and load pages in a
+`QWebEngineView`:
 
 | Class | Qt |
 |---|---|
 | `QObject` | constructor, `objectName`, `setObjectName`, `inherits`, `parent`, `setParent`, `children`, `deleteLater`, `connect` (string signature), `disconnect` |
 | `QCoreApplication`, `QGuiApplication`, `QApplication` | constructors, `instance`, `processEvents` (both overloads), `sendPostedEvents`, `exec`, `quit`, `exit`, `applicationName`, `setApplicationName`, `applicationPid`, `closingDown`, `startingUp`, `setAttribute`, `testAttribute` (`Qt\ApplicationAttribute`), `platformName`, `desktopFileName`, `setDesktopFileName`, `applicationDisplayName`, `setApplicationDisplayName`, `quitOnLastWindowClosed`, `setQuitOnLastWindowClosed` |
 | `QTimer` | constructor, `start` (both overloads), `stop`, `isActive`, `interval`, `setInterval`, `isSingleShot`, `setSingleShot`, `timerType`, `setTimerType`, `remainingTime`, `timerId`, `singleShot` (functor overload) |
+| `QAbstractAnimation`, `QVariantAnimation`, `QPropertyAnimation` | `start` (`QAbstractAnimation\DeletionPolicy`), `stop`, `duration`; start/end value (as QVariant) and duration; constructor (target, property name) |
+| `QGraphicsEffect`, `QGraphicsOpacityEffect` | constructor, `opacity`, `setOpacity`; `QWidget::setGraphicsEffect`, `graphicsEffect` (the widget owns the effect) |
 | `QSocketNotifier` | constructor (fd as int, stream or Socket), `socket`, `type`, `isEnabled`, `setEnabled`, `isValid` |
 | `QAbstractEventDispatcher` | `instance`, `processEvents`, `wakeUp`, `interrupt` |
 | `QMetaObject\Connection` | `operator bool` as `isValid()` |
 | `QMetaObject` | `invokeMethod` (object, member name, `Qt\ConnectionType`, arguments converted to its parameter types: calls a slot or emits a signal) |
-| `QWidget` | constructor, `createWindowContainer` (static; the container owns the window), `show`, `hide`, `close`, `isVisible`, `setVisible`, `isWindow`, `window`, `windowFlags`, `setWindowFlags`, `windowModality`, `setWindowModality`, `isActiveWindow`, `activateWindow`, `setFocus`, `clearFocus`, `hasFocus`, `focusPolicy`, `setFocusPolicy` (`Qt\FocusPolicy`), `setTabOrder` (static), `raise`, `windowTitle`, `setWindowTitle`, `resize`, `width`, `height`, `size`, `sizeHint`, `pos`, `geometry`, `setGeometry`, `move`, `setMinimumSize`, `minimumWidth`, `minimumHeight`, `setFixedSize`, `setSizePolicy`, `setLayout`, `layout`, `isEnabled`, `setEnabled`, `styleSheet`, `setStyleSheet`, `font`, `setFont`, `setParent` (widgets only), `parentWidget`, `setAttribute`, `testAttribute` |
+| `QWidget` | constructor, `createWindowContainer` (static; the container owns the window), `show`, `hide`, `close`, `isVisible`, `setVisible`, `isWindow`, `window`, `windowFlags`, `setWindowFlags`, `windowModality`, `setWindowModality`, `isActiveWindow`, `activateWindow`, `setFocus`, `clearFocus`, `hasFocus`, `focusWidget`, `focusPolicy`, `setFocusPolicy` (`Qt\FocusPolicy`), `setTabOrder` (static), `insertAction`, `removeAction` (the widget does not own the action), `raise`, `windowTitle`, `setWindowTitle`, `resize`, `width`, `height`, `size`, `sizeHint`, `pos`, `geometry`, `setGeometry`, `move`, `setMinimumSize`, `minimumWidth`, `minimumHeight`, `setFixedSize`, `setSizePolicy`, `setLayout`, `layout`, `isEnabled`, `setEnabled`, `styleSheet`, `setStyleSheet`, `font`, `setFont`, `setParent` (widgets only), `parentWidget`, `setAttribute`, `testAttribute` |
 | `QWindow`, `QSurface\SurfaceType` | constructor (needs a `QGuiApplication`), `setSurfaceType`, `surfaceType`, `winId` (the native handle: an `NSView` address on macOS; creates the platform window when it has none), `create`, `show`, `hide`, `destroy`, `isExposed`, `resize`, `close`, `width`, `height`, `devicePixelRatio`, `setVulkanInstance`, `vulkanInstance`; the seven surface types |
 | `QVulkanInstance` | constructor, `setVkInstance` (adopts a `VkInstance` address, e.g. ext-vulkan's `VkInstance::pointer()`), `create`, `isValid`, `errorCode`, `vkInstance`, `destroy`, static `surfaceForWindow` (a `VkSurfaceKHR` address). Present when Qt was built with Vulkan. On macOS set `QT_VULKAN_LIB` to the loader (`$(pkg-config --variable=libdir vulkan)/libvulkan.1.dylib`): Qt loads it by name and Homebrew's is outside dyld's search path |
-| `QMainWindow` | constructor, `menuBar`, `setMenuBar`, `centralWidget`, `setCentralWidget` |
+| `QMainWindow` | constructor, `menuBar`, `setMenuBar`, `centralWidget`, `setCentralWidget`, `addToolBar` |
 | `QMenuBar`, `QMenu` | constructors, `addMenu(title)`, `addAction`, `clear`, `isNativeMenuBar`, `setNativeMenuBar`; `title`, `setTitle`, `addSeparator`, `isEmpty`, `menuAction`, `popup(QPoint, ?QAction)` |
 | `QAction` | constructor, `text`, `setText`, `isCheckable`, `setCheckable`, `isChecked`, `setChecked`, `isEnabled`, `setEnabled`, `isSeparator`, `setSeparator`, `menuRole`, `setMenuRole`, `shortcut`, `setShortcut` (`QKeySequence`), `trigger`, `toggle` |
 | `QDialog`, `QMessageBox`, `QFileDialog` | constructors, `open`, `isModal`, `setModal`, `result`, `done`, `accept`, `reject`; `text`, `setText`, `informativeText`, `setInformativeText`, `icon`, `setIcon` (`QMessageBox\Icon`), `checkBox`, `setCheckBox`, `addButton` (`QMessageBox\ButtonRole`), `setDefaultButton`, `setEscapeButton`, `clickedButton`; `setFileMode`, `setAcceptMode`, `setOption` (`QFileDialog\FileMode`, `AcceptMode`, `Option`), `setDirectory`, `selectFile`, `selectedFiles`, `nameFilters`, `setNameFilters`, `filter`, `setFilter` (`QDir\Filter`, or an int of or-ed bits) |
@@ -55,10 +59,14 @@ style them, drive the common controls and play video:
 | `QSpacerItem` | constructor (w, h, policies), `changeSize`, `sizeHint` |
 | `QLabel` | constructor, `text`, `setText`, `alignment`, `setAlignment`, `wordWrap`, `setWordWrap`, `setScaledContents`, `pixmap`, `setPixmap`, `textFormat`, `setTextFormat`, `openExternalLinks`, `setOpenExternalLinks`, `textInteractionFlags`, `setTextInteractionFlags`; signals `linkActivated(QString)`, `linkHovered(QString)` |
 | `QDesktopServices` | `openUrl(QUrl)` |
-| `QAbstractButton`, `QPushButton`, `QCheckBox` | constructors (text, parent), `text`, `setText`, `isCheckable`, `setCheckable`, `isChecked`, `setChecked`, `click`, `toggle`, push button `isDefault`, `setDefault`; signals `clicked(bool)`, `toggled(bool)` |
+| `QAbstractButton`, `QPushButton`, `QCheckBox` | constructors (text, parent), `text`, `setText`, `isCheckable`, `setCheckable`, `isChecked`, `setChecked`, `autoExclusive`, `setAutoExclusive`, `click`, `toggle`, push button `isDefault`, `setDefault`; signals `clicked(bool)`, `toggled(bool)` |
 | `QAbstractSlider`, `QSlider`, `QScrollBar` | QScrollBar constructor (orientation, parent), or a scroll area's `verticalScrollBar`, `horizontalScrollBar`; QSlider constructor (orientation, vertical by default as in Qt, parent), `minimum`, `maximum`, `setRange`, `value`, `setValue`, `orientation`, `setOrientation`; signal `valueChanged(int)` |
 | `QComboBox` | constructor, `addItem`, `addItems`, `clear`, `count`, `currentIndex`, `setCurrentIndex`, `currentText`, `itemText`, `isEditable`, `setEditable`, `lineEdit`, `setCompleter`, `insertPolicy`, `setInsertPolicy`, `setEditText`; signal `currentIndexChanged(int)` |
 | `QCompleter`, `QAbstractItemModel`, `QStringListModel` | constructor (model, parent), `setWidget`, `completionMode`, `setCompletionMode`, `setCaseSensitivity`, `completionPrefix`, `setCompletionPrefix`, `complete(rect)`, `popup`; abstract, made through `QStringListModel`; constructor, `setStringList`, `stringList` |
+| `QStandardItemModel`, `QModelIndex` | constructor (rows, columns, parent), `setRowCount`, `setColumnCount`, `insertRows`, `removeRows`, `clear`; `QAbstractItemModel` `rowCount`, `columnCount`, `index`, `data`, `setData`. `QModelIndex` constructor, `row`, `column`, `isValid`, `data`; also a signal argument (`clicked(QModelIndex)`) |
+| `QListView`, `QAbstractItemView` | constructor, view mode, flow, wrapping, resize mode, movement, grid size, spacing, uniform item sizes; `model` / `setModel`, `itemDelegate` / `setItemDelegate`, `iconSize` / `setIconSize`, `indexAt`, `verticalScrollBar`, `horizontalScrollBar` |
+| `QToolBar` | constructor, `addWidget`, `addSeparator`, `isMovable`, `setMovable`, `isFloatable`, `setFloatable`, `iconSize`, `setIconSize`, `toolButtonStyle`, `setToolButtonStyle` |
+| `QPaintDelegate`, `QStyledItemDelegate`, `QPainter`, `QStyleOptionViewItem` | trampoline: `new QPaintDelegate(?callable $paint, ?callable $sizeHint, ?callable $editorEvent)`; a null callable leaves that call to `QStyledItemDelegate`. `QPainter` and `QStyleOptionViewItem` are lent for the call |
 | `QToolButton`, `QIcon`, `QActionGroup` | constructor, `setMenu` (the menu is not taken: its owner outlives the button), `menu`, `popupMode`, `setPopupMode`, `toolButtonStyle`, `setToolButtonStyle`, `autoRaise`, `setAutoRaise`, `showMenu`; value: constructor (`QPixmap`), `isNull`; constructor, `addAction`, `checkedAction` |
 | Button icons, tab insert, wheel phase, widget points | `QAbstractButton` `setIcon`, `iconSize`, `setIconSize`; `QPushButton` `isFlat`, `setFlat`; `QTabWidget` `insertTab`; `QWheelEvent` `phase`; `QWidget` `mapToGlobal`, `accessibleName`, `setAccessibleName` |
 | `QLineEdit` | constructor (text, parent), `text`, `setText`, `placeholderText`, `setPlaceholderText`, `echoMode`, `setEchoMode`, `isReadOnly`, `setReadOnly`, `cut`, `copy`, `paste`, `selectAll`, `undo`, `redo`, `selectedText`; signals `textChanged(QString)`, `returnPressed()` |
@@ -72,17 +80,19 @@ style them, drive the common controls and play video:
 | `QSplitter`, `QSplitterHandle`, `QTabWidget` | `QSplitter(Qt\Orientation)`, `orientation`/`setOrientation`, `addWidget`, `insertWidget` (outside 0..count appends), `count`, `widget`, `indexOf`, `setSizes`/`sizes`, `handleWidth`/`setHandleWidth`, `opaqueResize`/`setOpaqueResize`, `childrenCollapsible`/`setChildrenCollapsible`, `setStretchFactor`, `handle`; handle `splitter`; signal `splitterMoved(int,int)`. `addTab`, `removeTab`, `indexOf`, `count`, `currentIndex`/`setCurrentIndex`, `currentWidget`, `setTabText`/`tabText`, `widget`, `documentMode`/`setDocumentMode` (Qt's own index handling: a bad tab index does nothing, `tabText` gives ""); signal `currentChanged(int)` |
 | `QAbstractItemView`, `QTableWidget`, `QTableWidgetItem` | `setSelectionBehavior`, `setSelectionMode`, `setEditTriggers`, `NO_EDIT_TRIGGERS`; constructor (rows, columns, parent), `rowCount`, `setRowCount`, `columnCount`, `setColumnCount`, `setHorizontalHeaderLabels`, `horizontalHeaderItem`, `selectedItems`, `clearSelection`, `setItem`, `item`, `clearContents`, `currentRow`, `selectRow`; item constructor, `text`, `setText`, `row`; signals `itemSelectionChanged()`, `cellClicked(int,int)` |
 | `QTreeWidget`, `QTreeWidgetItem` | constructor (parent), `columnCount`, `setColumnCount`, `setHeaderLabels`, `addTopLevelItem`, `clear`, `currentItem`, `setCurrentItem`, `scrollToItem` (`QAbstractItemView\ScrollHint`), `expandItem`, `collapseItem`, `selectedItems`; item constructor (type), `text`/`setText`, `foreground`/`setForeground` (`QBrush`), `data`/`setData` (column, role, value as QVariant holds it), `addChild`, `childCount`, `child`, `parent`, `isExpanded`/`setExpanded`, `childIndicatorPolicy`/`setChildIndicatorPolicy`; signals `currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)`, `itemSelectionChanged()`, `itemActivated(QTreeWidgetItem*,int)`, `itemExpanded(QTreeWidgetItem*)`, `itemCollapsed(QTreeWidgetItem*)`, their items as the wrappers PHP holds |
-| `QFont`, `QPixmap` | values: constructor (family, point size, weight, italic), `family`, `setFamily`, `pointSizeF`, `setPointSizeF`, `weight`, `setWeight`; constructor, `load`, `isNull`, `width`, `height`, `scaled`, `devicePixelRatio`, `setDevicePixelRatio` |
+| `QFont`, `QPixmap` | values: constructor (family, point size, weight, italic), `family`, `setFamily`, `pointSizeF`, `setPointSizeF`, `weight`, `setWeight`; constructor, `load`, `isNull`, `width`, `height`, `scaled`, `copy`, `devicePixelRatio`, `setDevicePixelRatio` |
 | `QImage`, `QByteArray` | `QImage` borrows the buffer at an address (a `QByteArray`'s or a framebuffer's `pointer()`, trusted), with Qt's cleanup function and info: constructor (data, width, height, bytes per line, `QImage\Format`, cleanup, info), `isNull`, `width`, `height`, `format`, `copy`; `QPixmap::fromImage` turns it into a pixmap. `QByteArray(data, size)`, `size`, `pointer` |
 | `QPoint`, `QPointF`, `QSize`, `QRect`, `QDate`, `QKeySequence` | values, as Qt's own: points, sizes and rects in and out of the widget, event and layout calls; `QDate` (`toString`, `fromString` by `Qt\DateFormat`); `QKeySequence` (`toString`, `fromString` by `QKeySequence\SequenceFormat`) |
 | `QUrl` | value: constructor (`QUrl\ParsingMode`), `fromLocalFile`, `toString(options)`, `isValid` |
 | `QAudioOutput` | constructor, `setMuted`, `isMuted`, `setVolume`, `volume` |
 | `QMediaPlayer` | constructor, `setVideoOutput`, `setAudioOutput`, `setSource`, `source`, `play`, `pause`, `stop`, `position`, `duration`, `setPosition`, `playbackState`, `mediaStatus`, `setLoops`, `INFINITE_LOOPS`, `errorString`, `hasVideo`, `isAvailable`; signals `playbackStateChanged`, `mediaStatusChanged`, `errorOccurred`, `positionChanged` |
 | `QVideoWidget` | constructor |
+| `QWebEngineView` | constructor, `load`, `setHtml`, `title`, `url`, `stop`, `back`, `forward`, `reload`; signals `loadStarted`, `loadFinished`, `titleChanged`, `urlChanged` |
 
 Enums: `QEventLoop\ProcessEventsFlag`, `Qt\TimerType`, `QSocketNotifier\Type`,
 `QAction\MenuRole`, `Qt\Orientation`, `Qt\AspectRatioMode`, `Qt\ScrollBarPolicy`,
-`Qt\ToolButtonStyle`, `Qt\CaseSensitivity`, `QComboBox\InsertPolicy`, `QCompleter\CompletionMode`, `QToolButton\ToolButtonPopupMode`,
+`Qt\ToolButtonStyle`, `Qt\CaseSensitivity`, `Qt\SizeMode`, `QComboBox\InsertPolicy`, `QCompleter\CompletionMode`, `QToolButton\ToolButtonPopupMode`,
+`QAbstractAnimation\DeletionPolicy`, `QListView\ViewMode`, `QListView\Flow`, `QListView\ResizeMode`, `QListView\Movement`, `QPainter\RenderHint`,
 `QSizePolicy\Policy`, `QLineEdit\EchoMode`, `QFont\Weight`, `QTextCursor\MoveMode`, `QTextCursor\MoveOperation`, `QPlainTextEdit\LineWrapMode`,
 `QFontDatabase\SystemFont`, `Qt\TextInteractionFlag`, `QFrame\Shape`,
 `QFrame\Shadow`, `QAbstractItemView\SelectionBehavior`,
@@ -104,7 +114,7 @@ QObject::connect($notifier, 'activated(QSocketDescriptor,QSocketNotifier::Type)'
 
 ## Coverage
 
-[SUPPORT.md](https://github.com/php-io-extensions/qt/blob/v0.11.0/SUPPORT.md) lists every public member function name of the classes QtCore, QtGui and
+[SUPPORT.md](https://github.com/php-io-extensions/qt/blob/v0.11.2/SUPPORT.md) lists every public member function name of the classes QtCore, QtGui and
 QtWidgets declare (signals, operators, deprecated members and the value classes the extension
 marshals as PHP strings and arrays left out; overloads count once), each marked bound or not; the
 API badge is computed from it. Regenerate both after a binding change, and check them:
@@ -134,8 +144,8 @@ QObject::connect($notifier, 'activated(QSocketDescriptor,QSocketNotifier::Type)'
 ## Install
 
 ```bash
-bash install-debian-trixie.sh   # Debian, Ubuntu, Raspberry Pi OS (needs qt6-base-dev, qt6-multimedia-dev, libqt6multimediawidgets6, g++)
-bash install-macos.sh           # Homebrew php@8.4 and php@8.4-zts (needs brew install qt, which carries Multimedia)
+bash install-debian-trixie.sh   # Debian, Ubuntu, Raspberry Pi OS (needs qt6-base-dev, qt6-multimedia-dev, libqt6multimediawidgets6, g++; configure also needs qt6-webengine-dev)
+bash install-macos.sh           # Homebrew php@8.4 and php@8.4-zts (needs brew install qt, which carries Multimedia and WebEngine)
 ```
 
 Or with PIE: `pie install php-io-extensions/qt`.

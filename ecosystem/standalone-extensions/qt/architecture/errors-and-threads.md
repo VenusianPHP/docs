@@ -12,9 +12,9 @@ Each reads `if (!PHPQT_PROBE_OFF("<id>") && (<check>))`, marks its throw line `/
 
 | Site | Calls | Outcome |
 |---|---|---|
-| `qapp-widget`, `qapp-text-widget`, `qapp-slider`, `qapp-table`, `qapp-tree-widget`, `qapp-splitter`, `qapp-gl-painter`, `qapp-menubar`, `qapp-menu` | widget constructors before a `QApplication` | qFatal abort |
+| `qapp-widget`, `qapp-text-widget`, `qapp-slider`, `qapp-table`, `qapp-tree-widget`, `qapp-splitter`, `qapp-gl-painter`, `qapp-menubar`, `qapp-menu`, `qapp-list-view`, `qapp-tool-bar`, `qapp-web-engine-view` | widget constructors before a `QApplication` | qFatal abort |
 | `qguiapp-window`, `qguiapp-pixmap`, `qguiapp-pixmap-from-image` | `QWindow`, `QPixmap`, `QPixmap::fromImage` before a `QGuiApplication` | qFatal abort |
-| `qapp-font-metrics`, `qapp-font-info` | `QFontMetricsF`, `QFontInfo` before a `QGuiApplication` (Qt qFatals in QFontDatabase) | qFatal abort |
+| `qapp-font-metrics`, `qapp-font-info` | `QFontMetricsF`, `QFontInfo` before a `QGuiApplication` (Qt qFatals in QFontDatabase; on Qt 6.11 the abort is on the first read, not in the constructor, so the probes read `ascent()` and `fixedPitch()`) | qFatal abort |
 | `qguiapp-vulkan-create` | `QVulkanInstance::create()` before a `QGuiApplication` | SIGSEGV |
 | `main-thread-macos` | an application, widget or `QWindow` constructor off the process main thread, macOS only | AppKit's uncaught NSException |
 | `second-application-macos` | a second application, macOS only (Linux hangs in the constructor, none of the three outcomes) | SIGSEGV at teardown |
