@@ -300,6 +300,16 @@
                 - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/rasterize/guide/overview)
             - Runbooks
                 - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/rasterize/runbooks/build-install-test)
+        - php-io-extensions/raven
+            - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/raven/overview)
+            - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/raven/changelog)
+            - API
+                - [Bindings](/docs/{{version}}/ecosystem/standalone-extensions/raven/api/bindings)
+            - Architecture
+                - [Callbacks and threads](/docs/{{version}}/ecosystem/standalone-extensions/raven/architecture/callbacks)
+                - [Generator](/docs/{{version}}/ecosystem/standalone-extensions/raven/architecture/generator)
+            - Runbooks
+                - [Build, install, test](/docs/{{version}}/ecosystem/standalone-extensions/raven/runbooks/build-install-test)
         - php-io-extensions/sdl3
             - [Overview](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/overview)
             - [Changelog](/docs/{{version}}/ecosystem/standalone-extensions/sdl3/changelog)

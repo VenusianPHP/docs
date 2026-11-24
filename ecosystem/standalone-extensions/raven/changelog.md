@@ -1,0 +1,38 @@
+# Changelog
+
+What changed in this package, newest first.
+
+### 2026-11-22
+
+* **Version**: 0.11.0 in `PHP_RAVEN_VERSION` (`php_raven.h`) and the version test. First tag of the repo. Raven main `fc37a06763395c9557c1723b41f1bd7b89e2caef` vendored unchanged (library still reports 0.3.0). [PR #276](https://github.com/oscar-soirey/Raven/pull/276) (`214378a`) restored the code `c00b3f2` dropped; local restoration patches from the `c00b3f2` nightly are gone. Public API unchanged: 1,623 `RAVEN_API` functions, 1,618 bound (1,597 generated, 21 manual), 45 classes, 24 headers. `config.m4` matches CMake including `system_web_view.c`, `spelling.c`, `spell.c`, `spell_unix.c` / `cocoa_spell.m`, `webkit_web_view.m`. No local vendor patches kept. Suite 75 passed (703 assertions). Crash sweep 1,618 functions: no crash; the three headless file dialogs timed out as before; four device pickers (`Rfile_open_async`, `Rfile_save_async`, `Rfile_select_folder_async`, `Rphoto_pick`) timed out waiting for a host result; ten `RActionContext` getters fail the sweep's `new` (private constructor). Shipped in tag v0.11.0 (`7d3f2f5`). [bindings](/docs/{{version}}/ecosystem/standalone-extensions/raven/api/bindings), [callbacks](/docs/{{version}}/ecosystem/standalone-extensions/raven/architecture/callbacks), [generator](/docs/{{version}}/ecosystem/standalone-extensions/raven/architecture/generator), [build](/docs/{{version}}/ecosystem/standalone-extensions/raven/runbooks/build-install-test)
+
+### 2026-11-21
+
+* **Synced**: Raven main `c00b3f2e83f65274b6ed7ccd5f3558ecc4e50452` vendored (library still reports 0.3.0). 1,623 `RAVEN_API` functions, 1,618 bound (1,597 generated, 21 manual), 45 classes, 24 headers (`raven_device.h`). Device services, DiffView/`Rdiff_unified`, SystemWebView, table checkbox/progress/frozen columns, ComboBox editable/searchable, TextEditor search/replace/folding, spell check, animated GIF/APNG, clipboard images/`RDataItem`, notification actions, time zones, host-platform pickers. `config.m4` compiles timezone/diff/transfer/web_input/services/spell/icons/anim_decode/headless/diff_view plus CMake-omitted `system_web_view.c`, `spelling.c`, `spell_unix.c` (Linux) / `cocoa_spell.m` and `webkit_web_view.m` (Darwin) that listed sources reference. Generator: `RAVEN_F_BYTES`, device-callback file arrays, RGBA `stride`. Manual: `Rclipboard_get_data`, `Rclipboard_get_image`, `Rimage_decode_frame`, `Rdiff_unified`. Upstream `c00b3f2` dropped declarations/implementations that the new files still call (platform.h clipboard/device vtable, `R_WIDGET_DIFF_VIEW` registry, GIF/APNG Image playback, spell-check widget APIs, `R_COLOR_SPELLING`/`R_COLOR_DIFF_*`); those were restored from the original PR commits so the extension compiles. Suite 75 passed (703 assertions).
+
+### 2026-11-20
+
+* **Synced**: Raven main `610b8eba3adfe5aa1476a5cad692ed6e57c97b45` vendored unchanged (library still reports 0.3.0). 1,405 `RAVEN_API` functions, 1,400 bound (1,383 generated, 17 manual), 39 classes, 23 headers (`raven_testing.h`). UI test automation (find, click, type, settle, golden images), IME composition (`Rwindow_inject_composition`, `Rwindow_get_text_composition`, `Rhost_inject_composition`), PNG encode/save (`Rimage_encode_png` manual, `Rimage_save_png` generated). `config.m4` compiles `deflate.c`, `image_encode.c`, `preedit.c`, `testing.c`, `accessibility_touch.c`. Two consecutive `const uint8_t*` RGBA buffers are sized by the following `width`/`height`; a `uint8_t*` RGBA out-buffer is written back as `?string`. Suite 70 passed (619 assertions). Crash sweep 1,400 functions: no crash; the three headless file dialogs timed out as before; ten `RActionContext` getters fail the sweep's `new` (private constructor).
+
+### 2026-11-19
+
+* **Synced**: Raven 0.3.0, main `c34466db536219f5ed0e026c4286a1ce27887b57` vendored unchanged. 1,375 `RAVEN_API` functions, 1,370 bound (1,354 generated, 16 manual), 37 classes, 22 headers (`raven_script.h`). Carousel, MapView, Raven Script, tile-view sections, `Raction_bind_with_parameters` / `RActionContext`, app lifecycle, window back, `RTouchSettings.min_touch_size`, Metal fields on `RViewportDrawInfo`. `config.m4` compiles script/carousel/map_view on every platform; Metal `.m` only on Darwin with `-fobjc-arc`. Slot keys take the first `const char*` so parameterized actions key by name. Extract no longer glues a file-level `/**` onto the first function. Suite 66 passed (561 assertions).
+
+### 2026-11-17
+
+* **Synced**: Raven main `4eaba42d35eb716f3b42da5b5f5d775837a8e533` vendored (library still reports 0.2.3). Pull request #218: a Label with a tooltip takes the hover so the tooltip shows (`Rwidget_set_tooltip`, XML `Tooltip="..."` goes through that setter). No new functions: 1,283 `RAVEN_API`, 1,278 bound (1,262 generated, 16 manual), 35 classes. Header comments are copied into the stubs; `Rwidget_set_tooltip` carries the new label-hover sentence. Suite 59 passed (469 assertions).
+
+### 2026-11-16
+
+* **Synced**: Raven main `0f0da68197c8def4f4ffab93bae53bccb6a199c8` vendored, copied unchanged from a clone of upstream. It is `dfac083` plus the two Vulkan fixes below, merged upstream as pull requests #215 and #216, so `lib/raven/` is plain upstream again.
+* **Patched**: two Vulkan fixes on top of `dfac083` in `lib/raven/src/render/vulkan/`, sent upstream as pull requests from projectsaturnstudios/Raven: texture uploads no longer wait for the GPU after every batch (`vk_texture.c`, `vk_frame.c`, `vk_backend.c`, `vk_backend.h`), and three swapchain images at least with vsync (`vk_surface.c`). Raven test_render 374 checks, 0 failures (macOS, headless and windowed). Suite 57 passed on NTS and ZTS. Kitchen sink, Raven + Metal + GlassDark, uncapped, vsync on, 120 Hz: 47 to 60 frames a second before, 115 to 120 after.
+* **Synced**: Raven main `dfac083f27703b458ae359aeb792e7efc0699885` vendored (library still reports 0.2.3). 1,283 `RAVEN_API` functions, 1,278 bound (1,262 generated, 16 manual), 35 classes. Chart (pie, donut, gauge, heatmap, sparkline: 48 functions, `RChartKind`, `R_WIDGET_CHART`), table cell colors and multi-select (7 functions). `const float*` arrays generated: `Rchart_set_values` by `count`, `Rchart_set_grid` by `rows` × `columns`. Generated C return is `ret` so it does not collide with a parameter named `r` (`Rchart_add_band`). Cocoa links UserNotifications. No signature breaks. Suite 57 passed (451 assertions). Crash sweep 1,278 functions, the three headless file dialogs timed out as before.
+
+### 2026-11-14
+
+* **Synced**: Raven main `b0a4aa786d99442fed08d9f3509e8e4e97a245cf` vendored (library still reports 0.2.3). 1,228 `RAVEN_API` functions, 1,223 bound (1,207 generated, 16 manual), 35 classes. `Rpdf_document_save_memory` is manual (`Rmemory_free`). `const uint8_t*` RGBA is sized by the next two `int` parameters so `Rpdf_document_draw_image` (`pixels_width` / `pixels_height`) is generated. `Rpopup_open` slots by content, as `Rdialog_open`. Suite 54 passed (408 assertions), 1 skipped (gd); crash sweep 1,223 functions, the three headless file dialogs timed out as before. Vulkan demo under Xvfb + lavapipe rendered.
+
+### 2026-11-12
+
+* **Built**: Raven v0.2.3 vendored, generator and runtime, 1,123 functions. Suite 48 passed (370 assertions) on Homebrew PHP 8.4.27 NTS and ZTS. Crash sweep clean but the three headless file dialogs.
+* **Found by tests**: sized text read past the string (`Rxml_document_parse` and ten more) now length-checked; struct pointers all nullable; `clone` of `RPainter` crashed through a throwing `clone_obj` (now `NULL`); a forked child hung in `Rshutdown()` at request end (now skipped).
