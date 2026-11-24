@@ -2,7 +2,27 @@
 
 What changed in this package, newest first.
 
-<<<<<<< Updated upstream
+### 2026-11-19
+
+* **Version**: 0.11.2 in `PHP_APPKIT_VERSION` (`php_appkit.h`). 790 / 7210 (11.0%). Shipped in tag v0.11.2 (`8600a8b`).
+* `IOSurface` (IOSurface.framework): initWithProperties:, lockWithOptions:seed: / unlockWithOptions:seed: (kern_return_t as `int`; the seed is an address, or 0), baseAddress, bytesPerRow, width, height, isInUse, setAttachment:forKey:, attachmentForKey:, `IOSurfacePropertyKey*` names, `kIOSurfaceColorSpace`, `kIOSurfaceLock*`. `CGBitmapContext::create` (its own class, a `CGContext`; `CGContext` is no longer final), `CGContext::setBlendMode` (`CGBlendMode`), `CGColorSpace::copyICCData`, `NSColor::CGColorSpace`. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+
+### 2026-11-15
+
+* Quartz `CGEvent` create / getType / setType (`CGEventType|int`) / getDoubleValueField / setDoubleValueField; `NSEvent` magnification, rotation, pressure, stage and stageTransition. `NSOpenGLContext::initWithCGLContextObj`. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+
+### 2026-11-14
+
+* `CFDataCreateMutable`, `CFDataSetLength`, `CFDataGetMutableBytePtr`, `CFDataGetBytes`, and the `CFRange` value class. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+
+### 2026-11-12
+
+* `WKWebView`, `WKWebViewConfiguration`, `WKNavigation` and `NSURLRequest` (WebKit.framework); main-thread sites `main-thread-wkwebview-*`. `CMTime`, `AVPlayerItem`, `AVPlayer`, `AVPlayerView`, their enums and `AVPlayerItemDidPlayToEndTimeNotification` moved to [ext-avkit](/docs/{{version}}/ecosystem/standalone-extensions/avkit/overview); AVKit, AVFoundation and CoreMedia are no longer linked. `NSURL` stays. The installer and `PHP_INSTALL_HEADERS` put `php_appkit.h`, `php_appkit_api.h`, `src/runtime.h` and `src/controls.h` under `$(php-config --include-dir)/ext/appkit` for extensions whose classes extend appkit's; `appkit_box_cf_as` boxes a CF object as a given `CFType` subclass. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+
+### 2026-11-10
+
+* `NSAnimationContext`; `NSCollectionView` / `NSCollectionViewFlowLayout` / `NSCollectionViewItem` / `NSIndexPath`; `NSSegmentedControl` (`NSSegmentSwitchTracking`, `NSSegmentStyle`, `NSSegmentDistribution`); `NSToolbar` / `NSToolbarItem` (`NSToolbarDisplayMode`, `NSWindowToolbarStyle`, `NSWindow` toolbar (+set)); `NSMutableArray` / `NSArray`; `NSTableView` row height, `makeViewWithIdentifier:owner:`, insert/remove rows with animation, `reloadDataForRowIndexes:columnIndexes:`, `noteNumberOfRowsChanged`, `rowForView:`; `CALayer` opacity, presentationLayer, cornerRadius; `NSView` setBoundsOrigin:, alphaValue, animator, identifier. [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
+
 ### 2026-10-28
 
 * **Version**: 0.11.0 in `PHP_APPKIT_VERSION` (`php_appkit.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. SurfaceTest expects `NSPopUpButton`'s parent `NSButton`, as the 2026-10-23 surface change declared. Built and loaded on Homebrew PHP 8.4 NTS and ZTS: 347 passed, 10 skipped on each.
@@ -23,11 +43,7 @@ What changed in this package, newest first.
 ### 2026-10-23
 
 * `NSComboBox` (object values as strings), `NSScroller` (style, knob proportion, hit part, width per style, the preferred-style notification), `NSTrackingArea`, `NSButton` image, image position (`NSCellImagePosition`) and bordered, `NSMenuItem` image, `NSControl` refusesFirstResponder, `NSView` convertRect:toView: and tracking areas, `NSEvent` phase / momentumPhase / trackingArea (`NSEventPhase`), `NSWindow` child windows (`NSWindowOrderingMode`) and convertRectToScreen:, `NSTabView` insertTabViewItem:atIndex:. `NSPopUpButton` extends `NSButton`, as the header declares. Each new UI method has its own main-thread site; NSEvent and NSTrackingArea readers have none. 655 / 7210. Shipped in tag v0.11.0 (`PHP_APPKIT_VERSION` 0.11.0). [surface](/docs/{{version}}/ecosystem/standalone-extensions/appkit/guide/binding-surface)
-=======
-### 2026-11-11
 
-* **0.11.2**: `CMTime`, `AVPlayerItem`, `AVPlayer`, `AVPlayerView`, their enums and `AVPlayerItemDidPlayToEndTimeNotification` moved to [ext-avkit](/docs/{{version}}/ecosystem/standalone-extensions/avkit/overview); AVKit, AVFoundation and CoreMedia are no longer linked. `NSURL` stays. The installer and `PHP_INSTALL_HEADERS` put `php_appkit.h`, `php_appkit_api.h`, `src/runtime.h` and `src/controls.h` under `$(php-config --include-dir)/ext/appkit` for extensions whose classes extend appkit's; `appkit_box_cf_as` boxes a CF object as a given `CFType` subclass.
->>>>>>> Stashed changes
 
 ### 2026-10-22
 
