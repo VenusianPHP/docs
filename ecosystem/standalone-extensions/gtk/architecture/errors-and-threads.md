@@ -12,7 +12,7 @@ GError after the call becomes the GError exception; the only refusals are the pr
 
 | Site | Outcome without it | Where |
 |---|---|---|
-| `gtk-initialized`, `gtk-initialized-media-file` | SIGSEGV (widgets), SIGTRAP (media lookup) | widget and `GtkMediaFile` constructors before `gtk_init` |
+| `gtk-initialized`, `gtk-initialized-media-file`, `gtk-initialized-overlay`, `gtk-initialized-grid-view`, `gtk-initialized-header-bar` | SIGSEGV (widgets), SIGTRAP (media lookup) | widget, `GtkOverlay`, `GtkGridView`, `GtkHeaderBar` and `GtkMediaFile` constructors before `gtk_init` |
 | `main-thread-macos` | SIGABRT (AppKit), SIGSEGV (`GMainContext::iteration`) | macOS only; the macro is empty on Linux, where GTK runs off the main thread |
 | `callout-owner-thread` | `zend_mm_heap corrupted` | a callback dispatched or released on a thread other than its owner: dropped, the return GValue left at its default |
 | `text-iter-stale` | SIGSEGV | a `GtkTextIter` used after its buffer's text changed (iter methods, `applyTag`, `selectRange`, …). `getText` is not guarded: GTK checks the stamp there itself |

@@ -2,6 +2,13 @@
 
 What changed in this package, newest first.
 
+### 2026-11-10
+
+* **Version**: 0.11.2 in `PHP_GTK_VERSION` (`php_gtk.h`) and the version test. It carries the bindings logged since 0.11.1: `GtkWidget` opacity, `GtkGridView`, `GtkHeaderBar`, `GtkWindow` titlebar, `GtkToggleButton::setGroup`, `GtkOverlay`, `GtkLabel` lines, `GtkImage` setFromFile and pixel size. The README API badge is still 572 / 3798 (15.1%), unchanged from v0.11.1. Shipped in tag v0.11.2 (`1924a88`). [surface](/docs/{{version}}/ecosystem/standalone-extensions/gtk/guide/binding-surface)
+* `GtkImage` setFromFile (a file GTK cannot read shows `image-missing`), getPixelSize / setPixelSize. `GtkLabel` getLines / setLines. `GtkOverlay` (new, getChild / setChild, addOverlay, removeOverlay). New site `gtk-initialized-overlay` (the constructor before `gtk_init()` is SIGSEGV).
+* `GtkGridView` (new, min/max columns, single-click activate; signal `activate`), `GtkHeaderBar` (new, packStart, packEnd, title widget, show title buttons), `GtkWindow` getTitlebar / setTitlebar, `GtkToggleButton::setGroup`. New sites `gtk-initialized-grid-view` and `gtk-initialized-header-bar`.
+* `GtkWidget` `getOpacity` / `setOpacity` (`gtk_widget_get_opacity`, `gtk_widget_set_opacity`): a widget takes the opacity it is set to in GTK's 8-bit steps, and GTK clamps 3.0 to 1.0.
+
 ### 2026-10-28
 
 * **Version**: 0.11.0 in `PHP_GTK_VERSION` (`php_gtk.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. Built and loaded on Homebrew PHP 8.4 NTS and ZTS (364 passed, 33 skipped each, `XDEBUG_MODE=off`), the Pi on 8.4 ZTS with GTK 4.18.6 (365 passed, 32 skipped) and an x86_64 8.4 NTS box with GTK 4.14.5 / GLib 2.80.0 (356 passed, 37 skipped, 4 failed): the four assert 4.18-era GTK and GLib output — `unselectAll` returning true, the `gdk_memory_texture_new` critical text, and GLib's "requires valid UTF-8" warning.

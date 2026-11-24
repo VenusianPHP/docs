@@ -3,7 +3,7 @@
 ![CI](https://github.com/php-io-extensions/gtk/actions/workflows/ci.yml)
 
 [![CI](https://img.shields.io/github/actions/workflow/status/php-io-extensions/gtk/ci.yml?style=flat-square&label=CI)](https://github.com/php-io-extensions/gtk/actions/workflows/ci.yml)
-[![GTK API](https://img.shields.io/badge/GTK_API-15.0%25_%28569%2F3798%29-blue?style=flat-square)](https://github.com/php-io-extensions/gtk/blob/v0.11.0/SUPPORT.md)
+[![GTK API](https://img.shields.io/badge/GTK_API-15.1%25_%28572%2F3798%29-blue?style=flat-square)](https://github.com/php-io-extensions/gtk/blob/v0.11.2/SUPPORT.md)
 
 1:1 PHP bindings of GTK 4 and the GLib main loop GTK runs on, written directly
 in C against the Zend API. C functions keep their names (`g_timeout_add`,
@@ -25,19 +25,20 @@ and close windows, and build menu bars from menu models and actions:
 | `GObject` | `G_OBJECT_TYPE_NAME` |
 | `GApplication` | `g_application_id_is_valid`, `get_application_id`, `get_flags`, `get_is_registered`, `get_is_remote`, `register`, `activate`, `hold`, `release`, `quit`, `run`, `g_action_map_add/remove/lookup_action`, `g_action_group_has/list/activate_action` |
 | `GtkApplication` | `gtk_application_new`, `add_window`, `remove_window`, `get_active_window`, `get_windows`, `get_menubar`, `set_menubar`, `set_accels_for_action`, `get_accels_for_action` |
-| `GtkWidget` | `show`, `hide`, `get/set_visible`, `get_realized`, `get_mapped`, `get/set_hexpand`, `get/set_vexpand`, `get_parent`, `insert_action_group`, `activate_action_variant`, `activate`, `get/set_halign`, `get/set_valign`, `get/set_size_request`, `get_width`, `get_height`, `get/set_sensitive`, `is_sensitive`, `get_color`, `set_margin_start/end/top/bottom`, `add/remove/has_css_class`, `measure`, `compute_bounds`, `get_first_child`, `get_next_sibling`, `get_native`, `get_root`, `grab_focus`, `child_focus` (`GtkDirectionType`), `has_focus` |
+| `GtkWidget` | `show`, `hide`, `get/set_visible`, `get/set_opacity`, `get_realized`, `get_mapped`, `get/set_hexpand`, `get/set_vexpand`, `get_parent`, `insert_action_group`, `activate_action_variant`, `activate`, `get/set_halign`, `get/set_valign`, `get/set_size_request`, `get_width`, `get_height`, `get/set_sensitive`, `is_sensitive`, `get_color`, `set_margin_start/end/top/bottom`, `add/remove/has_css_class`, `measure`, `compute_bounds`, `get_first_child`, `get_next_sibling`, `get_native`, `get_root`, `grab_focus`, `child_focus` (`GtkDirectionType`), `has_focus` |
 | `GtkNative`, `GtkRoot` (windows, popovers) | `get_surface`, `get_surface_transform`, `get_for_surface`, `realize`, `unrealize`; `get_display`, `get/set_focus` |
-| `GtkWindow` | `new`, `get/set_title`, `get/set_default_size`, `get/set_child`, `present`, `close`, `destroy`, `is_active`, `get/set_transient_for`, `get/set_application`, `get/set_modal`, `get/set_hide_on_close`, `get_focus`, `get/set_default_widget`, `get_group` |
+| `GtkWindow` | `new`, `get/set_title`, `get/set_default_size`, `get/set_child`, `present`, `close`, `destroy`, `is_active`, `get/set_transient_for`, `get/set_application`, `get/set_modal`, `get/set_hide_on_close`, `get_focus`, `get/set_default_widget`, `get_group`, `get/set_titlebar` |
 | `GtkWindowGroup` | `new`, `add_window`, `remove_window` |
 | `GtkApplicationWindow` | `new`, `get/set_show_menubar`, `get_id` |
 | `GtkAboutDialog` | `new`, `get/set_program_name`, `get/set_version`, `get/set_copyright`, `get/set_comments`, `get/set_website` |
 | `GtkBox` | `new`, `append`, `prepend`, `remove`, `insert_child_after`, `reorder_child_after`, `get/set_spacing`, `get/set_homogeneous` |
 | `GtkGrid`, `GtkFixed` | `new`, `attach`, `remove`, `get_child_at`, `get/set_row_spacing`, `get/set_column_spacing`; `new`, `put`, `move`, `remove`, `get_child_position` |
+| `GtkOverlay`, `GtkHeaderBar` | `new`, `get/set_child`, `add_overlay`, `remove_overlay`; `new`, `pack_start`, `pack_end`, `get/set_title_widget`, `get/set_show_title_buttons` |
 | `GdkGLContext`, `GdkGLAPI`, `GtkGLArea` | `make_current`, `clear_current`, `get_current`, `realize`, `get_use_es`, `get_version`, `get_api`; `new`, `get_context`, `make_current`, `attach_buffers`, `queue_render`, `get/set_auto_render`, `get/set_has_depth_buffer`, `get/set_has_stencil_buffer`, `get/set_allowed_apis`, `set_required_version`, `get_error` (signal `render`) |
 | `GtkCssProvider`, `GdkDisplay`, `GdkSurface` | `new`, `load_from_string`; `get_default`, `sync`, `get_clipboard`; `get_width`, `get_height` (signal `layout`); functions `gtk_style_context_add/remove_provider_for_display` |
-| `GtkLabel` | `new`, `get/set_text`, `get/set_wrap`, `set_ellipsize`, `get/set_xalign`, `set_justify`, `set_markup`, `get/set_use_markup`, `get_current_uri` |
-| `GtkButton`, `GtkToggleButton`, `GtkCheckButton`, `GtkSwitch` | `new_with_label`, `get/set_label`; `new_with_label`, `get/set_active`; `new_with_label`, `get/set_active`, `get/set_label`; `new`, `get/set_active` |
-| `GtkLinkButton`, `GtkImage` | `new`, `new_with_label`, `get/set_uri`, `get/set_visited`; `new_from_icon_name`, `get_icon_name` |
+| `GtkLabel` | `new`, `get/set_text`, `get/set_wrap`, `set_ellipsize`, `get/set_lines`, `get/set_xalign`, `set_justify`, `set_markup`, `get/set_use_markup`, `get_current_uri` |
+| `GtkButton`, `GtkToggleButton`, `GtkCheckButton`, `GtkSwitch` | `new_with_label`, `get/set_label`; `new_with_label`, `get/set_active`, `set_group`; `new_with_label`, `get/set_active`, `get/set_label`; `new`, `get/set_active` |
+| `GtkLinkButton`, `GtkImage` | `new`, `new_with_label`, `get/set_uri`, `get/set_visited`; `new_from_icon_name`, `get_icon_name`, `set_from_file`, `get/set_pixel_size` |
 | `GCancellable`, `GAsyncResult`, `GtkUriLauncher` | `new`, `cancel`, `is_cancelled`; —; `new`, `get/set_uri`, `launch`, `launch_finish` |
 | `GtkAlertDialog`, `GtkFileDialog`, `GtkFileLauncher` (GTK 4.10) | made with `g_object_new_with_properties` (the printf constructor is not bound), `set_message`, `set_detail`, `set_buttons`, `set_default_button`, `set_cancel_button`, `set_modal`, `choose`, `choose_finish`; `new`, `set_title`, `set_initial_folder`, `set_initial_name`, `set_modal`, `open`, `open_multiple`, `select_folder`, `save` and their `_finish` (a dismissed or cancelled dialog throws `GError`), `get/set_filters` (a `GListModel` of `GtkFileFilter`); `new`, `launch`, `launch_finish` |
 | `GtkFileFilter` | `new`, `get/set_name`, `add_pattern` |
@@ -63,6 +64,7 @@ and close windows, and build menu bars from menu models and actions:
 | `GdkDmabufFormats` | GTK 4.14+, from `GdkDisplay::getDmabufFormats()`: `getNFormats`, `getFormat` (`[fourcc, modifier]`), `contains(fourcc, modifier)`; empty off Linux |
 | `GtkTreeListModel`, `GtkTreeListRow`, `GtkTreeExpander`, `GtkScrollInfo` | `new` (create func = PHP callable returning a `GListModel` or null, held until the model is finalized), `get_row`, `get_child_row`; `get_item`, `get/set_expanded`, `is_expandable`, `get_depth`, `get_position`, `get_parent`, `get_child_row`; `new`, `get/set_child`, `get/set_list_row`; `new`, `get/set_enable_horizontal`, `get/set_enable_vertical` |
 | `GtkColumnView`, `GtkColumnViewColumn` | `new`, `append/remove_column`, `get/set_model`, `set_show_row/column_separators`, `scroll_to` (`GTK_LIST_SCROLL_*`); `new`, `get/set_title`, `set_expand`, `set_resizable` |
+| `GtkGridView` | `new`, `get/set_min_columns`, `get/set_max_columns`, `get/set_single_click_activate`, signal `activate` |
 | `GtkSignalListItemFactory`, `GtkListItem`, `GtkSingleSelection` | `new` (signals `setup`, `bind`, `unbind`, `teardown`); `get_position`, `get_item`, `get/set_child`; `new`, `get/set_selected`, `get_selected_item`, `set_autoselect`, `set_can_unselect`, `get_model` |
 | `GtkMediaStream`, `GtkMediaFile`, `GtkVideo` | `play`, `pause`, `get/set_playing`, `get_ended`, `get_error`, `seek`, `is_seekable`, `get_timestamp`, `get_duration`, `get/set_muted`, `get/set_loop`, `has_video`; `new`, `new_for_filename`, `set_filename`, `clear`; `new`, `get/set_media_stream`, `get/set_autoplay`, `set_loop` |
 | `GtkPopoverMenuBar` | `new_from_model`, `get/set_menu_model` |
