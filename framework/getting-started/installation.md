@@ -48,7 +48,7 @@ A few optional extensions unlock more of the framework:
 | `posix` | Lets a timed-out worker kill itself |
 | `curl` | The `curl` async HTTP driver |
 | `parallel` | The thread worker pool (ZTS builds of PHP only) |
-| `epoll`, `kqueue`, `pcurl` | Venusian's first-party extensions, offered by the installer (see [below](#installing-php-extensions)) |
+| `epoll`, `kqueue`, `multicurl` | Venusian's first-party extensions, offered by the installer (see [below](#installing-php-extensions)) |
 
 Once PHP and Composer are installed, install the Venusian installer globally with Composer:
 
@@ -72,7 +72,7 @@ After you have installed PHP, Composer, and the Venusian installer, you are read
 venusian new example-app
 ```
 
-The name may be a directory name, created under the current directory, `.` for the current directory, or an absolute path. The installer runs `composer create-project venusian/venusian:^0.10.0` into that directory. The skeleton's Composer scripts then copy `.env.example` to `.env`, write an `APP_KEY`, create the `database/database.sqlite` file, and discover your packages.
+The name may be a directory name, created under the current directory, `.` for the current directory, or an absolute path. The installer runs `composer create-project venusian/venusian:^0.11.1` into that directory. The skeleton's Composer scripts then copy `.env.example` to `.env`, write an `APP_KEY`, create the `database/database.sqlite` file, and discover your packages.
 
 If you clone an existing Venusian application instead, the skeleton's `setup` Composer script does the same: it runs `composer install`, copies `.env.example` to `.env` if there is none, writes an `APP_KEY`, and creates the SQLite database file:
 
@@ -88,7 +88,7 @@ Once the application exists, an interactive `venusian new` asks whether to insta
 | --- | --- | --- |
 | `epoll` | Event loop waiting on Linux | Linux |
 | `kqueue` | Event loop waiting on macOS | macOS |
-| `pcurl` | HTTP requests that run on the event loop | Everywhere but Windows |
+| `multicurl` | HTTP requests that run on the event loop | Everywhere but Windows |
 
 An extension that belongs to another operating system, or that your PHP already loads, is shown but cannot be selected. Each selected extension is built and installed by [PIE](https://github.com/php/pie), run by the PHP binary that is running the installer, so the extensions land in that PHP. Building needs a C compiler and your PHP's development files (`phpize` and `php-config`).
 
@@ -102,15 +102,41 @@ php computer install:ext
 php computer install:ext pcurl
 ```
 
-The installer's own `install:ext` command offers every first-party extension, including `epoll`, `kqueue` and `pcurl`, the `appkit`, `gtk` and `qt` toolkit bindings, `fb`, `rasterize` and `imgdec`. Without a terminal, name the extension and pass `--no-interaction`:
+The installer's own `install:ext` command offers the same three, `epoll`, `kqueue` and `multicurl`, and its `install:toolkit-ext` command offers the toolkit extensions, `appkit`, `gtk`, `qt` and `raven`. Both install into the PHP binary running `venusian`. Without a terminal, name the extension and pass `--no-interaction`:
 
 ```shell
 venusian install:ext
 
-venusian install:ext imgdec
+venusian install:ext multicurl
+
+venusian install:toolkit-ext qt
 
 venusian install:ext epoll --no-interaction
 ```
+
+`install:toolkit-ext` installs the extension only, not the toolkit's Composer adapter; add that to an application with `composer require jovian/venusian-<toolkit>`.
+
+### Installing Topside and Toolkit SDKs
+
+After the extensions step, an interactive `venusian new` asks whether to install [Venusian Topside](https://github.com/VenusianPHP/topside), the visual output framework. Accepting runs, inside the application:
+
+```shell
+composer require venusian/topside:^0.11
+php computer vendor:publish --tag=surface-config
+```
+
+which publishes `config/toolkits.php` and `config/main.presentation.php`.
+
+It then asks whether to install toolkit SDKs, and lists the toolkits Topside draws with, none selected:
+
+| Toolkit | Extension | Adapter | Offered on |
+| --- | --- | --- | --- |
+| appkit | `appkit` | `jovian/venusian-appkit` | macOS |
+| gtk | `gtk` (and `appkit` on macOS) | `jovian/venusian-gtk` | Linux, macOS |
+| qt | `qt` | `jovian/venusian-qt` | Linux, macOS |
+| raven | `raven` | `jovian/venusian-raven` | Linux, macOS |
+
+For each selected toolkit, the installer builds its extension through PIE, as above, skipping one your PHP already loads, then runs `composer require jovian/venusian-<toolkit>:^0.11`. An adapter is required only once its extension loads, and the closing summary says which toolkits were installed and why any were not. Some toolkits build against system libraries (GTK 4, Qt 6); PIE reports what is missing. A non-interactive run skips both questions.
 
 ### Running Your Application
 
